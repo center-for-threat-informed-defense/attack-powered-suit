@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "author": "Center for Threat-Informed Defense <ctid@mitre-engenuity.org>",
+  "name": "ATT&CK Powered Suit",
+  "description": "Quick access to ATT&CK resources.",
+  "version": "0.1",
+  "icons": {
+    "16": "public/image/logo-16.png",
+    "48": "public/image/logo-48.png",
+    "128": "public/image/logo-128.png",
+    "192": "public/image/logo-192.png"
+  },
+  "background": {},
+  "omnibox": {
+    "keyword": "oldattck"
+  },
+  "content_scripts": [],
+  "permissions": [
+    "contextMenus",
+    "activeTab",
+    "clipboardWrite"
+  ],
+  "action": {
+    "default_icon": "public/image/logo-16.png",
+    "default_title": "ATT&CK",
+    "default_popup": "public/index.html"
+  }
+}

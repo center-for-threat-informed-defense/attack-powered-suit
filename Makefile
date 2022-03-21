@@ -2,7 +2,7 @@
 # See `make help` for a list of all available commands.
 #
 
-APP_NAME := project_name
+APP_NAME := attack_powered_suit
 VENV := .venv
 BIN := $(VENV)/bin
 PY_VERSION := python3.8

@@ -7,10 +7,6 @@ repos:
       - id: trailing-whitespace
       - id: debug-statements
       - id: check-toml
-  - repo: https://github.com/psf/black
-    rev: 21.11b1
-    hooks:
-      - id: black
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
     rev: 2.1.5 # or specific git tag
     hooks:
@@ -19,8 +15,3 @@ repos:
         args:
           - -i
           - "4"
-  - repo: https://github.com/pycqa/isort
-    rev: 5.10.1
-    hooks:
-      - id: isort
-        name: isort (python)
