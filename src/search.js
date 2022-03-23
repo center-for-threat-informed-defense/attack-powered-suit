@@ -19,14 +19,6 @@ const options = {
             name: "description",
             weight: 1,
         },
-        {
-            name: "type",
-            weight: 0.1,
-        },
-        {
-            name: "deprecated",
-            weight: 0.1,
-        }
     ],
 }
 

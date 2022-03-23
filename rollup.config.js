@@ -49,10 +49,18 @@ export default {
         css({ output: 'bundle.css' }),
 
         copy({
-            targets: [{
-                src: "node_modules/bootstrap/dist/css/bootstrap.min.*",
-                dest: "public/build"
-            }]
+            targets: [
+                {
+                    src: "node_modules/bootstrap/dist/css/bootstrap.min.*",
+                    dest: "public/build/"
+                }, {
+                    src: "node_modules/bootstrap-icons/font/bootstrap-icons.*",
+                    dest: "public/build/"
+                }, {
+                    src: "node_modules/bootstrap-icons/font/fonts/",
+                    dest: "public/build/"
+                }
+            ],
         }),
 
         // If you have external dependencies installed from

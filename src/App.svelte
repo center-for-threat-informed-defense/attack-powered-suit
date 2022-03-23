@@ -1,19 +1,23 @@
 <script>
-    import SearchForm from "./SearchForm.svelte";
-    import SearchResults from "./SearchResults.svelte";
+    import { saveBookmarks } from "./bookmarks.js";
+    import BookmarksPanel from "./BookmarksPanel.svelte";
+    import SearchPanel from "./SearchPanel.svelte";
+    import SettingsPanel from "./SettingsPanel.svelte";
 
-    let results;
+    let selectedPanel = "bookmarks";
 </script>
 
-<main>
-    <SearchForm bind:results />
-    <SearchResults {results} />
-</main>
+<svelte:window on:beforeunload={saveBookmarks} />
 
-<style>
-    main {
-        min-width: 600px;
-        padding: 1em;
-        margin: 0 auto;
-    }
-</style>
+<div class:d-none={selectedPanel != "search"}>
+    <SearchPanel
+        on:showBookmarks={() => (selectedPanel = "bookmarks")}
+        on:showSettings={() => (selectedPanel = "settings")}
+    />
+</div>
+<div class:d-none={selectedPanel != "bookmarks"}>
+    <BookmarksPanel on:showSearch={() => (selectedPanel = "search")} />
+</div>
+<div class:d-none={selectedPanel != "settings"}>
+    <SettingsPanel on:showSearch={() => (selectedPanel = "search")} />
+</div>

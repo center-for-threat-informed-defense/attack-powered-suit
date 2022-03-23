@@ -1,10 +1,12 @@
 <script>
-    import { onMount } from "svelte";
+    import { createEventDispatcher, onMount } from "svelte";
     import { initializeSearch, search } from "./search.js";
 
     export let results = [];
 
-    let query = "";
+    const dispatch = createEventDispatcher();
+
+    let query = "the"; // TODO
     let techniquesEnabled = true;
     let subtechniquesEnabled = true;
     let mitigationsEnabled = true;
@@ -34,16 +36,31 @@
 </script>
 
 <h1>ATT&amp;CK® Powered Suit</h1>
-<form>
-    <div class="form-floating">
-        <input
-            id="searchTerms"
-            type="text"
-            class="form-control"
-            placeholder="Search ATT&amp;CK…"
-            bind:value={query}
-        />
-        <label for="searchTerms">Search ATT&amp;CK…</label>
+
+<form on:submit={(e) => e.preventDefault()}>
+    <div class="search-row">
+        <div class="form-floating">
+            <input
+                id="searchTerms"
+                type="text"
+                class="form-control"
+                placeholder="Search ATT&amp;CK…"
+                bind:value={query}
+            />
+            <label for="searchTerms">Search ATT&amp;CK…</label>
+        </div>
+        <div class="nav-icons">
+            <i
+                class="bi bi-bookmarks"
+                title="View bookmarks"
+                on:click={() => dispatch("showBookmarks")}
+            />
+            <i
+                class="bi bi-gear"
+                title="View settings"
+                on:click={() => dispatch("showSettings")}
+            />
+        </div>
     </div>
     <div class="object-filters">
         <p class="text-muted small">
@@ -171,12 +188,28 @@
 </form>
 
 <style>
-    h1 {
+    input {
+        margin-bottom: 0.5rem;
+    }
+
+    .search-row {
+        display: flex;
+    }
+
+    .search-row *:first-child {
+        flex-grow: 1;
+    }
+
+    .nav-icons * {
         color: var(--bs-red);
-        text-transform: uppercase;
-        text-align: center;
-        font-size: 3em;
-        font-weight: 100;
+        display: block;
+        margin-left: 0.5em;
+        position: relative;
+        top: 0.4em;
+    }
+
+    .nav-icons *:hover {
+        color: var(--bs-secondary);
     }
 
     .object-filters {

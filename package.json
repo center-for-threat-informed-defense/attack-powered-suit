@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.1.3",
+    "bootstrap-icons": "^1.8.1",
     "fuse.js": "^6.5.3",
     "rollup-plugin-copy": "^3.4.0",
     "sirv-cli": "^2.0.0"
