@@ -16,13 +16,18 @@
   },
   "content_scripts": [],
   "permissions": [
-    "contextMenus",
     "activeTab",
-    "clipboardWrite"
+    "clipboardWrite",
+    "contextMenus",
+    "storage"
   ],
   "action": {
-    "default_icon": "public/image/logo-16.png",
-    "default_title": "ATT&CK",
-    "default_popup": "public/index.html"
+    "default_popup": "public/index.html",
+    "default_icon": {
+      "16": "public/image/logo-16.png",
+      "32": "public/image/logo-32.png",
+      "48": "public/image/logo-48.png",
+      "128": "public/image/logo-128.png"
+    }
   }
 }

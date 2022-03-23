@@ -1,7 +1,7 @@
 <script>
     import { createEventDispatcher } from "svelte";
     import { fade } from "svelte/transition";
-    import { bookmarksStore, removeBookmark } from "./bookmarks";
+    import { bookmarksStore, removeBookmark, saveBookmarks } from "./bookmarks";
     import BackButton from "./BackButton.svelte";
 
     const dispatch = createEventDispatcher();
@@ -48,6 +48,7 @@
                         type="color"
                         class="form-control color-picker"
                         bind:value={bookmark.color}
+                        on:input={saveBookmarks}
                     /></td
                 >
                 <td>
@@ -55,6 +56,7 @@
                         type="number"
                         class="form-control score-input"
                         bind:value={bookmark.score}
+                        on:input={saveBookmarks}
                     />
                 </td>
                 <td
@@ -62,6 +64,7 @@
                         type="text"
                         class="form-control"
                         bind:value={bookmark.notes}
+                        on:input={saveBookmarks}
                     /></td
                 >
             </tr>

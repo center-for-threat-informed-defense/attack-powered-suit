@@ -1,13 +1,10 @@
 <script>
-    import { saveBookmarks } from "./bookmarks.js";
     import BookmarksPanel from "./BookmarksPanel.svelte";
     import SearchPanel from "./SearchPanel.svelte";
     import SettingsPanel from "./SettingsPanel.svelte";
 
     let selectedPanel = "bookmarks";
 </script>
-
-<svelte:window on:beforeunload={saveBookmarks} />
 
 <div class:d-none={selectedPanel != "search"}>
     <SearchPanel

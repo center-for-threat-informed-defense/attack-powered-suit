@@ -1,6 +1,7 @@
 import { writable } from "svelte/store";
 
-const { bookmarks, bookmarksSet } = loadBookmarks();
+let bookmarks = [];
+let bookmarksSet = {};
 
 /**
  * bookmarks is a store that contains an array of bookmarks.
@@ -12,6 +13,13 @@ export let bookmarksStore = writable(bookmarks)
  * bookmark that is currently set (the value is always "true")
  */
 export let bookmarksSetStore = writable(bookmarksSet)
+
+loadBookmarks().then(function (o) {
+    bookmarks = o.bookmarks;
+    bookmarksStore.set(bookmarks);
+    bookmarksSet = o.bookmarksSet;
+    bookmarksSetStore.set(bookmarksSet);
+});
 
 /**
  * Add the specified object to the bookmarks.
@@ -35,6 +43,9 @@ export function addBookmark(id, name, score = 0, notes = "", color = "#ffffff") 
     // Update bookmarks set
     bookmarksSet[id] = true;
     bookmarksSetStore.set(bookmarksSet);
+
+    // Persist the bookmarks.
+    saveBookmarks();
 }
 
 /**
@@ -64,21 +75,32 @@ export function removeBookmark(id) {
 
 /**
  * Load bookmark data and return bookmarks array and bookmarks set.
+ *
+ * Supports chrome.storage (for Chrome extension) as well as local storage
+ * (for dev environment).
+ *
  * @returns {object} contains `bookmarks` and `bookmarksSet`
  */
-function loadBookmarks() {
+async function loadBookmarks() {
     let bookmarks = [];
     let bookmarksSet = {};
 
-    // Attempt to load bookmarks array
-    if (localStorage) {
-        let bookmarksJson = localStorage.getItem("bookmarks");
+    // Attempt to load bookmarks array from a storage backend.
+    if (chrome && chrome.storage) {
+        const storageResult = await chrome.storage.sync.get({ bookmarks: [] });
+        if (storageResult) {
+            bookmarks = storageResult.bookmarks;
+        }
+    } else if (localStorage) {
+        const bookmarksJson = localStorage.getItem("bookmarks");
         try {
             bookmarks = JSON.parse(bookmarksJson);
         } catch (e) {
             // Let bookmarks keep its default value.
-            console.log("Warning: unable to load APS bookmarks from local storage:", e);
+            console.log("Warning: unable to load bookmarks from local storage:", e);
         }
+    } else {
+        console.log("Warning: no supported storage found.")
     }
 
     // Create bookmarks set
@@ -89,12 +111,25 @@ function loadBookmarks() {
     return { bookmarks: bookmarks, bookmarksSet: bookmarksSet };
 }
 
+let saveTimer = null;
+
 /**
- * Serialize the module variable `bookmarks` and save to local storage.
+ * Serialize the module variable `bookmarks` and save to a storage backend.
+ *
+ * This function is debounced by 500ms since it can be called rapidly when a
+ * user is editing a value.
  */
 export function saveBookmarks() {
-    if (localStorage) {
-        let bookmarksJson = JSON.stringify(bookmarks);
-        localStorage.setItem("bookmarks", bookmarksJson);
+    if (saveTimer) {
+        clearTimeout(saveTimer);
     }
+
+    saveTimer = setTimeout(function () {
+        if (chrome && chrome.storage) {
+            chrome.storage.sync.set({ bookmarks: bookmarks });
+        } else if (localStorage) {
+            const bookmarksJson = JSON.stringify(bookmarks);
+            localStorage.setItem("bookmarks", bookmarksJson);
+        }
+    }, 500);
 }

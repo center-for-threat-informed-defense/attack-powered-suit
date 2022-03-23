@@ -61,7 +61,12 @@ $ npm run dev
 ```
 
 At this point, the dev server is running and will automatically recompile after
-you change any source code files. In Chrome:
+you change any source code files. You can develop and debug the code by visiting
+[localhost:8080](http://localhost:8080). This view will automatically reload
+each time the source code is saved, which is useful for rapid development
+cycles.
+
+Alternately, you can load it as an extension into chrome:
 
 1. Go to the extensions settings.
 2. Make sure "Developer mode" is enabled.
