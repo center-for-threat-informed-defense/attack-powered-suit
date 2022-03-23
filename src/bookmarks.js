@@ -2,15 +2,16 @@ import { writable } from "svelte/store";
 
 let bookmarks = [];
 let bookmarksSet = {};
+let saveTimer = null;
 
 /**
- * bookmarks is a store that contains an array of bookmarks.
+ * A store that contains an array of bookmarks.
  */
 export let bookmarksStore = writable(bookmarks)
 
 /**
- * bookmarksSet is a store that contains an object containing keys for each
- * bookmark that is currently set (the value is always "true")
+ * A store that contains an object containing keys for each bookmark that is
+ * currently set (the value is always "true")
  */
 export let bookmarksSetStore = writable(bookmarksSet)
 
@@ -71,6 +72,10 @@ export function removeBookmark(id) {
     // Update bookmarks set
     delete bookmarksSet[id];
     bookmarksSetStore.set(bookmarksSet);
+
+
+    // Persist the bookmarks.
+    saveBookmarks();
 }
 
 /**
@@ -94,7 +99,9 @@ async function loadBookmarks() {
     } else if (localStorage) {
         const bookmarksJson = localStorage.getItem("bookmarks");
         try {
-            bookmarks = JSON.parse(bookmarksJson);
+            if (bookmarksJson) {
+                bookmarks = JSON.parse(bookmarksJson);
+            }
         } catch (e) {
             // Let bookmarks keep its default value.
             console.log("Warning: unable to load bookmarks from local storage:", e);
@@ -110,8 +117,6 @@ async function loadBookmarks() {
 
     return { bookmarks: bookmarks, bookmarksSet: bookmarksSet };
 }
-
-let saveTimer = null;
 
 /**
  * Serialize the module variable `bookmarks` and save to a storage backend.

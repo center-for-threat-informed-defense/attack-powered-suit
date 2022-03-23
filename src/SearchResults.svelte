@@ -4,6 +4,7 @@
         addBookmark,
         removeBookmark,
     } from "./bookmarks";
+    import { formatsStore, formatObject } from "./formats.js";
     import HighlightMatches from "./HighlightMatches.svelte";
 
     export let results = [];
@@ -30,6 +31,17 @@
             }
             highlightedResults.push(highlightedResult);
         }
+    }
+
+    /**
+     * Use the specified format and ATT&CK object to place a snippet on the
+     * clipboard.
+     */
+    function copyFormat(format, object) {
+        const text = formatObject(format.rule, object);
+        console.log("copyFormat", text);
+        // TODO - add mime type
+        navigator.clipboard.writeText(text);
     }
 </script>
 
@@ -75,10 +87,24 @@
                 maxLength={200}
             />
         </p>
+        <p>
+            {#each $formatsStore as format, formatIdx (format.id)}
+                <span
+                    class="format"
+                    title="Copy {format.name} to clipboard"
+                    on:click={() => copyFormat(format, result)}
+                    >{format.name} <i class="bi bi-clipboard" />
+                </span>
+            {/each}
+        </p>
     </div>
 {/each}
 
 <style>
+    p {
+        margin: 0.25rem 0;
+    }
+
     .search-result {
         margin-top: 1em;
     }
@@ -105,5 +131,14 @@
     .result-id,
     .result-name {
         font-weight: 700;
+    }
+
+    .format {
+        margin-right: 1rem;
+        color: var(--bs-primary);
+    }
+
+    .format:hover {
+        color: var(--bs-secondary);
     }
 </style>

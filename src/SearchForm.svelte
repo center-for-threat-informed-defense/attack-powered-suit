@@ -62,7 +62,7 @@
             />
         </div>
     </div>
-    <div class="object-filters">
+    <div class="gray-box">
         <p class="text-muted small">
             Select the types of objects to include in search results:
         </p>
@@ -210,11 +210,5 @@
 
     .nav-icons *:hover {
         color: var(--bs-secondary);
-    }
-
-    .object-filters {
-        background-color: #e5ebf1;
-        padding: 0.75rem;
-        border-radius: 0.25rem;
     }
 </style>

@@ -99,7 +99,7 @@
     </tbody>
 </table>
 
-<div class="export-layer">
+<div class="gray-box">
     <p class="text-muted small">
         Export bookmarks for use in <a
             href="https://mitre-attack.github.io/attack-navigator/"
@@ -160,10 +160,6 @@
 </div>
 
 <style>
-    table td {
-        vertical-align: middle;
-    }
-
     form .row {
         margin-bottom: 0.5rem;
     }
@@ -187,12 +183,6 @@
 
     .score-input {
         width: 3.5em;
-    }
-
-    .export-layer {
-        background-color: #e5ebf1;
-        padding: 0.75rem;
-        border-radius: 0.25rem;
     }
 
     .default-color-group label {

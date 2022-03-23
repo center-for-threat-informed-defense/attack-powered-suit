@@ -50,8 +50,18 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+table td {
+    vertical-align: middle;
+}
+
 td.nothing-found {
     color: var(--bs-secondary);
     font-style: italic;
     text-align: center;
+}
+
+.gray-box {
+    background-color: #e5ebf1;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
 }

@@ -5,7 +5,6 @@
 
     const params = new URLSearchParams(window.location.search);
     let selectedPanel = params.get("view") || "search";
-    selectedPanel = "bookmarks"; //TODO
 </script>
 
 <div class:d-none={selectedPanel != "search"}>
