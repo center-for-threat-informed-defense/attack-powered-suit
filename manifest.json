@@ -29,5 +29,6 @@
       "48": "public/image/logo-48.png",
       "128": "public/image/logo-128.png"
     }
-  }
+  },
+  "options_page": "public/index.html?view=settings"
 }

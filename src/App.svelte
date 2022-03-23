@@ -3,7 +3,9 @@
     import SearchPanel from "./SearchPanel.svelte";
     import SettingsPanel from "./SettingsPanel.svelte";
 
-    let selectedPanel = "bookmarks";
+    const params = new URLSearchParams(window.location.search);
+    let selectedPanel = params.get("view") || "search";
+    selectedPanel = "bookmarks"; //TODO
 </script>
 
 <div class:d-none={selectedPanel != "search"}>
