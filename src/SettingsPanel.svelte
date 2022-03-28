@@ -80,8 +80,8 @@
 </p>
 
 <div class="gray-box">
-    You can add custom formats to make it easy to copy snippets from search
-    results. Variables inside curly braces are expanded automatically.
+    You can add custom formats that copy snippets from search results. Variables
+    inside curly braces are expanded.
     <ul>
         <li>
             <code>{"{description}"}</code>

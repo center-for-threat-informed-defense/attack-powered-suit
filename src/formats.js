@@ -16,11 +16,10 @@ export let formatsStore = writable(formats)
  * @param {string} object
  */
 export function formatObject(format, object) {
-    console.log(object);
     const formatted = format
-        .replace("{id}", object.description)
-        .replace("{id}", object.id)
-        .replace("{name}", object.name)
+        .replace("{description}", object.description.text)
+        .replace("{id}", object.id.text)
+        .replace("{name}", object.name.text)
         .replace("{url}", object.url);
     return formatted;
 }
@@ -30,9 +29,9 @@ loadFormats().then(function (f) {
     formats = f;
 
     if (formats.length === 0) {
-        addFormat("URL", "{url}", "text/plain");
         addFormat("Name", "{name}", "text/plain");
-        addFormat("Link", '<a href="{url}">{name}</a>', "text/html");
+        addFormat("URL", "{url}", "text/plain");
+        addFormat("Link", '<a href="{url}">{id}: {name}</a>', "text/html");
     }
 
     formatsStore.set(formats);

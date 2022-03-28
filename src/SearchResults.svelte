@@ -5,9 +5,12 @@
         removeBookmark,
     } from "./bookmarks";
     import { formatsStore, formatObject } from "./formats.js";
+    import sleep from "./sleep.js";
     import HighlightMatches from "./HighlightMatches.svelte";
 
     export let results = [];
+
+    let highlightFormatIdx = -1;
 
     // Reformat the results so that they can be fed into the highlighter
     // component.
@@ -22,7 +25,7 @@
                 deprecated: item.deprecated,
                 name: { text: item.name, matches: [] },
                 description: { text: item.description, matches: [] },
-                url: { text: item.url, matches: [] },
+                url: item.url,
                 isBookmarked: item.id in $bookmarksSetStore,
             };
             for (const match of matches) {
@@ -37,11 +40,19 @@
      * Use the specified format and ATT&CK object to place a snippet on the
      * clipboard.
      */
-    function copyFormat(format, object) {
+    async function copyFormat(format, object, formatIdx) {
         const text = formatObject(format.rule, object);
-        console.log("copyFormat", text);
-        // TODO - add mime type
-        navigator.clipboard.writeText(text);
+        let blobs = {
+            ["text/plain"]: new Blob([text], { type: "text/plain" }),
+        };
+        if (format.mime != "text/plain") {
+            blobs[format.mime] = new Blob([text], { type: format.mime });
+        }
+        let clipboardItem = [new ClipboardItem(blobs)];
+        await navigator.clipboard.write(clipboardItem);
+        highlightFormatIdx = formatIdx;
+        await sleep(1000);
+        highlightFormatIdx = -1;
     }
 </script>
 
@@ -92,10 +103,18 @@
                 <span
                     class="format"
                     title="Copy {format.name} to clipboard"
-                    on:click={() => copyFormat(format, result)}
-                    >{format.name} <i class="bi bi-clipboard" />
+                    on:click={() => copyFormat(format, result, formatIdx)}
+                >
+                    {#if highlightFormatIdx === formatIdx}
+                        Copied <i class="bi bi-clipboard-check" />
+                    {:else}
+                        {format.name} <i class="bi bi-clipboard" />
+                    {/if}
                 </span>
             {/each}
+            <a href={result.url} target="_blank" class="format"
+                >Go to <i class="bi bi-box-arrow-up-right" />
+            </a>
         </p>
     </div>
 {/each}
