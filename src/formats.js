@@ -20,6 +20,7 @@ export function formatObject(format, object) {
         .replace("{description}", object.description.text)
         .replace("{id}", object.id.text)
         .replace("{name}", object.name.text)
+        .replace("{type}", object.type)
         .replace("{url}", object.url);
     return formatted;
 }
@@ -30,7 +31,7 @@ loadFormats().then(function (f) {
 
     if (formats.length === 0) {
         addFormat("Name", "{name}", "text/plain");
-        addFormat("URL", "{url}", "text/plain");
+        addFormat("Summary", "{id} ({type}): {name} – {description}", "text/plain");
         addFormat("Link", '<a href="{url}">{id}: {name}</a>', "text/html");
     }
 

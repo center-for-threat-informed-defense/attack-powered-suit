@@ -6,7 +6,11 @@
 
     const dispatch = createEventDispatcher();
 
-    let query = "the"; // TODO
+    // Initialized isn't currently used, but might be useful, e.g. for a loading
+    // screen.
+    let initialized = false;
+
+    let query = "";
     let techniquesEnabled = true;
     let subtechniquesEnabled = true;
     let mitigationsEnabled = true;
@@ -17,7 +21,7 @@
     let deprecatedEnabled = false;
 
     onMount(() => {
-        initializeSearch();
+        initializeSearch().then(() => (initialized = true));
     });
 
     // Update search results whenever the query or filters are modified.

@@ -27,7 +27,7 @@
             }
         }
 
-        const lastSegment = text.substring(lowIdx);
+        const lastSegment = text ? text.substring(lowIdx) : "";
         if (maxLength && cumulativeLength + lastSegment.length > maxLength) {
             segments.push(
                 lastSegment.substring(0, maxLength - cumulativeLength)

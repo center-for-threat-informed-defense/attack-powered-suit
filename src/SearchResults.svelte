@@ -10,6 +10,7 @@
 
     export let results = [];
 
+    let highlightResultIdx = -1;
     let highlightFormatIdx = -1;
 
     // Reformat the results so that they can be fed into the highlighter
@@ -40,7 +41,7 @@
      * Use the specified format and ATT&CK object to place a snippet on the
      * clipboard.
      */
-    async function copyFormat(format, object, formatIdx) {
+    async function copyFormat(format, object, resultIdx, formatIdx) {
         const text = formatObject(format.rule, object);
         let blobs = {
             ["text/plain"]: new Blob([text], { type: "text/plain" }),
@@ -50,13 +51,15 @@
         }
         let clipboardItem = [new ClipboardItem(blobs)];
         await navigator.clipboard.write(clipboardItem);
+        highlightResultIdx = resultIdx;
         highlightFormatIdx = formatIdx;
         await sleep(1000);
+        highlightResultIdx = -1;
         highlightFormatIdx = -1;
     }
 </script>
 
-{#each highlightedResults as result}
+{#each highlightedResults as result, resultIdx}
     <div class="search-result">
         <p>
             {#if result.isBookmarked}
@@ -103,9 +106,10 @@
                 <span
                     class="format"
                     title="Copy {format.name} to clipboard"
-                    on:click={() => copyFormat(format, result, formatIdx)}
+                    on:click={() =>
+                        copyFormat(format, result, resultIdx, formatIdx)}
                 >
-                    {#if highlightFormatIdx === formatIdx}
+                    {#if highlightResultIdx == resultIdx && highlightFormatIdx === formatIdx}
                         Copied <i class="bi bi-clipboard-check" />
                     {:else}
                         {format.name} <i class="bi bi-clipboard" />

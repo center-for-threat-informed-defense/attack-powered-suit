@@ -80,30 +80,11 @@
 </p>
 
 <div class="gray-box">
-    You can add custom formats that copy snippets from search results. Variables
-    inside curly braces are expanded.
-    <ul>
-        <li>
-            <code>{"{description}"}</code>
-            <i class="bi bi-arrow-right" />
-            Description of ATT&CK object
-        </li>
-        <li>
-            <code>{"{name}"}</code>
-            <i class="bi bi-arrow-right" />
-            Name of ATT&CK object
-        </li>
-        <li>
-            <code>{"{id}"}</code>
-            <i class="bi bi-arrow-right" />
-            ATT&CK object identifier
-        </li>
-        <li>
-            <code>{"{url}"}</code>
-            <i class="bi bi-arrow-right" />
-            URL for ATT&CK object
-        </li>
-    </ul>
+    You can add custom formats that copy snippets from search results. The
+    following variables names can be used inside curly braces: <code
+        >{"{description}"}</code
+    >, <code>{"{name}"}</code>,
+    <code>{"{id}"}</code>, <code>{"{type}"}</code>, <code>{"{url}"}</code>
 </div>
 
 <style>

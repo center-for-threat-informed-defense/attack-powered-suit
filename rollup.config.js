@@ -59,6 +59,12 @@ export default {
                 }, {
                     src: "node_modules/bootstrap-icons/font/fonts/",
                     dest: "public/build/"
+                }, {
+                    src: "data/attack.json",
+                    dest: "public/build/"
+                }, {
+                    src: "data/fuse-index.json",
+                    dest: "public/build/"
                 }
             ],
         }),
@@ -87,6 +93,6 @@ export default {
         production && terser()
     ],
     watch: {
-        clearScreen: false
+        clearScreen: true
     }
 };

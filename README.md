@@ -10,6 +10,7 @@
     - [Updating Dependencies](#updating-dependencies)
   - [How Do I Contribute?](#how-do-i-contribute)
     - [Developers](#developers)
+    - [Upgrading ATT&CK](#upgrading-attck)
   - [Notice](#notice)
 
 ## Questions and Feedback
@@ -51,12 +52,15 @@ directly for more general inquiries.
 
 ### Developers
 
-To set up a development environment, clone this repository and run the following
-commands.
+To set up a development environment, you first need to [install Node.JS and
+NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm). Then
+clone this repository and run the following commands.
 
 ```shell
 $ cd src
 $ npm install
+$ npm run fetch-attack
+$ npm run build-index
 $ npm run dev
 ```
 
@@ -72,6 +76,13 @@ Alternately, you can load it as an extension into chrome:
 2. Make sure "Developer mode" is enabled.
 3. Click "Load unpacked" and select the `attack_powered_suite/src` directory.
 4. The extension will appear in the extension list and is now usable.
+
+### Upgrading ATT&CK
+
+To upgrade the extension to use a newer version of ATT&CK, there are a few
+changes that need to be made:
+
+* `fetch-attack.js`: update `attackUrls`
 
 ## Notice
 

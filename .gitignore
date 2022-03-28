@@ -135,3 +135,6 @@ dmypy.json
 /node_modules/
 /public/build/
 .DS_Store
+
+# ATT&CK Power Suit
+data/*

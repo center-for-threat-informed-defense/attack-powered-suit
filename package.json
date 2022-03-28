@@ -2,10 +2,13 @@
   "name": "svelte-app",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --no-clear"
+    "start": "sirv public --no-clear",
+    "fetch-attack": "node scripts/fetch-attack.js",
+    "build-index": "node scripts/build-index.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
