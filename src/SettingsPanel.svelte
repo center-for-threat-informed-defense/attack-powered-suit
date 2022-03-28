@@ -20,6 +20,14 @@
 <h2>ATT&CK® Powered Suit</h2>
 <h3><i class="bi bi-gear-fill" /> Settings</h3>
 
+<div class="gray-box">
+    You can add custom formats that copy snippets from search results. The
+    following variables names can be used inside curly braces: <code
+        >{"{description}"}</code
+    >, <code>{"{name}"}</code>,
+    <code>{"{id}"}</code>, <code>{"{type}"}</code>, <code>{"{url}"}</code>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -79,13 +87,18 @@
     >
 </p>
 
-<div class="gray-box">
-    You can add custom formats that copy snippets from search results. The
-    following variables names can be used inside curly braces: <code
-        >{"{description}"}</code
-    >, <code>{"{name}"}</code>,
-    <code>{"{id}"}</code>, <code>{"{type}"}</code>, <code>{"{url}"}</code>
-</div>
+<p class="credits">
+    ATT&CK® Powered Suit is created by the
+    <a href="https://ctid.mitre-engenuity.org/" target="_blank"
+        >Center for Threat-Informed Defense
+        <i class="bi bi-box-arrow-up-right" /></a
+    >. Special thanks to Toshitaka Satomi from Fujitsu for sharing the idea and
+    code.
+    <i
+        class="bi
+        bi-stars"
+    />
+</p>
 
 <style>
     .remove-format {
@@ -94,5 +107,14 @@
 
     .remove-format:hover {
         color: var(--bs-secondary);
+    }
+
+    .credits {
+        margin: 0 auto;
+        color: var(--bs-gray-600);
+        font-size: 0.8em;
+        border-top: 1px solid var(--bs-gray-400);
+        margin-top: 1rem;
+        padding-top: 0.5rem;
     }
 </style>
