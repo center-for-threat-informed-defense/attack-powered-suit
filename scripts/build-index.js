@@ -3,10 +3,11 @@
  * doesn't need to be recomputed every time APS runs.
  */
 import Fuse from 'fuse.js';
-import { fuseOptions } from '../src/search.js';
 import fs from "fs";
 import process from "process";
-import { formatWithOptions } from 'util';
+import { fuseOptions } from "../src/search.js";
+import { marked } from "marked";
+import { convert } from 'html-to-text';
 
 const inputFiles = [
     "data/enterprise-attack.json",
@@ -29,6 +30,18 @@ const mitreSources = {
 }
 
 /**
+ * Clean up the markup in ATT&CK text.
+ *
+ * ATT&CK uses a combination of Markdown and HTML tags, so the easiest way to
+ * clean it is to render the Markdown to HTML, then convert HTML back to plain
+ * text.
+ */
+function cleanAttackText(text) {
+    const html = marked.parse(text);
+    return convert(html);
+}
+
+/**
  * Extract ATT&CK data needed for search index.
  *
  * @param {object} stixObject
@@ -37,7 +50,7 @@ function extractAttackObject(stixObject) {
     // Name and description are taken from the top-level STIX object.
     const attackObject = {
         name: stixObject.name,
-        description: stixObject.description,
+        description: cleanAttackText(stixObject.description || ""),
     }
 
     // ID and URL are extract from the first reference that is sourced to
