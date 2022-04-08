@@ -9,7 +9,9 @@
     - [Proposing Changes](#proposing-changes)
     - [Updating Dependencies](#updating-dependencies)
   - [How Do I Contribute?](#how-do-i-contribute)
-    - [Developers](#developers)
+  - [Developers](#developers)
+    - [Developer Setup](#developer-setup)
+    - [Unit Tests](#unit-tests)
     - [Upgrading ATT&CK](#upgrading-attck)
   - [Notice](#notice)
 
@@ -50,7 +52,9 @@ Please submit
 for any technical questions/concerns or contact ctid@mitre-engenuity.org
 directly for more general inquiries.
 
-### Developers
+## Developers
+
+### Developer Setup
 
 To set up a development environment, you first need to [install Node.JS and
 NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm). Then
@@ -76,6 +80,31 @@ Alternately, you can load it as an extension into chrome:
 2. Make sure "Developer mode" is enabled.
 3. Click "Load unpacked" and select the `attack_powered_suite/src` directory.
 4. The extension will appear in the extension list and is now usable.
+
+### Unit Tests
+
+To run the test suite:
+
+```shell
+$ npm run test
+```
+
+Alternately, use "watch" mode to automatically re-run tests each time you modify
+the source code:
+
+```shell
+$ npm run watch-test
+```
+
+The test suite writes code coverage data to `./coverage/`. For more information
+on writing unit tests, see:
+
+* [Unit Testing Svelte
+  Components](https://sveltesociety.dev/recipes/testing-and-debugging/unit-testing-svelte-component/)
+* [Testing Library Svelte
+  API](https://testing-library.com/docs/svelte-testing-library/api).
+* [Testing Library
+  API](https://testing-library.com/docs/queries/about/#types-of-queries)
 
 ### Upgrading ATT&CK
 

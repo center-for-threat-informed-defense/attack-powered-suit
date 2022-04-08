@@ -6,6 +6,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
+    "test": "jest",
+    "watch-test": "jest --collect-coverage --watch",
     "start": "sirv public --no-clear",
     "fetch-attack": "node scripts/fetch-attack.js",
     "build-index": "node scripts/build-index.js"
@@ -21,12 +23,43 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/svelte": "^3.1.1",
     "bootstrap": "^5.1.3",
     "bootstrap-icons": "^1.8.1",
     "fuse.js": "^6.5.3",
     "html-to-text": "^8.1.0",
+    "jest": "^27.5.1",
+    "jest-transform-svelte": "^2.1.1",
     "marked": "^4.0.12",
+    "rollup-jest": "^1.1.3",
     "rollup-plugin-copy": "^3.4.0",
     "sirv-cli": "^2.0.0"
+  },
+  "jest": {
+    "verbose": false,
+    "bail": false,
+    "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.svelte$": "jest-transform-svelte",
+      "\\.m?js$": "rollup-jest"
+    },
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "svelte"
+    ],
+    "testPathIgnorePatterns": [
+      "node_modules"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ]
   }
 }
