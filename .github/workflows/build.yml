@@ -1,4 +1,4 @@
-name: test
+name: Build APS
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
