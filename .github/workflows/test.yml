@@ -14,6 +14,8 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: '17'
+    - name: Install Build Dependencies
+      run: npm ci
     - name: Run Unit Tests
       run: npm run test
     - name: Upload Coverage to CodeCov
