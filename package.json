@@ -11,7 +11,10 @@
     "start": "sirv public --no-clear",
     "fetch-attack": "node scripts/fetch-attack.js",
     "build-index": "node scripts/build-index.js",
-    "package-chrome": "cd .. && zip -r /tmp/attack-powered-suit-chrome.zip attack-powered-suit -i 'attack-powered-suit/manifest.json' -i 'attack-powered-suit/public/*'"
+    "version": "node scripts/version.js"
+  },
+  "config": {
+    "message": "Bump version to %s"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",

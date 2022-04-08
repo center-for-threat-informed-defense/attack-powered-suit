@@ -14,6 +14,7 @@
     - [Developer Setup](#developer-setup)
     - [Unit Tests](#unit-tests)
     - [Upgrading ATT&CK](#upgrading-attck)
+    - [Releasing a New Version](#releasing-a-new-version)
   - [Notice](#notice)
 
 ## Questions and Feedback
@@ -113,6 +114,27 @@ To upgrade the extension to use a newer version of ATT&CK, there are a few
 changes that need to be made:
 
 * `fetch-attack.js`: update `attackUrls`
+
+### Releasing a New Version
+
+Use NPM to generate a new version number:
+
+```shell
+$ npm version minor
+v0.2.0
+```
+
+NPM automatically does the following:
+
+* Put new version number in `package.json` and `manifest.json`.
+* Commit those changes.
+* Create a new Git tag.
+
+If you are satisfied with the changes, you just need to push them, e.g.
+
+```shell
+$ git push
+$ git push origin v0.2.0
 
 ## Notice
 
