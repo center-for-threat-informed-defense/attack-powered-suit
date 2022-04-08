@@ -30,9 +30,11 @@ jobs:
       run: npm run fetch-attack
     - name: Build Svelte Application
       run: npm run build
-    - name: Build Chrome Extension
-      run: npm run package-chrome
+    # - name: Build Chrome Extension
+    #   run: npm run package-chrome
     - uses: actions/upload-artifact@v3
       with:
-        name: Chrome Extension
-        path: /tmp/attack-powered-suit-chrome.zip
+        name: attack-powered-suit-chrome.zip
+        path: |
+          manifest.json
+          public/**
