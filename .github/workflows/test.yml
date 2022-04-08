@@ -22,7 +22,7 @@ jobs:
       uses: codecov/codecov-action@v2
       with:
         token: ${{ secrets.CODECOV_SECRET }}
-        files: coverage.xml
+        files: coverage/coverage-final.json
         verbose: true
     - name: Build Svelte Application
       run: npm run build
