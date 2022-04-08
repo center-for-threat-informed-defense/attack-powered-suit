@@ -1,6 +1,6 @@
 {
   "name": "svelte-app",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,7 +10,8 @@
     "watch-test": "jest --collect-coverage --watch",
     "start": "sirv public --no-clear",
     "fetch-attack": "node scripts/fetch-attack.js",
-    "build-index": "node scripts/build-index.js"
+    "build-index": "node scripts/build-index.js",
+    "package-chrome": "cd .. && zip -r /tmp/attack-powered-suit-chrome.zip attack-powered-suit -i 'attack-powered-suit/manifest.json' -i 'attack-powered-suit/public/*'"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",

@@ -24,9 +24,15 @@ jobs:
         token: ${{ secrets.CODECOV_SECRET }}
         files: coverage/coverage-final.json
         verbose: true
+    - name: Fetch ATT&CK STIX Data
+      run: npm run fetch-attack
+    - name: Fetch ATT&CK STIX Data
+      run: npm run fetch-attack
     - name: Build Svelte Application
       run: npm run build
-    - name: Fetch ATT&CK STIX Data
-      run: npm run fetch-attack
-    - name: Fetch ATT&CK STIX Data
-      run: npm run fetch-attack
+    - name: Build Chrome Extension
+      run: npm run package-chrome
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Chrome Extension
+        path: /tmp/attack-powered-suit-chrome.zip
