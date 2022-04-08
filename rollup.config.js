@@ -34,7 +34,7 @@ export default {
     output: {
         sourcemap: true,
         format: 'iife',
-        exports: auto,
+        exports: 'auto',
         name: 'app',
         file: 'public/build/bundle.js'
     },

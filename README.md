@@ -1,4 +1,5 @@
-[![codecov](https://codecov.io/gh/center-for-threat-informed-defense/attack-powered-suit/branch/main/graph/badge.svg?token=ygDiymg8y3)](https://codecov.io/gh/center-for-threat-informed-defense/attack-powered-suit)
+[![build](https://github.com/center-for-threat-informed-defense/attack-powered-suit/actions/workflows/build.yml/badge.svg)](https://github.com/center-for-threat-informed-defense/attack-powered-suit/actions/workflows/build.yml)
+[![codecov](https://codecov.io/gh/center-for-threat-informed-defense/attack-powered-suit/branch/main/graph/badge.svg?token=ejCIZhBRGr)](https://codecov.io/gh/center-for-threat-informed-defense/attack-powered-suit)
 
 # ATT&CK Powered Suit
 
