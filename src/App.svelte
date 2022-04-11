@@ -7,15 +7,23 @@
     let selectedPanel = params.get("view") || "search";
 </script>
 
-<div class:d-none={selectedPanel != "search"}>
-    <SearchPanel
-        on:showBookmarks={() => (selectedPanel = "bookmarks")}
-        on:showSettings={() => (selectedPanel = "settings")}
-    />
-</div>
-<div class:d-none={selectedPanel != "bookmarks"}>
-    <BookmarksPanel on:showSearch={() => (selectedPanel = "search")} />
-</div>
-<div class:d-none={selectedPanel != "settings"}>
-    <SettingsPanel on:showSearch={() => (selectedPanel = "search")} />
-</div>
+<main>
+    <div class:d-none={selectedPanel != "search"}>
+        <SearchPanel
+            on:showBookmarks={() => (selectedPanel = "bookmarks")}
+            on:showSettings={() => (selectedPanel = "settings")}
+        />
+    </div>
+    <div class:d-none={selectedPanel != "bookmarks"}>
+        <BookmarksPanel on:showSearch={() => (selectedPanel = "search")} />
+    </div>
+    <div class:d-none={selectedPanel != "settings"}>
+        <SettingsPanel on:showSearch={() => (selectedPanel = "search")} />
+    </div>
+</main>
+
+<style>
+    main {
+        padding-bottom: 1em;
+    }
+</style>

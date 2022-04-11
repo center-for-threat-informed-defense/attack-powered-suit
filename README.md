@@ -8,7 +8,6 @@
   - [Guidance](#guidance)
     - [Getting Started](#getting-started)
     - [Proposing Changes](#proposing-changes)
-    - [Updating Dependencies](#updating-dependencies)
   - [How Do I Contribute?](#how-do-i-contribute)
   - [Developers](#developers)
     - [Developer Setup](#developer-setup)
@@ -38,10 +37,6 @@ TODO
   (PR) against the `main` branch for any desired changes. The PR will be
   reviewed by the project team.
 * Note that all PR checks must pass to be eligible for merge approval.
-
-### Updating Dependencies
-
-TODO
 
 ## How Do I Contribute?
 

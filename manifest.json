@@ -10,11 +10,22 @@
     "128": "public/image/logo-128.png",
     "192": "public/image/logo-192.png"
   },
-  "background": {},
+  "background": {
+    "service_worker": "public/worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "public/content.js"
+      ]
+    }
+  ],
   "omnibox": {
     "keyword": "attack"
   },
-  "content_scripts": [],
   "permissions": [
     "activeTab",
     "clipboardWrite",

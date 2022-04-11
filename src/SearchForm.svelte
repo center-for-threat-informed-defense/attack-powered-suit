@@ -21,7 +21,11 @@
     let deprecatedEnabled = false;
 
     onMount(() => {
-        initializeSearch().then(() => (initialized = true));
+        initializeSearch().then(() => {
+            initialized = true;
+            const params = new URLSearchParams(window.location.search);
+            query = params.get("q") || "";
+        });
     });
 
     // Update search results whenever the query or filters are modified.

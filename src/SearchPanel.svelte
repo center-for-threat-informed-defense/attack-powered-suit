@@ -5,7 +5,7 @@
     let results;
 </script>
 
-<main>
+<div>
     <SearchForm bind:results on:showBookmarks on:showSettings />
     <SearchResults {results} />
-</main>
+</div>
