@@ -26,8 +26,8 @@ jobs:
         verbose: true
     - name: Fetch ATT&CK STIX Data
       run: npm run fetch-attack
-    - name: Fetch ATT&CK STIX Data
-      run: npm run fetch-attack
+    - name: Build Search Index
+      run: npm run build-index
     - name: Build Svelte Application
       run: npm run build
     - name: Package Chrome Extension
