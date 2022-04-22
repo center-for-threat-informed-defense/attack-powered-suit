@@ -22,7 +22,7 @@ export const fuseOptions = {
     ],
 }
 
-const MAX_RESULTS = 50;
+const MAX_RESULTS = 25;
 
 // The index is created empty at first. Data is added inside initializeSearch().
 let fuse = new Fuse([], fuseOptions);
@@ -54,14 +54,16 @@ export function search(query, filters) {
         const type = result.item.type;
         const deprecated = result.item.deprecated;
         if (filters[type] === true && (!deprecated || filters.deprecated === true)) {
-            filteredResults.push(result);
-            resultCount++;
-
-            if (resultCount >= MAX_RESULTS) {
-                break;
+            if (resultCount < MAX_RESULTS) {
+                filteredResults.push(result);
             }
+            resultCount++;
         }
     }
 
-    return filteredResults;
+    return {
+        query,
+        items: filteredResults,
+        totalCount: resultCount,
+    };
 }

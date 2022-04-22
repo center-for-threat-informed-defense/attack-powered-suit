@@ -2,7 +2,7 @@
     import { createEventDispatcher, onMount } from "svelte";
     import { initializeSearch, search } from "./search.js";
 
-    export let results = [];
+    export let results = null;
 
     const dispatch = createEventDispatcher();
 
@@ -30,16 +30,20 @@
 
     // Update search results whenever the query or filters are modified.
     $: {
-        results = search(query, {
-            technique: techniquesEnabled,
-            subtechnique: subtechniquesEnabled,
-            mitigation: mitigationsEnabled,
-            software: softwareEnabled,
-            tactic: tacticsEnabled,
-            dataSource: dataSourcesEnabled,
-            group: groupsEnabled,
-            deprecated: deprecatedEnabled,
-        });
+        if (query.trim() == "") {
+            results = null;
+        } else {
+            results = search(query, {
+                technique: techniquesEnabled,
+                subtechnique: subtechniquesEnabled,
+                mitigation: mitigationsEnabled,
+                software: softwareEnabled,
+                tactic: tacticsEnabled,
+                dataSource: dataSourcesEnabled,
+                group: groupsEnabled,
+                deprecated: deprecatedEnabled,
+            });
+        }
     }
 </script>
 

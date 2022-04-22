@@ -8,7 +8,7 @@
     import sleep from "./sleep.js";
     import HighlightMatches from "./HighlightMatches.svelte";
 
-    export let results = [];
+    export let results = null;
 
     let highlightResultIdx = -1;
     let highlightFormatIdx = -1;
@@ -18,22 +18,24 @@
     let highlightedResults = [];
     $: {
         highlightedResults = [];
-        for (const result of results) {
-            const { item, matches } = result;
-            const highlightedResult = {
-                id: { text: item.id, matches: [] },
-                type: item.type,
-                deprecated: item.deprecated,
-                name: { text: item.name, matches: [] },
-                description: { text: item.description, matches: [] },
-                url: item.url,
-                isBookmarked: item.id in $bookmarksSetStore,
-            };
-            for (const match of matches) {
-                const { key, indices } = match;
-                highlightedResult[key]["matches"] = indices;
+        if (results) {
+            for (const result of results.items) {
+                const { item, matches } = result;
+                const highlightedResult = {
+                    id: { text: item.id, matches: [] },
+                    type: item.type,
+                    deprecated: item.deprecated,
+                    name: { text: item.name, matches: [] },
+                    description: { text: item.description, matches: [] },
+                    url: item.url,
+                    isBookmarked: item.id in $bookmarksSetStore,
+                };
+                for (const match of matches) {
+                    const { key, indices } = match;
+                    highlightedResult[key]["matches"] = indices;
+                }
+                highlightedResults.push(highlightedResult);
             }
-            highlightedResults.push(highlightedResult);
         }
     }
 
@@ -58,6 +60,17 @@
         highlightFormatIdx = -1;
     }
 </script>
+
+{#if results && results.totalCount == 0}
+    <div class="no-results">
+        Nothing found for "{results.query}"
+    </div>
+{:else if results && results.totalCount > results.items.length}
+    <div class="truncated-results">
+        Only showing {results.items.length} out of {results.totalCount}
+        matches. Try narrowing down your search.
+    </div>
+{/if}
 
 {#each highlightedResults as result, resultIdx}
     <div class="search-result">
@@ -126,6 +139,20 @@
 <style>
     p {
         margin: 0.25rem 0;
+    }
+
+    .no-results {
+        color: var(--bs-danger);
+        text-align: center;
+        margin: 0.5rem 0;
+        border-radius: 0.25rem;
+    }
+
+    .truncated-results {
+        color: var(--bs-secondary);
+        text-align: center;
+        margin: 0.5rem 0;
+        border-radius: 0.25rem;
     }
 
     .search-result {

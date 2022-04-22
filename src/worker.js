@@ -82,7 +82,7 @@ chrome.omnibox.onInputChanged.addListener(
         }
         var suggestions = [];
         const results = search(inputText, searchFilters);
-        for (const result of results) {
+        for (const result of results.items) {
             suggestions.push({
                 content: result.item.url,
                 description: `${result.item.id}: ${result.item.name}`,
