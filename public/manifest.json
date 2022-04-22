@@ -5,13 +5,15 @@
   "description": "Quick access to ATT&CK resources.",
   "version": "0.2.0",
   "icons": {
-    "16": "public/image/logo-16.png",
-    "48": "public/image/logo-48.png",
-    "128": "public/image/logo-128.png",
-    "192": "public/image/logo-192.png"
+    "16": "image/logo-16.png",
+    "48": "image/logo-48.png",
+    "128": "image/logo-128.png",
+    "192": "image/logo-192.png"
   },
+  "minimum_chrome_version": "92",
   "background": {
-    "service_worker": "public/worker.js"
+    "service_worker": "build/worker.js",
+    "type": "module"
   },
   "content_scripts": [
     {
@@ -19,7 +21,7 @@
         "<all_urls>"
       ],
       "js": [
-        "public/content.js"
+        "build/content.js"
       ]
     }
   ],
@@ -33,13 +35,13 @@
     "storage"
   ],
   "action": {
-    "default_popup": "public/index.html",
+    "default_popup": "index.html",
     "default_icon": {
-      "16": "public/image/logo-16.png",
-      "32": "public/image/logo-32.png",
-      "48": "public/image/logo-48.png",
-      "128": "public/image/logo-128.png"
+      "16": "image/logo-16.png",
+      "32": "image/logo-32.png",
+      "48": "image/logo-48.png",
+      "128": "image/logo-128.png"
     }
   },
-  "options_page": "public/index.html?view=settings"
+  "options_page": "index.html?view=settings"
 }

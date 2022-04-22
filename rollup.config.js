@@ -29,7 +29,7 @@ function serve() {
     };
 }
 
-export default {
+export default [{
     input: 'src/main.js',
     output: {
         sourcemap: true,
@@ -96,4 +96,35 @@ export default {
     watch: {
         clearScreen: true
     }
-};
+}, {
+    input: 'src/worker.js',
+    output: {
+        sourcemap: true,
+        format: 'iife',
+        exports: 'auto',
+        name: 'worker',
+        file: 'public/build/worker.js',
+    },
+    plugins: [
+        resolve({
+            browser: true,
+            dedupe: ['svelte']
+        }),
+    ],
+},
+{
+    input: 'src/content.js',
+    output: {
+        sourcemap: true,
+        format: 'iife',
+        exports: 'auto',
+        name: 'worker',
+        file: 'public/build/content.js',
+    },
+    plugins: [
+        resolve({
+            browser: true,
+            dedupe: ['svelte']
+        }),
+    ],
+}];

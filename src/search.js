@@ -31,34 +31,15 @@ let fuse = new Fuse([], fuseOptions);
  * Initialize the search index.
  */
 export async function initializeSearch() {
-    const attackPromise = new Promise(resolve => fetchAttack(resolve));
-    const indexPromise = new Promise(resolve => fetchIndex(resolve));
-
-    const attackData = await attackPromise;
-    const indexData = await indexPromise;
+    // Note that Chrome service workers don't support XMLHttpRequest, so we must
+    // use the fetch() API here.
+    const attackResponse = await fetch("/build/attack.json");
+    const attackData = await attackResponse.json();
+    const indexResponse = await fetch("/build/fuse-index.json");
+    const indexData = await indexResponse.json();
     const fuseIndex = Fuse.parseIndex(indexData);
     fuse = new Fuse(attackData, fuseOptions, fuseIndex);
     console.log("Search index is initialized.");
-}
-
-function fetchAttack(resolve) {
-    let xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", function () {
-        const attackData = JSON.parse(this.responseText);
-        resolve(attackData);
-    });
-    xhr.open("GET", "build/attack.json");
-    xhr.send();
-}
-
-function fetchIndex(resolve) {
-    let xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", function () {
-        const jsonData = JSON.parse(this.responseText);
-        resolve(jsonData);
-    });
-    xhr.open("GET", "build/fuse-index.json");
-    xhr.send();
 }
 
 /**

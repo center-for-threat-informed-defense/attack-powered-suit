@@ -35,5 +35,4 @@ jobs:
       with:
         name: attack-powered-suit-chrome
         path: |
-          manifest.json
           public/**
