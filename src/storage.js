@@ -24,9 +24,8 @@ export function saveToStorage(key, value, debounce = 500) {
     }
 
     debounceTimers[key] = setTimeout(async function () {
-        console.log("debounced save");
         if (chrome && chrome.storage) {
-            await chrome.storage.sync.set({ key: value });
+            await chrome.storage.sync.set({ [key]: value });
         } else if (localStorage) {
             localStorage.setItem(key, JSON.stringify(value));
         }
@@ -47,7 +46,7 @@ export async function loadFromStorage(key) {
 
     // Attempt to load formats array from a storage backend.
     if (chrome && chrome.storage) {
-        const storageResult = await chrome.storage.sync.get({ key: [] });
+        const storageResult = await chrome.storage.sync.get({ [key]: [] });
         if (storageResult) {
             storedData = storageResult[key];
         }

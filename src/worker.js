@@ -45,7 +45,6 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
             const subId = match[3].substring(1);
             attackId = `${attackId}/${subId}`;
         }
-        console.log("attackId", attackId);
         const url = attackUrls[attackType].replace("{id}", attackId);
         chrome.tabs.create({ url });
     }
