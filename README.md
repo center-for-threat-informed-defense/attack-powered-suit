@@ -15,8 +15,10 @@
     - [How Do I Contribute?](#how-do-i-contribute)
     - [Proposing Changes](#proposing-changes)
   - [Developers](#developers)
+    - [IDE](#ide)
     - [Developer Setup](#developer-setup)
     - [Unit Tests](#unit-tests)
+    - [Linter](#linter)
     - [Upgrading ATT&CK](#upgrading-attck)
     - [Releasing a New Version](#releasing-a-new-version)
   - [Notice](#notice)
@@ -28,7 +30,7 @@
 ATT&CK® Powered Suit is a browser extension that puts the complete ATT&CK
 taxonomy at your fingertips with text search, context menus, and ATT&CK
 Navigator integration. This extension is available at the top of your browser
-window for immediate access, regardless of what website you are currently on.
+window for immediate access, regardless of what site you are currently on.
 
 ![animated gif showing how to search in ATT&CK Powered
 Suit](./media/overview.gif)
@@ -43,7 +45,7 @@ If you see an ATT&CK technique referenced without a link, you can right click
 and jump straight to it.
 
 ![animated gif showing how to right-click and deep link to ATT&CK
-website](./media/context-menu.gif)
+site](./media/context-menu.gif)
 
 Or right-click on a phrase on any web page and click "Search ATT&CK for …" to
 find ATT&CK objects matching that phrase.
@@ -103,18 +105,25 @@ directly for more general inquiries.
 
 ## Developers
 
+### IDE
+
+This project uses the [Svelte web framework]. In your text editor or IDE, you
+should install the Svelte plugin for language support and auto-formatting. For
+Visual Studio Code, the recommended extension is [Svelte for VS
+Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+
 ### Developer Setup
 
 To set up a development environment, you first need to [install Node.JS and
-NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm). Then
+npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm). Then
 clone this repository and run the following commands.
 
 ```shell
-$ cd src
-$ npm install
-$ npm run fetch-attack
-$ npm run build-index
-$ npm run dev
+cd src
+npm install
+npm run fetch-attack
+npm run build-index
+npm run dev
 ```
 
 > **Note:** if your organization runs an SSL intercept proxy, you may get an SSL
@@ -143,14 +152,14 @@ Alternately, you can load it as an extension into chrome:
 To run the test suite:
 
 ```shell
-$ npm run test
+npm run test
 ```
 
 Alternately, use "watch" mode to automatically re-run tests each time you modify
 the source code:
 
 ```shell
-$ npm run watch-test
+npm run watch-test
 ```
 
 The test suite writes code coverage data to `./coverage/`. For more information
@@ -163,6 +172,20 @@ on writing unit tests, see:
 * [Testing Library
   API](https://testing-library.com/docs/queries/about/#types-of-queries)
 
+### Linter
+
+If you open a pull request (PR) on GitHub, it will automatically run
+[Super-Linter](https://github.com/github/super-linter) on your PR. Linter errors
+block the PR from being merged, so you will need to fix the linter errors and
+update the PR. You may find it useful to run the linter locally.
+
+*You must have [Docker installed](https://docs.docker.com/engine/install/) for
+this step to work.*
+
+```shell
+npm run lint
+```
+
 ### Upgrading ATT&CK
 
 To upgrade the extension to use a newer version of ATT&CK, there are a few
@@ -174,7 +197,7 @@ changes that need to be made:
 
 ### Releasing a New Version
 
-Use NPM to generate a new version number:
+Use npm to generate a new version number:
 
 ```shell
 $ npm version minor
@@ -190,8 +213,9 @@ NPM automatically does the following:
 If you are satisfied with the changes, you just need to push them, e.g.
 
 ```shell
-$ git push
-$ git push origin v0.2.0
+git push
+git push origin v0.2.0
+```
 
 ## Notice
 

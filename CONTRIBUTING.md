@@ -28,7 +28,7 @@ Developer's Certificate of Origin below.
 
 ### Developer's Certificate of Origin v1.1
 
-```
+```text
 By making a contribution to this project, I certify that:
 
 (a) The contribution was created in whole or in part by me and I

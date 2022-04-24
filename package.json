@@ -8,6 +8,7 @@
     "dev": "rollup -c -w",
     "test": "jest",
     "watch-test": "jest --collect-coverage --watch",
+    "lint": "docker run -e RUN_LOCAL=true -e VALIDATE_JAVASCRIPT_ES=true -e VALIDATE_MARKDOWN=true -v $PWD:/tmp/lint github/super-linter",
     "start": "sirv public --no-clear",
     "fetch-attack": "node scripts/fetch-attack.js",
     "build-index": "node scripts/build-index.js",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
+    "pre-commit": "^1.2.2",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
@@ -65,5 +67,9 @@
     "setupFilesAfterEnv": [
       "@testing-library/jest-dom/extend-expect"
     ]
-  }
+  },
+  "//": "NOTE: Keep the pre-commit list in sync with the Makefile pre-commit-run target.",
+  "pre-commit": [
+    "test"
+  ]
 }
