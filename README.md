@@ -4,11 +4,16 @@
 # ATT&CK Powered Suit
 
 - [ATT&CK Powered Suit](#attck-powered-suit)
-  - [Questions and Feedback](#questions-and-feedback)
-  - [Guidance](#guidance)
-    - [Getting Started](#getting-started)
+  - [Features](#features)
+    - [Search](#search)
+    - [Deep Links](#deep-links)
+    - [Omnibar](#omnibar)
+    - […And More](#and-more)
+  - [Installation](#installation)
+  - [Community](#community)
+    - [Questions and Feedback](#questions-and-feedback)
+    - [How Do I Contribute?](#how-do-i-contribute)
     - [Proposing Changes](#proposing-changes)
-  - [How Do I Contribute?](#how-do-i-contribute)
   - [Developers](#developers)
     - [Developer Setup](#developer-setup)
     - [Unit Tests](#unit-tests)
@@ -16,7 +21,60 @@
     - [Releasing a New Version](#releasing-a-new-version)
   - [Notice](#notice)
 
-## Questions and Feedback
+## Features
+
+### Search
+
+ATT&CK® Powered Suit is a browser extension that puts the complete ATT&CK
+taxonomy at your fingertips with text search, context menus, and ATT&CK
+Navigator integration. This extension is available at the top of your browser
+window for immediate access, regardless of what website you are currently on.
+
+![animated gif showing how to search in ATT&CK Powered
+Suit](./media/overview.gif)
+
+Powered Suit is ideal for cyber threat intelligence (CTI) analysts and
+researchers because it puts ATT&CK at your fingertips without disrupting your
+workflow.
+
+### Deep Links
+
+If you see an ATT&CK technique referenced without a link, you can right click
+and jump straight to it.
+
+![animated gif showing how to right-click and deep link to ATT&CK
+website](./media/context-menu.gif)
+
+Or right-click on a phrase on any web page and click "Search ATT&CK for …" to
+find ATT&CK objects matching that phrase.
+
+### Omnibar
+
+Search for ATT&CK objects directly from the browser's omnibar.
+
+![animated gif showing how to search ATT&CK from the browser's search
+bar](./media/omnibar.gif)
+
+If you see the technique you want, click on it to jump directly to that page.
+Otherwise, choose "Search in ATT&CK" to view the search results.
+
+### …And More
+
+* One-click text snippets from ATT&CK search results for quick integration into
+  your notes or reports.
+* Bookmark techniques that you use frequently or are collecting for a research
+  assignment.
+* Export bookmarks to ATT&CK navigator for visualization and presentation.
+
+## Installation
+
+In the near future, this extension will be available for installation from the
+Chrome Web Store. In the meantime, you can follow the [Developer
+Setup](#developer-setup) instructions to install the extension.
+
+## Community
+
+### Questions and Feedback
 
 Please submit issues for any technical questions/concerns or contact
 ctid@mitre-engenuity.org directly for more general inquiries.
@@ -24,21 +82,7 @@ ctid@mitre-engenuity.org directly for more general inquiries.
 Also see the guidance for contributors if are you interested in contributing or
 simply reporting issues.
 
-## Guidance
-
-### Getting Started
-
-TODO
-
-### Proposing Changes
-
-* Please open a [Pull
-  Request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)
-  (PR) against the `main` branch for any desired changes. The PR will be
-  reviewed by the project team.
-* Note that all PR checks must pass to be eligible for merge approval.
-
-## How Do I Contribute?
+### How Do I Contribute?
 
 We welcome your feedback and contributions to help advance ATT&CK Powered Suit.
 Please see the guidance for contributors if are you interested in [contributing
@@ -48,6 +92,14 @@ Please submit
 [issues](https://github.com/center-for-threat-informed-defense/attack_powered_suite/issues)
 for any technical questions/concerns or contact ctid@mitre-engenuity.org
 directly for more general inquiries.
+
+### Proposing Changes
+
+* Please open a [Pull
+  Request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)
+  (PR) against the `main` branch for any desired changes. The PR will be
+  reviewed by the project team.
+* Note that all PR checks must pass to be eligible for merge approval.
 
 ## Developers
 
@@ -64,6 +116,14 @@ $ npm run fetch-attack
 $ npm run build-index
 $ npm run dev
 ```
+
+> **Note:** if your organization runs an SSL intercept proxy, you may get an SSL
+> error while running `fetch-attack`. If this happens, export your
+> organization's root certificates into a PEM-formatted file. (PEM is the format
+> that starts with `----- BEGIN CERTIFICATE -----`.) Then export the following
+> environment variable in your shell: `export
+> NODE_EXTRA_CA_CERTS=/path/to/organization/root_certificate.crt`. Now you
+> should be able to run `fetch-attack` successfully.
 
 At this point, the dev server is running and will automatically recompile after
 you change any source code files. You can develop and debug the code by visiting
@@ -109,6 +169,8 @@ To upgrade the extension to use a newer version of ATT&CK, there are a few
 changes that need to be made:
 
 * `fetch-attack.js`: update `attackUrls`
+* `SettingsPanel.svelte`: update the text inside the `<p class="credits">`
+  paragraph
 
 ### Releasing a New Version
 

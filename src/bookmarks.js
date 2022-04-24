@@ -1,8 +1,8 @@
 import { writable } from "svelte/store";
+import { loadFromStorage, saveToStorage } from "./storage.js";
 
 let bookmarks = [];
 let bookmarksSet = {};
-let saveTimer = null;
 
 /**
  * A store that contains an array of bookmarks.
@@ -15,10 +15,15 @@ export let bookmarksStore = writable(bookmarks)
  */
 export let bookmarksSetStore = writable(bookmarksSet)
 
-loadBookmarks().then(function (o) {
-    bookmarks = o.bookmarks;
+loadFromStorage("bookmarks").then(function (loadedBookmarks) {
+    bookmarks = loadedBookmarks;
     bookmarksStore.set(bookmarks);
-    bookmarksSet = o.bookmarksSet;
+
+    // Create bookmarks set
+    bookmarksSet = {};
+    for (let bookmark of bookmarks) {
+        bookmarksSet[bookmark.id] = true;
+    }
     bookmarksSetStore.set(bookmarksSet);
 });
 
@@ -79,62 +84,8 @@ export function removeBookmark(id) {
 }
 
 /**
- * Load bookmark data and return bookmarks array and bookmarks set.
- *
- * Supports chrome.storage (for Chrome extension) as well as local storage
- * (for dev environment).
- *
- * @returns {object} contains `bookmarks` and `bookmarksSet`
- */
-async function loadBookmarks() {
-    let bookmarks = [];
-    let bookmarksSet = {};
-
-    // Attempt to load bookmarks array from a storage backend.
-    if (chrome && chrome.storage) {
-        const storageResult = await chrome.storage.sync.get({ bookmarks: [] });
-        if (storageResult) {
-            bookmarks = storageResult.bookmarks;
-        }
-    } else if (localStorage) {
-        const bookmarksJson = localStorage.getItem("bookmarks");
-        try {
-            if (bookmarksJson) {
-                bookmarks = JSON.parse(bookmarksJson);
-            }
-        } catch (e) {
-            // Let bookmarks keep its default value.
-            console.log("Warning: unable to load bookmarks from local storage:", e);
-        }
-    } else {
-        console.log("Warning: no supported storage found.")
-    }
-
-    // Create bookmarks set
-    for (let bookmark of bookmarks) {
-        bookmarksSet[bookmark.id] = true;
-    }
-
-    return { bookmarks: bookmarks, bookmarksSet: bookmarksSet };
-}
-
-/**
- * Serialize the module variable `bookmarks` and save to a storage backend.
- *
- * This function is debounced by 500ms since it can be called rapidly when a
- * user is editing a value.
+ * Save the current set of bookmarks.
  */
 export function saveBookmarks() {
-    if (saveTimer) {
-        clearTimeout(saveTimer);
-    }
-
-    saveTimer = setTimeout(function () {
-        if (chrome && chrome.storage) {
-            chrome.storage.sync.set({ bookmarks: bookmarks });
-        } else if (localStorage) {
-            const bookmarksJson = JSON.stringify(bookmarks);
-            localStorage.setItem("bookmarks", bookmarksJson);
-        }
-    }, 500);
+    saveToStorage("bookmarks", bookmarks);
 }
