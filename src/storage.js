@@ -44,7 +44,6 @@ export function saveToStorage(key, value, debounce = 500) {
 export async function loadFromStorage(key) {
     let storedData = null;
 
-    // Attempt to load formats array from a storage backend.
     if (chrome && chrome.storage) {
         const storageResult = await chrome.storage.sync.get({ [key]: [] });
         if (storageResult) {
@@ -57,7 +56,6 @@ export async function loadFromStorage(key) {
                 storedData = JSON.parse(storedDataJson);
             }
         } catch (e) {
-            // Let formats keep its default value.
             console.log(`Warning: unable to load "${key}" from local storage:`, e);
         }
     } else {
