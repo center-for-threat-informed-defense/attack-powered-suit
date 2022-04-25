@@ -3,7 +3,7 @@
   "author": "Center for Threat-Informed Defense <ctid@mitre-engenuity.org>",
   "name": "ATT&CK Powered Suit",
   "description": "Quick access to ATT&CK resources.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "icons": {
     "16": "image/logo-16.png",
     "48": "image/logo-48.png",
