@@ -5,10 +5,9 @@
   "description": "Quick access to ATT&CK resources.",
   "version": "0.3.0",
   "icons": {
-    "16": "image/logo-16.png",
-    "48": "image/logo-48.png",
-    "128": "image/logo-128.png",
-    "192": "image/logo-192.png"
+    "32": "image/icon-32.png",
+    "48": "image/icon-48.png",
+    "128": "image/store-icon.png"
   },
   "minimum_chrome_version": "92",
   "background": {
@@ -37,10 +36,8 @@
   "action": {
     "default_popup": "index.html",
     "default_icon": {
-      "16": "image/logo-16.png",
-      "32": "image/logo-32.png",
-      "48": "image/logo-48.png",
-      "128": "image/logo-128.png"
+      "32": "image/icon-32.png",
+      "48": "image/icon-48.png"
     }
   },
   "options_page": "index.html?view=settings"
