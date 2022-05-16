@@ -10,6 +10,7 @@
 
     export let results = null;
 
+    const defaultMimeType = "text/plain";
     let highlightResultIdx = -1;
     let highlightFormatIdx = -1;
 
@@ -46,9 +47,9 @@
     async function copyFormat(format, object, resultIdx, formatIdx) {
         const text = formatObject(format.rule, object);
         let blobs = {
-            ["text/plain"]: new Blob([text], { type: "text/plain" }),
+            [defaultMimeType]: new Blob([text], { type: defaultMimeType }),
         };
-        if (format.mime != "text/plain") {
+        if (format.mime != defaultMimeType) {
             blobs[format.mime] = new Blob([text], { type: format.mime });
         }
         let clipboardItem = [new ClipboardItem(blobs)];

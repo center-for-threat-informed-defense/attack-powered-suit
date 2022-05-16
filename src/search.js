@@ -22,7 +22,7 @@ export const fuseOptions = {
     ],
 }
 
-const MAX_RESULTS = 25;
+const maxResults = 25;
 
 // The index is created empty at first. Data is added inside initializeSearch().
 let fuse = new Fuse([], fuseOptions);
@@ -54,7 +54,7 @@ export function search(query, filters) {
         const type = result.item.type;
         const deprecated = result.item.deprecated;
         if (filters[type] === true && (!deprecated || filters.deprecated === true)) {
-            if (resultCount < MAX_RESULTS) {
+            if (resultCount < maxResults) {
                 filteredResults.push(result);
             }
             resultCount++;

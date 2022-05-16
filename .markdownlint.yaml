@@ -1,0 +1,5 @@
+# Permit bare URLs in Markdown files.
+MD034: false
+
+# Disable requirement for first line of .md file to be an <h1> header.
+MD041: false

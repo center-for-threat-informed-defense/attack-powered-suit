@@ -41,15 +41,6 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PYTHON_BLACK_CONFIG_FILE: "pyproject.toml"
-          PYTHON_ISORT_CONFIG_FILE: "pyproject.toml"
-          VALIDATE_BASH: true
-          VALIDATE_BASH_EXEC: true
-          VALIDATE_DOCKERFILE_HADOLINT: true
-          VALIDATE_GITHUB_ACTIONS: true
-          VALIDATE_PYTHON: true
-          VALIDATE_PYTHON_BLACK: true
-          VALIDATE_PYTHON_FLAKE8: true
-          VALIDATE_PYTHON_ISORT: true
-          VALIDATE_SHELL_SHFMT: true
-          VALIDATE_TERRAFORM_TFLINT: true
+          # Keep these validations in sync with the npm run lint script in package.json:
+          VALIDATE_JAVASCRIPT_ES: true
+          VALIDATE_MARKDOWN: true

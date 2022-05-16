@@ -88,7 +88,7 @@
 </p>
 
 <p class="credits">
-    ATT&CK® Powered Suit is created by the
+    ATT&CK® Powered Suit is based on ATT&CK v10.1. It is maintained by the
     <a href="https://ctid.mitre-engenuity.org/" target="_blank"
         >Center for Threat-Informed Defense
         <i class="bi bi-box-arrow-up-right" /></a
@@ -99,6 +99,8 @@
         bi-stars"
     />
 </p>
+
+<p />
 
 <style>
     .remove-format {

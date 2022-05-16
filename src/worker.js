@@ -4,7 +4,7 @@
 
 import { initializeSearch, search } from "./search.js";
 
-const attackRegex = /^(TA|T|S|M|G|DS)-?(\d{3,5})$/;
+const attackRegex = /^(TA|T|S|M|G|DS)-?(\d{4})(\.\d{3})?$/;
 const attackUrls = {
     "TA": "https://attack.mitre.org/tactics/{id}/",
     "T": "https://attack.mitre.org/techniques/{id}/",
@@ -40,7 +40,11 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     } else if (info.menuItemId == "lookup") {
         const match = attackRegex.exec(selection);
         const attackType = match[1].toUpperCase();
-        const attackId = `${match[1]}${match[2]}`;
+        let attackId = `${match[1]}${match[2]}`;
+        if (match[3]) {
+            const subId = match[3].substring(1);
+            attackId = `${attackId}/${subId}`;
+        }
         const url = attackUrls[attackType].replace("{id}", attackId);
         chrome.tabs.create({ url });
     }
