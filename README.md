@@ -222,8 +222,7 @@ NPM automatically does the following:
 If you are satisfied with the changes, you just need to push them, e.g.
 
 ```shell
-git push
-git push origin v0.2.0
+$ git push --follow-tags
 ```
 
 ## Notice
