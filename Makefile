@@ -21,8 +21,8 @@ install: ## Install dependencies
 pre-commit-run: test ## Run pre-commit hooks on all files
 
 .PHONY: clean
-clean: clean ## Clean up build directory and Node.JS packages
-	rm -f public/build node_modules
+clean: clean ## Clean up data, build, and dependencies
+	rm -fr data public/build node_modules
 
 .PHONY: lint
 lint: ## Lint code

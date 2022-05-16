@@ -1,5 +1,6 @@
+[![attack](https://img.shields.io/badge/ATT%26CK-v11-red)](https://attack.mitre.org/versions/v11/)
 [![build](https://github.com/center-for-threat-informed-defense/attack-powered-suit/actions/workflows/build.yml/badge.svg)](https://github.com/center-for-threat-informed-defense/attack-powered-suit/actions/workflows/build.yml)
-[![codecov](https://codecov.io/gh/center-for-threat-informed-defense/attack-powered-suit/branch/main/graph/badge.svg?token=ejCIZhBRGr)](https://codecov.io/gh/center-for-threat-informed-defense/attack-powered-suit)
+[![codecov](https://img.shields.io/codecov/c/github/center-for-threat-informed-defense/attack-powered-suit?token=ejCIZhBRGr)](https://codecov.io/gh/center-for-threat-informed-defense/attack-powered-suit)
 
 # ATT&CK Powered Suit
 
@@ -194,6 +195,14 @@ changes that need to be made:
 * `fetch-attack.js`: update `attackUrls`
 * `SettingsPanel.svelte`: update the text inside the `<p class="credits">`
   paragraph
+
+After making these changes, run these commands again to download the new release
+and re-index it:
+
+```shell
+npm run fetch-attack
+npm run build-index
+```
 
 ### Releasing a New Version
 
