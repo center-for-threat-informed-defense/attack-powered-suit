@@ -141,6 +141,10 @@ you change any source code files. You can develop and debug the code by visiting
 each time the source code is saved, which is useful for rapid development
 cycles.
 
+> **Note:** If port 8080 is unavailable on your machine, you can run the dev
+> server on a different port by setting `PORT` in the environment, e.g.
+> `PORT=1234 npm run dev` to run on port 1234.
+
 Alternately, you can load it as an extension into chrome:
 
 1. Go to the extensions settings.

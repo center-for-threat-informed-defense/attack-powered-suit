@@ -9,7 +9,7 @@
     "48": "image/icon-48.png",
     "128": "image/store-icon.png"
   },
-  "minimum_chrome_version": "92",
+  "minimum_chrome_version": "101",
   "background": {
     "service_worker": "build/worker.js",
     "type": "module"
