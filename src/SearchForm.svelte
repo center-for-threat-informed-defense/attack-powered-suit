@@ -47,7 +47,7 @@
     }
 </script>
 
-<h1>ATT&amp;CK® Powered Suit</h1>
+<h1>ATT&amp;CK Powered Suit</h1>
 
 <form on:submit={(e) => e.preventDefault()}>
     <div class="search-row">
@@ -204,6 +204,11 @@
         margin-bottom: 0.5rem;
     }
 
+    .form-check-input:checked {
+        background-color: var(--me-core-purple);
+        border-color: var(--me-core-purple);
+    }
+
     .search-row {
         display: flex;
     }
@@ -213,7 +218,7 @@
     }
 
     .nav-icons * {
-        color: var(--bs-red);
+        color: var(--me-core-purple);
         display: block;
         margin-left: 0.5em;
         position: relative;

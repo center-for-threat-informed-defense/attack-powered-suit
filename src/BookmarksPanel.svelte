@@ -35,7 +35,7 @@
 </script>
 
 <BackButton on:back={() => dispatch("showSearch")} />
-<h2>ATT&CK® Powered Suit</h2>
+<h2>ATT&CK Powered Suit</h2>
 <h3><i class="bi bi-bookmark-fill" /> Bookmarks</h3>
 
 <table class="table">
@@ -165,12 +165,13 @@
     }
 
     .bookmark-icon {
-        color: var(--bs-success);
+        cursor: pointer;
+        color: var(--me-ext-green-dark);
         font-size: 1.4em;
     }
 
     .bookmark-icon:hover {
-        color: var(--bs-secondary);
+        color: var(--me-ext-green-highlighter);
     }
 
     .color-picker {

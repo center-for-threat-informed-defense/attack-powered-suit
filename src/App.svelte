@@ -4,7 +4,7 @@
     import SettingsPanel from "./SettingsPanel.svelte";
 
     const params = new URLSearchParams(window.location.search);
-    let selectedPanel = params.get("view") || "search";
+    let selectedPanel = params.get("view") || "search"; // TODO
 </script>
 
 <main>

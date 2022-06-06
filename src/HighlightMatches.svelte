@@ -44,6 +44,6 @@
 
 <style>
     .highlight {
-        color: var(--bs-red);
+        color: var(--me-ext-orange-dark);
     }
 </style>

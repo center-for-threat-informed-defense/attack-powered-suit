@@ -17,7 +17,7 @@
 </script>
 
 <BackButton on:back={() => dispatch("showSearch")} />
-<h2>ATT&CK® Powered Suit</h2>
+<h2>ATT&CK Powered Suit</h2>
 <h3><i class="bi bi-gear-fill" /> Settings</h3>
 
 <div class="gray-box">
@@ -88,10 +88,9 @@
 </p>
 
 <p class="credits">
-    ATT&CK® Powered Suit is based on ATT&CK v11. It is maintained by the
-    <a href="https://ctid.mitre-engenuity.org/" target="_blank"
-        >Center for Threat-Informed Defense
-        <i class="bi bi-box-arrow-up-right" /></a
+    Powered Suit is based on MITRE ATT&CK® v11. It is maintained by the <a
+        href="https://ctid.mitre-engenuity.org"
+        >Center for Threat-Informed Defense</a
     >. Special thanks to Toshitaka Satomi from Fujitsu for sharing the idea and
     code.
     <i
@@ -104,11 +103,12 @@
 
 <style>
     .remove-format {
-        color: var(--bs-danger);
+        cursor: pointer;
+        color: var(--me-ext-orange-dark);
     }
 
     .remove-format:hover {
-        color: var(--bs-secondary);
+        color: var(--me-ext-orange-highlighter);
     }
 
     .credits {

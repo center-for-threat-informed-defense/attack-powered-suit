@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     position: relative;
     width: 100%;
     height: 100%;
@@ -11,43 +12,100 @@ body {
     max-width: 800px;
     padding: 1rem;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+
+    /* MITRE Engenuity Core Colors */
+    --me-core-yellow: #FFF601;
+    --me-core-green: #7DEA49;
+    --me-core-purple-light: #726DE2;
+    --me-core-purple: #6241C5;
+    --me-core-purple-dark: #2B1972;
+    --me-core-blue-dark: #212C5E;
+    --me-core-blue-darker: #0F1538;
+    --me-core-gray-light: #F0F1F2;
+    --me-core-gray: #B2B2B2;
+
+    /* MITRE Engenuity Extended Colors */
+    --me-ext-navy: #212C5E;
+    --me-ext-navy-dark: #0F1538;
+    --me-ext-blue: #0096D1;
+    --me-ext-blue-dark: #005B94;
+    --me-ext-gray-green: #4DA185;
+    --me-ext-gray-green-dark: #024F48;
+    --me-ext-teal-highlighter: #29E6D0;
+    --me-ext-teal-dark: #15B7AD;
+    --me-ext-green-highlighter: #7DEA49;
+    --me-ext-green-dark: #3CAB41;
+    --me-ext-yellow-highlighter: #FFF601;
+    --me-ext-yellow-dark: #FEDB22;
+    --me-ext-orange-highlighter: #FF8A36;
+    --me-ext-orange-dark: #F56600;
+    --me-ext-cranberry-highlighter: #FF006B;
+    --me-ext-cranberry-dark: #BD0044;
 }
 
-h1, h2, h3 {
-    color: var(--bs-red);
-    text-transform: uppercase;
+h1,
+h2,
+h3 {
+    color: var(--me-core-purple);
     text-align: center;
+    font-family: 'Arial Nova', 'Helvetica Neue', Helvetica, sans-serif;
 }
 
 h1 {
     font-size: 3em;
     font-weight: 100;
+    text-transform: uppercase;
 }
 
 h2 {
     font-size: 2em;
     font-weight: 100;
+    text-transform: uppercase;
 }
 
 h3 {
     font-size: 1em;
+    font-weight: 400;
 }
 
-a:link, a.hover {
+a {
+    color: var(--me-core-purple-light);
+}
+
+a:link,
+a.hover {
     text-decoration: none;
+}
+
+button.btn.btn-primary {
+    background-color: var(--me-core-purple);
+    border-color: var(--me-core-purple);
+}
+
+button.btn.btn-danger {
+    background-color: var(--me-ext-orange-dark);
+    border-color: var(--me-ext-orange-dark);
+}
+
+input.form-control {
+    border: 1px solid var(--me-core-gray);
+}
+
+span.badge.bg-primary {
+    background-color: var(--me-core-purple-light) !important;
 }
 
 /* Hide number input arrows in Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Hide number input arrows in Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 
 table td {
@@ -61,7 +119,7 @@ td.nothing-found {
 }
 
 .gray-box {
-    background-color: #e5ebf1;
+    background-color: var(--me-core-gray-light);
     padding: 0.75rem;
     border-radius: 0.25rem;
 }

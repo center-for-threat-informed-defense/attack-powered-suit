@@ -80,6 +80,8 @@ target/
 # PyCharm
 .idea/
 
+.vscode/
+
 # IPython
 profile_default/
 ipython_config.py

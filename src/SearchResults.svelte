@@ -176,7 +176,11 @@
     }
 
     .remove-bookmark {
-        color: var(--bs-success);
+        color: var(--me-ext-green-dark);
+    }
+
+    .remove-bookmark:hover {
+        color: var(--me-ext-green-highlighter);
     }
 
     .result-id,
@@ -186,10 +190,10 @@
 
     .format {
         margin-right: 1rem;
-        color: var(--bs-primary);
+        color: var(--me-core-purple-light);
     }
 
     .format:hover {
-        color: var(--bs-secondary);
+        color: var(--me-core-purple);
     }
 </style>
