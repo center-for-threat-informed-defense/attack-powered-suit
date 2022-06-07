@@ -15,17 +15,22 @@ export let bookmarksStore = writable(bookmarks)
  */
 export let bookmarksSetStore = writable(bookmarksSet)
 
-loadFromStorage("bookmarks").then(function (loadedBookmarks) {
-    bookmarks = loadedBookmarks;
-    bookmarksStore.set(bookmarks);
+/**
+ * Initialize bookmarks.
+ */
+export function initializeBookmarks() {
+    return loadFromStorage("bookmarks").then(function (loadedBookmarks) {
+        bookmarks = loadedBookmarks;
+        bookmarksStore.set(bookmarks);
 
-    // Create bookmarks set
-    bookmarksSet = {};
-    for (let bookmark of bookmarks) {
-        bookmarksSet[bookmark.id] = true;
-    }
-    bookmarksSetStore.set(bookmarksSet);
-});
+        // Create bookmarks set
+        bookmarksSet = {};
+        for (let bookmark of bookmarks) {
+            bookmarksSet[bookmark.id] = true;
+        }
+        bookmarksSetStore.set(bookmarksSet);
+    });
+}
 
 /**
  * Add the specified object to the bookmarks.

@@ -1,10 +1,19 @@
 <script>
+    import { onMount } from "svelte";
+
     import BookmarksPanel from "./BookmarksPanel.svelte";
     import SearchPanel from "./SearchPanel.svelte";
     import SettingsPanel from "./SettingsPanel.svelte";
+    import { initializeBookmarks } from "./bookmarks";
+    import { initializeFormats } from "./formats";
 
     const params = new URLSearchParams(window.location.search);
     let selectedPanel = params.get("view") || "search"; // TODO
+
+    onMount(async () => {
+        await initializeBookmarks();
+        await initializeFormats();
+    });
 </script>
 
 <main>

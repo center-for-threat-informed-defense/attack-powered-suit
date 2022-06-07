@@ -24,18 +24,23 @@ export function formatObject(format, object) {
         .replace("{url}", object.url);
 }
 
-loadFromStorage("formats").then(function (f) {
-    formats = f ?? [];
+/**
+ * Initialize formats.
+ */
+export function initializeFormats() {
+    return loadFromStorage("formats").then(function (f) {
+        formats = f ?? [];
 
-    // Set up initial formats if none found.
-    if (formats.length === 0) {
-        addFormat("Name", "{name}", "text/plain");
-        addFormat("Summary", "{id} ({type}): {name} – {description}", "text/plain");
-        addFormat("Link", '<a href="{url}">{id}: {name}</a>', "text/html");
-    }
+        // Set up initial formats if none found.
+        if (formats.length === 0) {
+            addFormat("Name", "{name}", "text/plain");
+            addFormat("Summary", "{id} ({type}): {name} – {description}", "text/plain");
+            addFormat("Link", '<a href="{url}">{id}: {name}</a>', "text/html");
+        }
 
-    formatsStore.set(formats);
-});
+        formatsStore.set(formats);
+    });
+}
 
 /**
  * Add the specified object to the formats.

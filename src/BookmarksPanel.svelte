@@ -2,7 +2,7 @@
     import { createEventDispatcher } from "svelte";
     import { fade } from "svelte/transition";
     import { bookmarksStore, removeBookmark, saveBookmarks } from "./bookmarks";
-    import { buildAttackLayer } from "./attackLayer";
+    import { buildAttackLayer } from "./attack";
     import BackButton from "./BackButton.svelte";
 
     const dispatch = createEventDispatcher();

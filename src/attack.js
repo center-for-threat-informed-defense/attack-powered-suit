@@ -1,3 +1,35 @@
+const attackRegex = /(TA|T|S|M|G|DS)-?(\d{4})(\.\d{3})?/;
+
+const attackUrls = {
+    "TA": "https://attack.mitre.org/tactics/{id}/",
+    "T": "https://attack.mitre.org/techniques/{id}/",
+    "S": "https://attack.mitre.org/software/{id}/",
+    "M": "https://attack.mitre.org/mitigations/{id}/",
+    "G": "https://attack.mitre.org/groups/{id}/",
+    "DS": "https://attack.mitre.org/datasources/{id}/",
+}
+
+/**
+ * Extract an ATT&CK object ID from text and convert to an ATT&CK URL.
+ *
+ */
+export function getAttackUrl(text) {
+    const match = attackRegex.exec(text);
+    var result = null;
+    if (match === null) {
+        result = null;
+    } else {
+        const attackType = match[1].toUpperCase();
+        let attackId = `${match[1]}${match[2]}`;
+        if (match[3]) {
+            const subId = match[3].substring(1);
+            attackId = `${attackId}/${subId}`;
+        }
+        result = attackUrls[attackType].replace("{id}", attackId);
+    }
+    return result;
+}
+
 /**
  * Build an attack layer using the template below and the specified parameters.
  *
@@ -31,9 +63,9 @@ export function buildAttackLayer(attackDomain, layerTitle, defaultColor,
 const layerTemplate = {
     name: null, // This is filled in by buildLayer().
     versions: {
-        attack: "10",
-        navigator: "4.5.5",
-        layer: "4.3",
+        "attack": "11",
+        "navigator": "4.6.4",
+        "layer": "4.3"
     },
     domain: null, // This is filled in by buildLayer().
     description: "",

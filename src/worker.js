@@ -2,19 +2,12 @@
  * The background script for the Chrome extension.
  */
 
+import { getAttackUrl } from "./attack.js";
 import { initializeSearch, search } from "./search.js";
 
-const attackRegex = /^(TA|T|S|M|G|DS)-?(\d{4})(\.\d{3})?$/;
-const attackUrls = {
-    "TA": "https://attack.mitre.org/tactics/{id}/",
-    "T": "https://attack.mitre.org/techniques/{id}/",
-    "S": "https://attack.mitre.org/software/{id}/",
-    "M": "https://attack.mitre.org/mitigations/{id}/",
-    "G": "https://attack.mitre.org/groups/{id}/",
-    "DS": "https://attack.mitre.org/datasources/{id}/",
-}
-
 /* Set up Chrome context menus. */
+
+chrome = chrome ?? null;
 
 chrome.contextMenus.removeAll();
 
@@ -38,14 +31,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         const url = chrome.runtime.getURL(`index.html?q=${query}`);
         chrome.tabs.create({ url });
     } else if (info.menuItemId == "lookup") {
-        const match = attackRegex.exec(selection);
-        const attackType = match[1].toUpperCase();
-        let attackId = `${match[1]}${match[2]}`;
-        if (match[3]) {
-            const subId = match[3].substring(1);
-            attackId = `${attackId}/${subId}`;
-        }
-        const url = attackUrls[attackType].replace("{id}", attackId);
+        const url = getAttackUrl(selection)
         chrome.tabs.create({ url });
     }
 });
