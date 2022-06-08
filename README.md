@@ -28,17 +28,24 @@
 
 ### Search
 
-ATT&CK® Powered Suit is a browser extension that puts the complete ATT&CK
-taxonomy at your fingertips with text search, context menus, and ATT&CK
-Navigator integration. This extension is available at the top of your browser
-window for immediate access, regardless of what site you are currently on.
+Powered Suit puts the MITRE ATT&CK® knowledge base at your fingertips. Instantly
+search ATT&CK techniques, groups, and more without disrupting your workflow.
+Copy snippets into a notebook to streamline your research. Export selected
+techniques to ATT&CK navigator. The extension supports context menus, omnibar
+support, and more.
 
 ![animated gif showing how to search in ATT&CK Powered
 Suit](./media/overview.gif)
 
-Powered Suit is ideal for cyber threat intelligence (CTI) analysts and
-researchers because it puts ATT&CK at your fingertips without disrupting your
-workflow.
+ATT&CK Powered Suit is created by the Center for Threat-Informed Defense and
+released for free (and with open source code) in service of our mission: to
+advance the state of the art and the state of the practice in threat-informed
+defense globally.
+
+The Center for Threat-Informed Defense does not collect or share any data about
+users or their usage of ATT&CK Powered Suit. Search queries and other features
+are performed locally in the browser. If you are signed into Chrome using a
+Google account, then your bookmarks data is synced via your Google account.
 
 ### Deep Links
 
@@ -108,9 +115,10 @@ directly for more general inquiries.
 
 ### IDE
 
-This project uses the [Svelte web framework]. In your text editor or IDE, you
-should install the Svelte plugin for language support and auto-formatting. For
-Visual Studio Code, the recommended extension is [Svelte for VS
+This project uses the [Svelte web framework](https://svelte.dev/). In your text
+editor or IDE, you should install the Svelte plugin for language support and
+auto-formatting. For Visual Studio Code, the recommended extension is [Svelte
+for VS
 Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
 
 ### Developer Setup
