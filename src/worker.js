@@ -12,6 +12,12 @@ chrome = chrome ?? null;
 chrome.contextMenus.removeAll();
 
 chrome.contextMenus.create({
+    "id": "new-tab",
+    "title": 'Open in new tab',
+    "contexts": ["selection"],
+});
+
+chrome.contextMenus.create({
     "id": "search",
     "title": 'Search ATT&&CK for "%s"',
     "contexts": ["selection"],
@@ -26,7 +32,10 @@ chrome.contextMenus.create({
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     var selection = info.selectionText.trim();
 
-    if (info.menuItemId == "search") {
+    if (info.menuItemId == "new-tab") {
+        const url = chrome.runtime.getURL(`index.html`);
+        chrome.tabs.create({ url });
+    } else if (info.menuItemId == "search") {
         const query = encodeURIComponent(selection);
         const url = chrome.runtime.getURL(`index.html?q=${query}`);
         chrome.tabs.create({ url });
