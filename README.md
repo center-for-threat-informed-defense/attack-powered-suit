@@ -78,9 +78,9 @@ Otherwise, choose "Search in ATT&CK" to view the search results.
 
 ## Installation
 
-In the near future, this extension will be available for installation from the
-Chrome Web Store. In the meantime, you can follow the [Developer
-Setup](#developer-setup) instructions to install the extension.
+Click this download ATT&CK Powered Suit for free from the Chrome Web Store.
+
+[![Chrome Web Store badge](media/chrome_web_store.png)](https://chrome.google.com/webstore/detail/attck-powered-suit/gfhomppaadldngjnmbefmmiokgefjddd?hl=en&authuser=0)
 
 ## Community
 
