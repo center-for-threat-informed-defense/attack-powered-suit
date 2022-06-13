@@ -47,7 +47,16 @@
     }
 </script>
 
-<h1>ATT&amp;CK Powered Suit</h1>
+<div class="title">
+    <a class="logo" href="https://ctid.mitre-engenuity.org/" target="_blank"
+        ><img
+            src="/image/ctid-logo.png"
+            alt="Logo for MITRE Engenuity Center for Threat-Informed Defense"
+        /></a
+    >
+
+    <h1>ATT&amp;CK Powered Suit</h1>
+</div>
 
 <form on:submit={(e) => e.preventDefault()}>
     <div class="search-row">
@@ -200,6 +209,26 @@
 </form>
 
 <style>
+    div.title {
+        clear: both;
+        margin-top: 0.5em;
+        margin-bottom: 1.5em;
+    }
+
+    div.title a.logo {
+        display: block;
+        float: left;
+    }
+
+    div.title a.logo img {
+        width: 8em;
+    }
+
+    div.title h1 {
+        text-align: right;
+        font-size: 28pt;
+    }
+
     input {
         margin-bottom: 0.5rem;
     }
