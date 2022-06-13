@@ -208,6 +208,10 @@
     </div>
 </form>
 
+{#if results === null}
+    <p class="notice">Powered Suit uses MITRE ATT&CK® v11.</p>
+{/if}
+
 <style>
     div.title {
         clear: both;
@@ -256,5 +260,12 @@
 
     .nav-icons *:hover {
         color: var(--bs-secondary);
+    }
+
+    .notice {
+        margin: 1em 0 0 0;
+        color: var(--bs-secondary);
+        text-align: center;
+        font-size: 10pt;
     }
 </style>

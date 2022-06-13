@@ -88,7 +88,7 @@
 </p>
 
 <p class="credits">
-    Powered Suit is based on MITRE ATT&CK® v11. It is maintained by the <a
+    ATT&CK Powered Suit is published by the <a
         href="https://ctid.mitre-engenuity.org"
         >Center for Threat-Informed Defense</a
     >. Special thanks to Toshitaka Satomi from Fujitsu for sharing the idea and
