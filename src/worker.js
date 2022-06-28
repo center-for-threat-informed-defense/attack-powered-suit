@@ -13,8 +13,8 @@ chrome.contextMenus.removeAll();
 
 chrome.contextMenus.create({
     "id": "new-tab",
-    "title": 'Open in new tab',
-    "contexts": ["selection"],
+    "title": 'Open ATT&&CK Powered Suit in new tab',
+    "contexts": ["page", "selection"],
 });
 
 chrome.contextMenus.create({
@@ -25,12 +25,12 @@ chrome.contextMenus.create({
 
 chrome.contextMenus.create({
     "id": "lookup",
-    "title": 'Go to selected ATT&&CK object',
+    "title": 'Go to selected ATT&CK object',
     "contexts": ["selection"],
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-    var selection = info.selectionText.trim();
+    var selection = (info.selectionText ?? "").trim();
 
     if (info.menuItemId == "new-tab") {
         const url = chrome.runtime.getURL(`index.html`);
@@ -47,9 +47,21 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 
 chrome.runtime.onMessage.addListener(
     (message, sender, sendResponse) => {
-        if (message.request == "setAttackLookupEnabled") {
+        if (message.request == "setLookupAttackId") {
+            let title;
+            if (message.selectedAttackId === null) {
+                title = 'Go to selected ATT&CK object';
+            } else {
+                title = `Go to "${message.selectedAttackId}" in ATT&&CK`;
+            }
+            // There's a known race condition where setting the menu title may
+            // not take effect prior to the menu being rendered. This could
+            // lead to undesirable behavior, i.e. the user seeing the wrong
+            // technique ID in the context menu.
+            // https://bugs.chromium.org/p/chromium/issues/detail?id=60758
             chrome.contextMenus.update("lookup", {
-                enabled: message.attackSelected,
+                enabled: message.selectedAttackId !== null,
+                title,
             });
             return true;
         }
