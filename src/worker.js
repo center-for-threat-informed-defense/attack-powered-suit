@@ -25,7 +25,7 @@ chrome.contextMenus.create({
 
 chrome.contextMenus.create({
     "id": "lookup",
-    "title": 'Go to selected ATT&CK object',
+    "title": 'Go to selected ATT&&CK object',
     "contexts": ["selection"],
 });
 
@@ -50,7 +50,7 @@ chrome.runtime.onMessage.addListener(
         if (message.request == "setLookupAttackId") {
             let title;
             if (message.selectedAttackId === null) {
-                title = 'Go to selected ATT&CK object';
+                title = 'Go to selected ATT&&CK object';
             } else {
                 title = `Go to "${message.selectedAttackId}" in ATT&&CK`;
             }
