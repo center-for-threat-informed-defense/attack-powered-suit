@@ -8,7 +8,7 @@
     import { initializeFormats } from "./formats";
 
     const params = new URLSearchParams(window.location.search);
-    let selectedPanel = params.get("view") || "search"; // TODO
+    let selectedPanel = params.get("view") || "search";
 
     onMount(async () => {
         await initializeBookmarks();
