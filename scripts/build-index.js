@@ -34,11 +34,13 @@ const mitreSources = {
  *
  * ATT&CK uses a combination of Markdown and HTML tags, so the easiest way to
  * clean it is to render the Markdown to HTML, then convert HTML back to plain
- * text.
+ * text. Older versions of ATT&CK may not be parsable as Markdown, so in that
+ * case just return the original text.
  */
 function cleanAttackText(text) {
+    const trimmed = text.trim();
     const html = marked.parse(text);
-    return convert(html);
+    return convert(html) ?? trimmed;
 }
 
 /**
@@ -79,6 +81,11 @@ function extractAttackObject(stixObject) {
         throw new Exception("Could not derive ATT&CK type from STIX object.");
     }
 
+    // The "deprecated" field is based on logic described here:
+    // https://github.com/mitre/cti/blob/master/USAGE.md#working-with-deprecated-and-revoked-objects
+    attackObject.deprecated = stixObject.x_mitre_deprecated === true ||
+        stixObject.revoked === true;
+
     return attackObject;
 }
 
@@ -114,6 +121,7 @@ function main() {
         group: 0, mitigation: 0, dataSource: 0,
     };
     const uniqueObjectIds = {};
+    let deprecatedCount = 0;
 
     for (const inputFile of inputFiles) {
         process.stderr.write(`Reading ${inputFile}… `);
@@ -123,6 +131,9 @@ function main() {
             }
             uniqueObjectIds[attackObject.id] = true;
             objectCounts[attackObject.type]++;
+            if (attackObject.deprecated) {
+                deprecatedCount++;
+            }
             attackObjects.push(attackObject);
         }
         process.stderr.write("done\n");
@@ -140,6 +151,7 @@ function main() {
     for (const [type, count] of Object.entries(objectCounts)) {
         process.stderr.write(` * ${type}: ${count}\n`)
     }
+    process.stderr.write(`Deprecated object count: ${deprecatedCount}\n`);
 
     process.stderr.write("Done.\n");
 }
