@@ -15,12 +15,15 @@ const inputFiles = [
     "data/mobile-attack.json",
 ];
 
+// Note that attack-pattern is handled outside of this map, since it can
+// be a technique or a subtechnique.
 const stixTypeToAttackTypeMap = {
-    "x-mitre-tactic": "tactic",
-    "malware": "software",
     "course-of-action": "mitigation",
     "intrusion-set": "group",
+    "malware": "software",
+    "tool": "software",
     "x-mitre-data-source": "dataSource",
+    "x-mitre-tactic": "tactic",
 };
 
 const mitreSources = {
