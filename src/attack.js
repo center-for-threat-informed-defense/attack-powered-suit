@@ -10,22 +10,39 @@ const attackUrls = {
 }
 
 /**
- * Extract an ATT&CK object ID from text and convert to an ATT&CK URL.
- *
+ * Extract an ATT&CK object ID and it's type (i.e. prefix) from text.
  */
-export function getAttackUrl(text) {
+function getAttackTypeAndId(text) {
     const match = attackRegex.exec(text);
-    var result = null;
-    if (match === null) {
-        result = null;
-    } else {
-        const attackType = match[1].toUpperCase();
-        let attackId = `${match[1]}${match[2]}`;
+    let attackType, attackId = null;
+    if (match !== null) {
+        attackType = match[1].toUpperCase();
+        attackId = `${attackType}${match[2]}`;
         if (match[3]) {
             const subId = match[3].substring(1);
-            attackId = `${attackId}/${subId}`;
+            attackId = `${attackId}.${subId}`;
         }
-        result = attackUrls[attackType].replace("{id}", attackId);
+    }
+    return { attackType, attackId };
+}
+
+/**
+ * Extract an ATT&CK object ID from text.
+ */
+export function getAttackId(text) {
+    const { attackId } = getAttackTypeAndId(text);
+    return attackId;
+}
+
+/**
+ * Extract an ATT&CK object ID from text and convert to an ATT&CK URL.
+ */
+export function getAttackUrl(text) {
+    var result = null;
+    const { attackType, attackId } = getAttackTypeAndId(text);
+    if (attackId !== null) {
+        const attackPath = attackId.replace(".", "/");
+        result = attackUrls[attackType].replace("{id}", attackPath);
     }
     return result;
 }

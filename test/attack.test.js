@@ -1,4 +1,4 @@
-import { buildAttackLayer, getAttackUrl } from "../src/attack.js";
+import { buildAttackLayer, getAttackId, getAttackUrl } from "../src/attack.js";
 
 describe("attack.js", () => {
     test("export ATT&CK navigator layer", () => {
@@ -76,6 +76,12 @@ describe("attack.js", () => {
             selectTechniquesAcrossTactics: true,
             selectSubtechniquesWithParent: false,
         });
+    });
+
+    test("extract an ATT&CK ID from text", () => {
+        expect(getAttackId("see the T1548 technique")).toBe("T1548");
+        expect(getAttackId("lsass memory (T1003.001) dump")).toBe("T1003.001");
+        expect(getAttackId("the attacker uses S0002 to dump")).toBe("S0002");
     });
 
     test("convert text to ATT&CK URL", () => {
