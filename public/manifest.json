@@ -28,7 +28,6 @@
     "keyword": "attack"
   },
   "permissions": [
-    "activeTab",
     "clipboardWrite",
     "contextMenus",
     "storage"
