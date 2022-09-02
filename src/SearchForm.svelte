@@ -19,6 +19,9 @@
     let dataSourcesEnabled = true;
     let groupsEnabled = true;
     let deprecatedEnabled = false;
+    let enterpriseEnabled = true;
+    let ICSEnabled = true;
+    let mobileEnabled = true;
 
     onMount(() => {
         initializeSearch().then(() => {
@@ -42,6 +45,9 @@
                 dataSource: dataSourcesEnabled,
                 group: groupsEnabled,
                 deprecated: deprecatedEnabled,
+                Enterprise: enterpriseEnabled,
+                ICS: ICSEnabled,
+                Mobile: mobileEnabled,
             });
         }
     }
@@ -129,6 +135,20 @@
                     >
                 </div>
             </div>
+            <div class="col">
+                <div class="form-check form-switch">
+                    <input
+                        id="Enterprise"
+                        type="checkbox"
+                        role="switch"
+                        class="form-check-input"
+                        bind:checked={enterpriseEnabled}
+                    />
+                    <label for="mitigations" class="form-check-label"
+                        >Enterprise</label
+                    >
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col">
@@ -173,6 +193,19 @@
                     >
                 </div>
             </div>
+            <div class="col">
+                <div class="form-check form-switch">
+                    <input
+                        id="ICS"
+                        type="checkbox"
+                        role="switch"
+                        class="form-check-input"
+                        bind:checked={ICSEnabled}
+                    />
+                    <label for="mitigations" class="form-check-label">ICS</label
+                    >
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col">
@@ -201,6 +234,20 @@
                     />
                     <label for="deprecated" class="form-check-label"
                         >Deprecated</label
+                    >
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check form-switch">
+                    <input
+                        id="Mobile"
+                        type="checkbox"
+                        role="switch"
+                        class="form-check-input"
+                        bind:checked={mobileEnabled}
+                    />
+                    <label for="mitigations" class="form-check-label"
+                        >Mobile</label
                     >
                 </div>
             </div>

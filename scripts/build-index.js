@@ -64,6 +64,17 @@ function extractAttackObject(stixObject) {
         if (reference.source_name in mitreSources) {
             attackObject.id = reference.external_id;
             attackObject.url = reference.url;
+            switch (reference.source_name) {
+                case "mitre-attack":
+                    attackObject.source_name = "Enterprise";
+                    break;
+                case "mitre-ics-attack":
+                    attackObject.source_name = "ICS";
+                    break;
+                case "mitre-mobile-attack":
+                    attackObject.source_name = "Mobile";
+                    break;
+            }
             break;
         }
     }
