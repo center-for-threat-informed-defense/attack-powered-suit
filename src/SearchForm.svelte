@@ -20,7 +20,7 @@
     let groupsEnabled = true;
     let deprecatedEnabled = false;
     let enterpriseEnabled = true;
-    let ICSEnabled = true;
+    let icsEnabled = true;
     let mobileEnabled = true;
 
     onMount(() => {
