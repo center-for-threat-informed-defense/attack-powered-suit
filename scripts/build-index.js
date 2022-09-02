@@ -74,6 +74,9 @@ function extractAttackObject(stixObject) {
                 case "mitre-mobile-attack":
                     attackObject.source_name = "Mobile";
                     break;
+                default:
+                    process.stderr.write(`warning: could not determine the matrix for object:${attackObject.id}\n`);
+                    break;
             }
             break;
         }
