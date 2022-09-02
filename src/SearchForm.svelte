@@ -97,20 +97,6 @@
             <div class="col">
                 <div class="form-check form-switch">
                     <input
-                        id="techniques"
-                        type="checkbox"
-                        role="switch"
-                        class="form-check-input"
-                        bind:checked={techniquesEnabled}
-                    />
-                    <label for="techniques" class="form-check-label"
-                        >Techniques</label
-                    >
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-check form-switch">
-                    <input
                         id="tactics"
                         type="checkbox"
                         role="switch"
@@ -154,14 +140,14 @@
             <div class="col">
                 <div class="form-check form-switch">
                     <input
-                        id="subtechniques"
+                        id="techniques"
                         type="checkbox"
                         role="switch"
                         class="form-check-input"
-                        bind:checked={subtechniquesEnabled}
+                        bind:checked={techniquesEnabled}
                     />
-                    <label for="subtechniques" class="form-check-label"
-                        >Sub-techniques</label
+                    <label for="techniques" class="form-check-label"
+                        >Techniques</label
                     >
                 </div>
             </div>
@@ -182,6 +168,66 @@
             <div class="col">
                 <div class="form-check form-switch">
                     <input
+                        id="ICS"
+                        type="checkbox"
+                        role="switch"
+                        class="form-check-input"
+                        bind:checked={icsEnabled}
+                    />
+                    <label for="mitigations" class="form-check-label">ICS</label
+                    >
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-check form-switch">
+                    <input
+                        id="subtechniques"
+                        type="checkbox"
+                        role="switch"
+                        class="form-check-input"
+                        bind:checked={subtechniquesEnabled}
+                    />
+                    <label for="subtechniques" class="form-check-label"
+                        >Sub-techniques</label
+                    >
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check form-switch">
+                    <input
+                        id="groups"
+                        type="checkbox"
+                        role="switch"
+                        class="form-check-input"
+                        bind:checked={groupsEnabled}
+                    />
+                    <label for="groups" class="form-check-label">Groups</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check form-switch">
+                    <input
+                        id="Mobile"
+                        type="checkbox"
+                        role="switch"
+                        class="form-check-input"
+                        bind:checked={mobileEnabled}
+                    />
+                    <label for="mitigations" class="form-check-label"
+                        >Mobile</label
+                    >
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <!-- placeholder so all rows have equal columns -->
+            </div>
+            <div class="col">
+                <div class="form-check form-switch">
+                    <input
                         id="dataSources"
                         type="checkbox"
                         role="switch"
@@ -196,36 +242,6 @@
             <div class="col">
                 <div class="form-check form-switch">
                     <input
-                        id="ICS"
-                        type="checkbox"
-                        role="switch"
-                        class="form-check-input"
-                        bind:checked={ICSEnabled}
-                    />
-                    <label for="mitigations" class="form-check-label">ICS</label
-                    >
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-check form-switch">
-                    <input
-                        id="groups"
-                        type="checkbox"
-                        role="switch"
-                        class="form-check-input"
-                        bind:checked={groupsEnabled}
-                    />
-                    <label for="groups" class="form-check-label">Groups</label>
-                </div>
-            </div>
-            <div class="col">
-                <!-- placeholder so all rows have equal columns -->
-            </div>
-            <div class="col">
-                <div class="form-check form-switch">
-                    <input
                         id="deprecated"
                         type="checkbox"
                         role="switch"
@@ -234,20 +250,6 @@
                     />
                     <label for="deprecated" class="form-check-label"
                         >Deprecated</label
-                    >
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-check form-switch">
-                    <input
-                        id="Mobile"
-                        type="checkbox"
-                        role="switch"
-                        class="form-check-input"
-                        bind:checked={mobileEnabled}
-                    />
-                    <label for="mitigations" class="form-check-label"
-                        >Mobile</label
                     >
                 </div>
             </div>
