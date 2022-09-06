@@ -53,7 +53,8 @@ export function search(query, filters) {
     for (const result of unfilteredResults) {
         const type = result.item.type;
         const deprecated = result.item.deprecated;
-        if (filters[type] === true && (!deprecated || filters.deprecated === true)) {
+        const source = result.item.source_name;
+        if (filters[type] === true && (!deprecated || filters.deprecated === true) && filters[source] === true) {
             if (resultCount < maxResults) {
                 filteredResults.push(result);
             }

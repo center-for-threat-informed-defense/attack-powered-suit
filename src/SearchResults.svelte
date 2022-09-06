@@ -27,6 +27,7 @@
                     type: item.type,
                     deprecated: item.deprecated,
                     name: { text: item.name, matches: [] },
+                    source_name: item.source_name,
                     description: { text: item.description, matches: [] },
                     url: item.url,
                     isBookmarked: item.id in $bookmarksSetStore,
@@ -103,6 +104,7 @@
                     matches={result.name.matches}
                 />
             </span>
+            <span class="badge bg-secondary">{result.source_name}</span>
             <span class="badge bg-primary">{result.type}</span>
             {#if result.deprecated}
                 <span class="badge bg-secondary">deprecated</span>

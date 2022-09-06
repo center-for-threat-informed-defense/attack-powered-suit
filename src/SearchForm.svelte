@@ -19,6 +19,9 @@
     let dataSourcesEnabled = true;
     let groupsEnabled = true;
     let deprecatedEnabled = false;
+    let enterpriseEnabled = true;
+    let icsEnabled = true;
+    let mobileEnabled = true;
 
     onMount(() => {
         initializeSearch().then(() => {
@@ -42,6 +45,9 @@
                 dataSource: dataSourcesEnabled,
                 group: groupsEnabled,
                 deprecated: deprecatedEnabled,
+                Enterprise: enterpriseEnabled,
+                ICS: icsEnabled,
+                Mobile: mobileEnabled,
             });
         }
     }
@@ -91,20 +97,6 @@
             <div class="col">
                 <div class="form-check form-switch">
                     <input
-                        id="techniques"
-                        type="checkbox"
-                        role="switch"
-                        class="form-check-input"
-                        bind:checked={techniquesEnabled}
-                    />
-                    <label for="techniques" class="form-check-label"
-                        >Techniques</label
-                    >
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-check form-switch">
-                    <input
                         id="tactics"
                         type="checkbox"
                         role="switch"
@@ -129,19 +121,33 @@
                     >
                 </div>
             </div>
+            <div class="col">
+                <div class="form-check form-switch">
+                    <input
+                        id="Enterprise"
+                        type="checkbox"
+                        role="switch"
+                        class="form-check-input"
+                        bind:checked={enterpriseEnabled}
+                    />
+                    <label for="mitigations" class="form-check-label"
+                        >Enterprise</label
+                    >
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col">
                 <div class="form-check form-switch">
                     <input
-                        id="subtechniques"
+                        id="techniques"
                         type="checkbox"
                         role="switch"
                         class="form-check-input"
-                        bind:checked={subtechniquesEnabled}
+                        bind:checked={techniquesEnabled}
                     />
-                    <label for="subtechniques" class="form-check-label"
-                        >Sub-techniques</label
+                    <label for="techniques" class="form-check-label"
+                        >Techniques</label
                     >
                 </div>
             </div>
@@ -162,19 +168,32 @@
             <div class="col">
                 <div class="form-check form-switch">
                     <input
-                        id="dataSources"
+                        id="ICS"
                         type="checkbox"
                         role="switch"
                         class="form-check-input"
-                        bind:checked={dataSourcesEnabled}
+                        bind:checked={icsEnabled}
                     />
-                    <label for="dataSources" class="form-check-label"
-                        >Data Sources</label
+                    <label for="mitigations" class="form-check-label">ICS</label
                     >
                 </div>
             </div>
         </div>
         <div class="row">
+            <div class="col">
+                <div class="form-check form-switch">
+                    <input
+                        id="subtechniques"
+                        type="checkbox"
+                        role="switch"
+                        class="form-check-input"
+                        bind:checked={subtechniquesEnabled}
+                    />
+                    <label for="subtechniques" class="form-check-label"
+                        >Sub-techniques</label
+                    >
+                </div>
+            </div>
             <div class="col">
                 <div class="form-check form-switch">
                     <input
@@ -188,7 +207,37 @@
                 </div>
             </div>
             <div class="col">
+                <div class="form-check form-switch">
+                    <input
+                        id="Mobile"
+                        type="checkbox"
+                        role="switch"
+                        class="form-check-input"
+                        bind:checked={mobileEnabled}
+                    />
+                    <label for="mitigations" class="form-check-label"
+                        >Mobile</label
+                    >
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 <!-- placeholder so all rows have equal columns -->
+            </div>
+            <div class="col">
+                <div class="form-check form-switch">
+                    <input
+                        id="dataSources"
+                        type="checkbox"
+                        role="switch"
+                        class="form-check-input"
+                        bind:checked={dataSourcesEnabled}
+                    />
+                    <label for="dataSources" class="form-check-label"
+                        >Data Sources</label
+                    >
+                </div>
             </div>
             <div class="col">
                 <div class="form-check form-switch">
