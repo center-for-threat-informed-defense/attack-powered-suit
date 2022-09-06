@@ -46,7 +46,7 @@
                 group: groupsEnabled,
                 deprecated: deprecatedEnabled,
                 Enterprise: enterpriseEnabled,
-                ICS: ICSEnabled,
+                ICS: icsEnabled,
                 Mobile: mobileEnabled,
             });
         }
