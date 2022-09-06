@@ -4,25 +4,25 @@
 
 # ATT&CK Powered Suit
 
-- [ATT&CK Powered Suit](#attck-powered-suit)
-  - [Features](#features)
-    - [Search](#search)
-    - [Deep Links](#deep-links)
-    - [Omnibar](#omnibar)
-    - […And More](#and-more)
-  - [Installation](#installation)
-  - [Community](#community)
-    - [Questions and Feedback](#questions-and-feedback)
-    - [How Do I Contribute?](#how-do-i-contribute)
-    - [Proposing Changes](#proposing-changes)
-  - [Developers](#developers)
-    - [IDE](#ide)
-    - [Developer Setup](#developer-setup)
-    - [Unit Tests](#unit-tests)
-    - [Linter](#linter)
-    - [Upgrading ATT&CK](#upgrading-attck)
-    - [Releasing a New Version](#releasing-a-new-version)
-  - [Notice](#notice)
+- [Features](#features)
+  - [Search](#search)
+  - [Deep Links](#deep-links)
+  - [Omnibar](#omnibar)
+  - […And More](#and-more)
+- [Installation](#installation)
+- [Community](#community)
+  - [Questions and Feedback](#questions-and-feedback)
+  - [How Do I Contribute?](#how-do-i-contribute)
+  - [Contributors](#contributors)
+  - [Proposing Changes](#proposing-changes)
+- [Developers](#developers)
+  - [IDE](#ide)
+  - [Developer Setup](#developer-setup)
+  - [Unit Tests](#unit-tests)
+  - [Linter](#linter)
+  - [Upgrading ATT&CK](#upgrading-attck)
+  - [Releasing a New Version](#releasing-a-new-version)
+- [Notice](#notice)
 
 ## Features
 
@@ -103,6 +103,13 @@ Please submit
 [issues](https://github.com/center-for-threat-informed-defense/attack_powered_suite/issues)
 for any technical questions/concerns or contact ctid@mitre-engenuity.org
 directly for more general inquiries.
+
+### Contributors
+
+Thank you to the following individuals for contributing pull requests to ATT&CK
+Powered Suit!
+
+* [@jakewarren](https://github.com/jakewarren)
 
 ### Proposing Changes
 
