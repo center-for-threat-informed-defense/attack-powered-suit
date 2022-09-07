@@ -64,23 +64,28 @@ function extractAttackObject(stixObject) {
         if (reference.source_name in mitreSources) {
             attackObject.id = reference.external_id;
             attackObject.url = reference.url;
-            switch (reference.source_name) {
-                case "mitre-attack":
-                    attackObject.source_name = "Enterprise";
-                    break;
-                case "mitre-ics-attack":
-                    attackObject.source_name = "ICS";
-                    break;
-                case "mitre-mobile-attack":
-                    attackObject.source_name = "Mobile";
-                    break;
-                default:
-                    process.stderr.write(`warning: could not determine the matrix for object:${attackObject.id}\n`);
-                    break;
-            }
             break;
         }
     }
+
+    // extract the ATT&CK matrix from the STIX object
+    for (const mitreDomain of stixObject.x_mitre_domains) {
+        switch (mitreDomain) {
+            case "enterprise-attack":
+                attackObject.is_enterprise = true;
+                break;
+            case "ics-attack":
+                attackObject.is_ics = true;
+                break;
+            case "mobile-attack":
+                attackObject.is_mobile = true;
+                break;
+            default:
+                process.stderr.write(`warning: could not determine the matrix for object:${attackObject.id}\n`);
+                break;
+        }
+    }
+
 
     if (!("id" in attackObject)) {
         console.log(stixObject);
