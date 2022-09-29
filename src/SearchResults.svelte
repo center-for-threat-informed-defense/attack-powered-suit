@@ -31,6 +31,9 @@
                     description: { text: item.description, matches: [] },
                     url: item.url,
                     isBookmarked: item.id in $bookmarksSetStore,
+                    is_enterprise: item.is_enterprise,
+                    is_ics: item.is_ics,
+                    is_mobile: item.is_mobile,
                 };
                 for (const match of matches) {
                     const { key, indices } = match;
@@ -104,7 +107,15 @@
                     matches={result.name.matches}
                 />
             </span>
-            <span class="badge bg-secondary">{result.source_name}</span>
+            {#if result.is_enterprise}
+                <span class="badge bg-secondary">Enterprise</span>
+            {/if}
+            {#if result.is_mobile}
+                <span class="badge bg-secondary">Mobile</span>
+            {/if}
+            {#if result.is_ics}
+                <span class="badge bg-secondary">ICS</span>
+            {/if}
             <span class="badge bg-primary">{result.type}</span>
             {#if result.deprecated}
                 <span class="badge bg-secondary">deprecated</span>

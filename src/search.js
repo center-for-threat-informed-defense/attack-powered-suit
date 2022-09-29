@@ -53,12 +53,13 @@ export function search(query, filters) {
     for (const result of unfilteredResults) {
         const type = result.item.type;
         const deprecated = result.item.deprecated;
-        const source = result.item.source_name;
-        if (filters[type] === true && (!deprecated || filters.deprecated === true) && filters[source] === true) {
-            if (resultCount < maxResults) {
-                filteredResults.push(result);
+        if (filters[type] === true && (!deprecated || filters.deprecated === true)) {
+            if (filters["ICS"] == result.item.is_ics || filters["Mobile"] == result.item.is_mobile || filters["Enterprise"] == result.item.is_enterprise) {
+                if (resultCount < maxResults) {
+                    filteredResults.push(result);
+                }
+                resultCount++;
             }
-            resultCount++;
         }
     }
 
