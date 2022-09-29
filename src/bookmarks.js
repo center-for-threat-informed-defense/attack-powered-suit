@@ -40,7 +40,7 @@ export function initializeBookmarks() {
  * @param {string} notes - used for exporting ATT&CK layer
  * @param {string} color - used for exporting ATT&CK layer
  */
-export function addBookmark(id, name, score = 0, notes = "", color = "#ffffff") {
+export function addBookmark(id, name, score = 0, notes = "", color = "") {
     // Update bookmarks array
     bookmarks.push({
         id: id,

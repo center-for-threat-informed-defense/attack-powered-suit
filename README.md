@@ -165,7 +165,7 @@ Alternately, you can load it as an extension into chrome:
 
 1. Go to the extensions settings.
 2. Make sure "Developer mode" is enabled.
-3. Click "Load unpacked" and select the `attack_powered_suite/src` directory.
+3. Click "Load unpacked" and select the `attack_powered_suite/public` directory.
 4. The extension will appear in the extension list and is now usable.
 
 ### Unit Tests

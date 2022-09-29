@@ -52,7 +52,10 @@ export async function loadFromStorage(key) {
     } else if (localStorage) {
         const storedDataJson = localStorage.getItem(key);
         try {
-            if (storedDataJson) {
+            if (storedDataJson == null) {
+                storedData = []
+            }
+            else {
                 storedData = JSON.parse(storedDataJson);
             }
         } catch (e) {

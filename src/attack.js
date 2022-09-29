@@ -56,16 +56,23 @@ export function getAttackUrl(text) {
  * @param {Array} techniques - Array of techniques to
  */
 export function buildAttackLayer(attackDomain, layerTitle, defaultColor,
-    techniques) {
+    techniques, colorFlag) {
     const layer = Object.assign({}, layerTemplate);
     layer.name = layerTitle;
     layer.domain = attackDomain;
+    let color = "";
 
     for (let technique of techniques) {
+        if (colorFlag === false) {
+            color = ""
+        }
+        else {
+            color = technique.color || defaultColor
+        }
         layer.techniques.push({
             techniqueID: technique.id,
             score: technique.score,
-            color: technique.color || defaultColor,
+            color: color,
             comment: technique.notes,
             enabled: true,
             metadata: [],
