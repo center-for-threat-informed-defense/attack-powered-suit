@@ -67,12 +67,14 @@
 <form on:submit={(e) => e.preventDefault()}>
     <div class="search-row">
         <div class="form-floating">
+            <!-- svelte-ignore a11y-autofocus -->
             <input
                 id="searchTerms"
                 type="text"
                 class="form-control"
                 placeholder="Search ATT&amp;CK…"
                 bind:value={query}
+                autofocus
             />
             <label for="searchTerms">Search ATT&amp;CK…</label>
         </div>
