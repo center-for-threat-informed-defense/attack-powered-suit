@@ -2,10 +2,10 @@ import { buildAttackLayer, getAttackId, getAttackUrl } from "../src/attack.js";
 
 describe("attack.js", () => {
     test("export ATT&CK navigator layer", () => {
-        const layer = buildAttackLayer("My Domain", "My Title", "#112233", [
+        const layer = buildAttackLayer("My Domain", "My Title", [
             { id: "T1548", score: 1.0, color: null, notes: "My notes part 1" },
             { id: "T1134", score: 2.0, color: "#445566", notes: "My notes part 2" },
-        ]);
+        ], true);
 
         expect(layer).toEqual({
             name: "My Title", // From constructor
@@ -45,7 +45,7 @@ describe("attack.js", () => {
                 {
                     techniqueID: "T1548",
                     score: 1.0,
-                    color: "#112233",
+                    color: "#000000",
                     comment: "My notes part 1",
                     enabled: true,
                     metadata: [],
