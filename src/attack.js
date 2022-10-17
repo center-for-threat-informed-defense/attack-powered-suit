@@ -52,20 +52,27 @@ export function getAttackUrl(text) {
  *
  * @param {string} attackDomain - The ATT&CK domain
  * @param {string} layerTitle - The name to assign to the layer
- * @param {string} defaultColor - The default color for techniques that don't have one
  * @param {Array} techniques - Array of techniques to
+ * @param {bool} colorFlag - Toggle to color techniques by score or color selection
  */
-export function buildAttackLayer(attackDomain, layerTitle, defaultColor,
-    techniques) {
-    const layer = Object.assign({}, layerTemplate);
+export function buildAttackLayer(attackDomain, layerTitle, techniques, 
+    colorFlag) {
+    const layer = Object.assign({}, newLayerTemplate());
     layer.name = layerTitle;
     layer.domain = attackDomain;
+    let color = "";
 
     for (let technique of techniques) {
+        if (colorFlag === false) {
+            color = ""
+        }
+        else {
+            color = technique.color || "#000000"
+        }
         layer.techniques.push({
             techniqueID: technique.id,
             score: technique.score,
-            color: technique.color || defaultColor,
+            color: color,
             comment: technique.notes,
             enabled: true,
             metadata: [],
@@ -77,53 +84,55 @@ export function buildAttackLayer(attackDomain, layerTitle, defaultColor,
     return layer;
 }
 
-const layerTemplate = {
-    name: null, // This is filled in by buildLayer().
-    versions: {
-        "attack": "11",
-        "navigator": "4.6.4",
-        "layer": "4.3"
-    },
-    domain: null, // This is filled in by buildLayer().
-    description: "",
-    filters: {
-        platforms: [
-            "Linux",
-            "macOS",
-            "Windows",
-            "Azure AD",
-            "Office 365",
-            "SaaS",
-            "IaaS",
-            "Google Workspace",
-            "PRE",
-            "Network",
-            "Containers",
-        ],
-    },
-    sorting: 0,
-    layout: {
-        layout: "side",
-        aggregateFunction: "average",
-        showID: false,
-        showName: true,
-        showAggregateScores: false,
-        countUnscored: false,
-    },
-    hideDisabled: false,
-    techniques: [
-        // This is filled in by buildLayer().
-    ],
-    gradient: {
-        colors: ["#ff6666ff", "#ffe766ff", "#8ec843ff"],
-        minValue: 0,
-        maxValue: 100,
-    },
-    legendItems: [],
-    metadata: [],
-    links: [],
-    showTacticRowBackground: false,
-    tacticRowBackground: "#dddddd",
-    selectTechniquesAcrossTactics: true,
-    selectSubtechniquesWithParent: false,
-};
+function newLayerTemplate() {
+    return {
+            name: null, // This is filled in by buildLayer().
+            versions: {
+                "attack": "11",
+                "navigator": "4.6.4",
+                "layer": "4.3"
+            },
+            domain: null, // This is filled in by buildLayer().
+            description: "",
+            filters: {
+                platforms: [
+                    "Linux",
+                    "macOS",
+                    "Windows",
+                    "Azure AD",
+                    "Office 365",
+                    "SaaS",
+                    "IaaS",
+                    "Google Workspace",
+                    "PRE",
+                    "Network",
+                    "Containers",
+                ],
+            },
+            sorting: 0,
+            layout: {
+                layout: "side",
+                aggregateFunction: "average",
+                showID: false,
+                showName: true,
+                showAggregateScores: false,
+                countUnscored: false,
+            },
+            hideDisabled: false,
+            techniques: [
+                // This is filled in by buildLayer().
+            ],
+            gradient: {
+                colors: ["#ff6666ff", "#ffe766ff", "#8ec843ff"],
+                minValue: 0,
+                maxValue: 100,
+            },
+            legendItems: [],
+            metadata: [],
+            links: [],
+            showTacticRowBackground: false,
+            tacticRowBackground: "#dddddd",
+            selectTechniquesAcrossTactics: true,
+            selectSubtechniquesWithParent: false,
+        };
+}
