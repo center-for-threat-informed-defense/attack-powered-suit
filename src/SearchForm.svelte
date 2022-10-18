@@ -18,6 +18,7 @@
     let tacticsEnabled = true;
     let dataSourcesEnabled = true;
     let groupsEnabled = true;
+    let campaignEnabled = true;
     let deprecatedEnabled = false;
     let enterpriseEnabled = true;
     let icsEnabled = true;
@@ -44,6 +45,7 @@
                 tactic: tacticsEnabled,
                 dataSource: dataSourcesEnabled,
                 group: groupsEnabled,
+                campaign: campaignEnabled,
                 deprecated: deprecatedEnabled,
                 Enterprise: enterpriseEnabled,
                 ICS: icsEnabled,
@@ -225,7 +227,18 @@
         </div>
         <div class="row">
             <div class="col">
-                <!-- placeholder so all rows have equal columns -->
+                <div class="form-check form-switch">
+                    <input
+                        id="Campaign"
+                        type="checkbox"
+                        role="switch"
+                        class="form-check-input"
+                        bind:checked={campaignEnabled}
+                    />
+                    <label for="mitigations" class="form-check-label"
+                        >Campaign</label
+                    >
+                </div>
             </div>
             <div class="col">
                 <div class="form-check form-switch">
@@ -260,7 +273,7 @@
 </form>
 
 {#if results === null}
-    <p class="notice">Powered Suit uses MITRE ATT&CK® v11.</p>
+    <p class="notice">Powered Suit uses MITRE ATT&CK® v12.</p>
 {/if}
 
 <style>

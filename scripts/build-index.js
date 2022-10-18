@@ -18,6 +18,7 @@ const inputFiles = [
 // Note that attack-pattern is handled outside of this map, since it can
 // be a technique or a subtechnique.
 const stixTypeToAttackTypeMap = {
+    "campaign": "campaign",
     "course-of-action": "mitigation",
     "intrusion-set": "group",
     "malware": "software",
