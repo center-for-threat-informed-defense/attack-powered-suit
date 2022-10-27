@@ -141,7 +141,7 @@ function main() {
     const attackObjects = [];
     const objectCounts = {
         tactic: 0, technique: 0, subtechnique: 0, software: 0,
-        group: 0, mitigation: 0, dataSource: 0,
+        group: 0, mitigation: 0, dataSource: 0, campaign: 0,
     };
     const uniqueObjectIds = {};
     let deprecatedCount = 0;
