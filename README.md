@@ -1,4 +1,4 @@
-[![MITRE ATT&CK® v11](https://img.shields.io/badge/MITRE%20ATT%26CK®-v11-red)](https://attack.mitre.org/versions/v11/)
+[![MITRE ATT&CK® v12](https://img.shields.io/badge/MITRE%20ATT%26CK®-v12-red)](https://attack.mitre.org/versions/v12/)
 [![build](https://github.com/center-for-threat-informed-defense/attack-powered-suit/actions/workflows/build.yml/badge.svg)](https://github.com/center-for-threat-informed-defense/attack-powered-suit/actions/workflows/build.yml)
 [![codecov](https://img.shields.io/codecov/c/github/center-for-threat-informed-defense/attack-powered-suit?token=ejCIZhBRGr)](https://codecov.io/gh/center-for-threat-informed-defense/attack-powered-suit)
 
@@ -243,6 +243,12 @@ If you are satisfied with the changes, you just need to push them, e.g.
 
 ```shell
 $ git push --follow-tags
+Enumerating objects: 1, done.
+Counting objects: 100% (1/1), done.
+Writing objects: 100% (1/1), 165 bytes | 165.00 KiB/s, done.
+Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/center-for-threat-informed-defense/attack-powered-suit.git
+ * [new tag] v0.2.0 -> v0.2.0
 ```
 
 ## Notice

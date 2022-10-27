@@ -18,6 +18,7 @@ const inputFiles = [
 // Note that attack-pattern is handled outside of this map, since it can
 // be a technique or a subtechnique.
 const stixTypeToAttackTypeMap = {
+    "campaign": "campaign",
     "course-of-action": "mitigation",
     "intrusion-set": "group",
     "malware": "software",
@@ -140,7 +141,7 @@ function main() {
     const attackObjects = [];
     const objectCounts = {
         tactic: 0, technique: 0, subtechnique: 0, software: 0,
-        group: 0, mitigation: 0, dataSource: 0,
+        group: 0, mitigation: 0, dataSource: 0, campaign: 0,
     };
     const uniqueObjectIds = {};
     let deprecatedCount = 0;

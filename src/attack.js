@@ -1,12 +1,13 @@
-const attackRegex = /(TA|T|S|M|G|DS)-?(\d{4})(\.\d{3})?/;
+const attackRegex = /(C|DS|G|M|S|T|TA)-?(\d{4})(\.\d{3})?/;
 
 const attackUrls = {
-    "TA": "https://attack.mitre.org/tactics/{id}/",
-    "T": "https://attack.mitre.org/techniques/{id}/",
-    "S": "https://attack.mitre.org/software/{id}/",
-    "M": "https://attack.mitre.org/mitigations/{id}/",
-    "G": "https://attack.mitre.org/groups/{id}/",
+    "C": "https://attack.mitre.org/campaigns/{id}/",
     "DS": "https://attack.mitre.org/datasources/{id}/",
+    "G": "https://attack.mitre.org/groups/{id}/",
+    "M": "https://attack.mitre.org/mitigations/{id}/",
+    "S": "https://attack.mitre.org/software/{id}/",
+    "T": "https://attack.mitre.org/techniques/{id}/",
+    "TA": "https://attack.mitre.org/tactics/{id}/",
 }
 
 /**
@@ -55,7 +56,7 @@ export function getAttackUrl(text) {
  * @param {Array} techniques - Array of techniques to
  * @param {bool} colorFlag - Toggle to color techniques by score or color selection
  */
-export function buildAttackLayer(attackDomain, layerTitle, techniques, 
+export function buildAttackLayer(attackDomain, layerTitle, techniques,
     colorFlag) {
     const layer = Object.assign({}, newLayerTemplate());
     layer.name = layerTitle;
@@ -86,53 +87,53 @@ export function buildAttackLayer(attackDomain, layerTitle, techniques,
 
 function newLayerTemplate() {
     return {
-            name: null, // This is filled in by buildLayer().
-            versions: {
-                "attack": "11",
-                "navigator": "4.6.4",
-                "layer": "4.3"
-            },
-            domain: null, // This is filled in by buildLayer().
-            description: "",
-            filters: {
-                platforms: [
-                    "Linux",
-                    "macOS",
-                    "Windows",
-                    "Azure AD",
-                    "Office 365",
-                    "SaaS",
-                    "IaaS",
-                    "Google Workspace",
-                    "PRE",
-                    "Network",
-                    "Containers",
-                ],
-            },
-            sorting: 0,
-            layout: {
-                layout: "side",
-                aggregateFunction: "average",
-                showID: false,
-                showName: true,
-                showAggregateScores: false,
-                countUnscored: false,
-            },
-            hideDisabled: false,
-            techniques: [
-                // This is filled in by buildLayer().
+        name: null, // This is filled in by buildLayer().
+        versions: {
+            "attack": "11",
+            "navigator": "4.6.4",
+            "layer": "4.3"
+        },
+        domain: null, // This is filled in by buildLayer().
+        description: "",
+        filters: {
+            platforms: [
+                "Linux",
+                "macOS",
+                "Windows",
+                "Azure AD",
+                "Office 365",
+                "SaaS",
+                "IaaS",
+                "Google Workspace",
+                "PRE",
+                "Network",
+                "Containers",
             ],
-            gradient: {
-                colors: ["#ff6666ff", "#ffe766ff", "#8ec843ff"],
-                minValue: 0,
-                maxValue: 100,
-            },
-            legendItems: [],
-            metadata: [],
-            links: [],
-            showTacticRowBackground: false,
-            tacticRowBackground: "#dddddd",
-            selectTechniquesAcrossTactics: true,
-            selectSubtechniquesWithParent: false,
-        };
+        },
+        sorting: 0,
+        layout: {
+            layout: "side",
+            aggregateFunction: "average",
+            showID: false,
+            showName: true,
+            showAggregateScores: false,
+            countUnscored: false,
+        },
+        hideDisabled: false,
+        techniques: [
+            // This is filled in by buildLayer().
+        ],
+        gradient: {
+            colors: ["#ff6666ff", "#ffe766ff", "#8ec843ff"],
+            minValue: 0,
+            maxValue: 100,
+        },
+        legendItems: [],
+        metadata: [],
+        links: [],
+        showTacticRowBackground: false,
+        tacticRowBackground: "#dddddd",
+        selectTechniquesAcrossTactics: true,
+        selectSubtechniquesWithParent: false,
+    };
 }
