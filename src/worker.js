@@ -92,12 +92,16 @@ chrome.omnibox.onInputChanged.addListener(
             return;
         }
         var suggestions = [];
-        const results = search(inputText, searchFilters);
-        for (const result of results.items) {
-            suggestions.push({
-                content: result.item.url,
-                description: `${result.item.id}: ${result.item.name}`,
-            });
+        try {
+            const results = search(inputText, searchFilters);
+            for (const result of results.items) {
+                suggestions.push({
+                    content: result.url,
+                    description: `${result.id}: ${result.name}`,
+                });
+            }
+        } catch (e) {
+            console.error("Search failed", e);
         }
         suggestCallback(suggestions);
     }

@@ -2,10 +2,10 @@
  * This script pre-computes a search index for ATT&CK Powered Suit so that it
  * doesn't need to be recomputed every time APS runs.
  */
-import Fuse from 'fuse.js';
 import fs from "fs";
 import process from "process";
-import { fuseOptions } from "../src/search.js";
+import lunr from "lunr";
+import { lunrOptions } from "../src/search.js";
 import { marked } from "marked";
 import { convert } from 'html-to-text';
 
@@ -44,7 +44,8 @@ const mitreSources = {
 function cleanAttackText(text) {
     const trimmed = text.trim();
     const html = marked.parse(text);
-    return convert(html) ?? trimmed;
+    const converted = convert(html) ?? trimmed;
+    return converted.replace(/\s+/g, " ");
 }
 
 /**
@@ -58,11 +59,13 @@ function extractAttackObject(stixObject) {
         name: stixObject.name,
         description: cleanAttackText(stixObject.description || ""),
     }
+    console.log(attackObject.description);
 
     // ID and URL are extract from the first reference that is sourced to
     // MITRE.
     for (const reference of stixObject.external_references) {
         if (reference.source_name in mitreSources) {
+            attackObject.lunrRef = reference.external_id;
             attackObject.id = reference.external_id;
             attackObject.url = reference.url;
             break;
@@ -139,6 +142,7 @@ function main() {
     process.stderr.write("Building ATT&CK search index…\n");
 
     const attackObjects = [];
+    const attackLookup = {};
     const objectCounts = {
         tactic: 0, technique: 0, subtechnique: 0, software: 0,
         group: 0, mitigation: 0, dataSource: 0, campaign: 0,
@@ -158,16 +162,21 @@ function main() {
                 deprecatedCount++;
             }
             attackObjects.push(attackObject);
+            attackLookup[attackObject.id] = attackObject;
         }
         process.stderr.write("done\n");
     }
 
     process.stderr.write("Writing data/attack.json…\n");
-    fs.writeFileSync("data/attack.json", JSON.stringify(attackObjects));
+    fs.writeFileSync("data/attack.json", JSON.stringify(attackLookup));
 
-    process.stderr.write("Writing data/fuse-index.json…\n");
-    const index = Fuse.createIndex(fuseOptions.keys, attackObjects);
-    fs.writeFileSync("data/fuse-index.json", JSON.stringify(index.toJSON()));
+    process.stderr.write("Writing data/lunr-index.json…\n");
+    const index = lunr(function () {
+        lunrOptions.apply(this);
+        this.metadataWhitelist = ['position'];
+        attackObjects.forEach(function (d) { this.add(d) }, this);
+    });
+    fs.writeFileSync("data/lunr-index.json", JSON.stringify(index));
 
     // Display summary of ingested data.
     process.stderr.write("Loaded object counts:\n");

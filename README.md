@@ -20,7 +20,7 @@
   - [Developer Setup](#developer-setup)
   - [Unit Tests](#unit-tests)
   - [Linter](#linter)
-  - [Upgrading ATT&CK](#upgrading-attck)
+  - [Upgrading ATT\&CK](#upgrading-attck)
   - [Releasing a New Version](#releasing-a-new-version)
 - [Notice](#notice)
 
@@ -60,7 +60,8 @@ find ATT&CK objects matching that phrase.
 
 ### Omnibar
 
-Search for ATT&CK objects directly from the browser's omnibar.
+Search for ATT&CK objects directly from the browser's omnibar by typing an ampersand
+and then a space.
 
 ![animated gif showing how to search ATT&CK from the browser's search
 bar](./media/omnibar.gif)

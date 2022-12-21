@@ -64,7 +64,7 @@ export default [{
                     src: "data/attack.json",
                     dest: "public/build/"
                 }, {
-                    src: "data/fuse-index.json",
+                    src: "data/lunr-index.json",
                     dest: "public/build/"
                 }
             ],
@@ -79,7 +79,9 @@ export default [{
             browser: true,
             dedupe: ['svelte']
         }),
-        commonjs(),
+        commonjs({
+            defaultIsModuleExports: true
+        }),
 
         // In dev mode, call `npm run start` once
         // the bundle has been generated
@@ -110,6 +112,9 @@ export default [{
             browser: true,
             dedupe: ['svelte']
         }),
+        commonjs({
+            defaultIsModuleExports: true
+        })
     ],
 },
 {
