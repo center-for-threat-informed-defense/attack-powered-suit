@@ -34,7 +34,7 @@
 
     // Update search results whenever the query or filters are modified.
     $: {
-        if (query.trim() == "") {
+        if (query.trim().length < 3) {
             results = null;
         } else {
             results = search(query, {

@@ -25,7 +25,7 @@
     }
   ],
   "omnibox": {
-    "keyword": "attack"
+    "keyword": "&"
   },
   "permissions": [
     "clipboardWrite",

@@ -1,14 +1,9 @@
 import { render, screen } from "@testing-library/svelte";
 import App from "../src/App.svelte";
+import fs from "fs";
 
-const attackFixture = [{
-    "name": "My Technique",
-    "description": "My description",
-    "id": "T1234",
-    "url": "https://attack.mitre.org/techniques/T1234/",
-    "type": "technique"
-}];
-const fuseIndexFixture = {};
+const attackFixture = fs.readFileSync(__dirname + "/fixtures/attack-objects.json", { encoding: "utf8", flag: "r" });
+const lunrIndexFixture = fs.readFileSync(__dirname + "/fixtures/lunr-index.json", { encoding: "utf8", flag: "r" });
 
 describe("App.svelte", () => {
     beforeEach(() => {
@@ -23,9 +18,9 @@ describe("App.svelte", () => {
 
         window.fetch = jest.fn(url => {
             if (url.endsWith("attack.json")) {
-                return { json: () => JSON.stringify(attackFixture) };
-            } else if (url.endsWith("fuse-index.json")) {
-                return { json: () => JSON.stringify(fuseIndexFixture) };
+                return { json: () => JSON.parse(attackFixture) };
+            } else if (url.endsWith("lunr-index.json")) {
+                return { json: () => JSON.parse(lunrIndexFixture) };
             } else {
                 return null;
             }

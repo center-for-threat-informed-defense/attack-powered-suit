@@ -1,31 +1,30 @@
-import Fuse from 'fuse.js';
+import lunr from 'lunr';
 
-export const fuseOptions = {
-    includeMatches: true,
-    distance: 1000,
-    threshold: 0.1,
-    ignoreFieldNorm: true,
-    minMatchCharLength: 3,
-    keys: [
-        {
-            name: "id",
-            weight: 3,
-        },
-        {
-            name: "name",
-            weight: 2,
-        },
-        {
-            name: "description",
-            weight: 1,
-        },
-    ],
+/**
+ * Call this function from a lunr() constructor.
+ *
+ * Must use lunrOptions.apply(this) to make sure that "this" resolves correctly.
+ */
+export const lunrOptions = function () {
+    this.ref("lunrRef");
+    this.field("id", { boost: 3 });
+    this.field("type");
+    this.field("name", { boost: 2 });
+    this.field("description", { boost: 1 });
+    this.field("url");
+    this.field("is_enterprise");
+    this.field("is_ics");
+    this.field("is_mobile");
 }
 
 const maxResults = 25;
+const minChars = 3;
 
 // The index is created empty at first. Data is added inside initializeSearch().
-let fuse = new Fuse([], fuseOptions);
+let index = lunr(function () {
+    lunrOptions.apply(this);
+});
+let attackData = {};
 
 /**
  * Initialize the search index.
@@ -34,11 +33,10 @@ export async function initializeSearch() {
     // Note that Chrome service workers don't support XMLHttpRequest, so we must
     // use the fetch() API here.
     const attackResponse = await fetch("/build/attack.json");
-    const attackData = await attackResponse.json();
-    const indexResponse = await fetch("/build/fuse-index.json");
+    attackData = await attackResponse.json();
+    const indexResponse = await fetch("/build/lunr-index.json");
     const indexData = await indexResponse.json();
-    const fuseIndex = Fuse.parseIndex(indexData);
-    fuse = new Fuse(attackData, fuseOptions, fuseIndex);
+    index = lunr.Index.load(indexData);
     console.log("Search index is initialized.");
 }
 
@@ -46,17 +44,31 @@ export async function initializeSearch() {
  * Run a query on the search index and return the results.
  */
 export function search(query, filters) {
-    const unfilteredResults = fuse.search(query);
+    let unfilteredResults;
+    try {
+        unfilteredResults = index.search(query);
+    } catch (e) {
+        return {
+            query,
+            items: [],
+            totalCount: 0,
+        };
+    }
+
     let filteredResults = [];
     let resultCount = 0;
 
     for (const result of unfilteredResults) {
-        const type = result.item.type;
-        const deprecated = result.item.deprecated;
+        const attackObject = attackData[result.ref];
+        const type = attackObject.type;
+        const deprecated = attackObject.deprecated;
         if (filters[type] === true && (!deprecated || filters.deprecated === true)) {
-            if (filters["ICS"] == result.item.is_ics || filters["Mobile"] == result.item.is_mobile || filters["Enterprise"] == result.item.is_enterprise) {
+            if (filters["ICS"] == attackObject.is_ics || filters["Mobile"] == attackObject.is_mobile || filters["Enterprise"] == attackObject.is_enterprise) {
                 if (resultCount < maxResults) {
-                    filteredResults.push(result);
+                    attackObject.id = result.ref;
+                    attackObject.score = result.score;
+                    attackObject.matchData = result.matchData;
+                    filteredResults.push(attackObject);
                 }
                 resultCount++;
             }

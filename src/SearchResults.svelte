@@ -11,6 +11,7 @@
     export let results = null;
 
     const defaultMimeType = "text/plain";
+    const descriptionMaxLength = 400;
     let highlightResultIdx = -1;
     let highlightFormatIdx = -1;
 
@@ -21,24 +22,37 @@
         highlightedResults = [];
         if (results) {
             for (const result of results.items) {
-                const { item, matches } = result;
                 const highlightedResult = {
-                    id: { text: item.id, matches: [] },
-                    type: item.type,
-                    deprecated: item.deprecated,
-                    name: { text: item.name, matches: [] },
-                    source_name: item.source_name,
-                    description: { text: item.description, matches: [] },
-                    url: item.url,
-                    isBookmarked: item.id in $bookmarksSetStore,
-                    is_enterprise: item.is_enterprise,
-                    is_ics: item.is_ics,
-                    is_mobile: item.is_mobile,
+                    id: { text: result.id, matches: [] },
+                    type: result.type,
+                    deprecated: result.deprecated,
+                    name: { text: result.name, matches: [] },
+                    source_name: result.source_name,
+                    description: { text: result.description, matches: [] },
+                    url: result.url,
+                    isBookmarked: result.id in $bookmarksSetStore,
+                    is_enterprise: result.is_enterprise,
+                    is_ics: result.is_ics,
+                    is_mobile: result.is_mobile,
                 };
-                for (const match of matches) {
-                    const { key, indices } = match;
-                    highlightedResult[key]["matches"] = indices;
+                for (const [term, fields] of Object.entries(
+                    result.matchData.metadata
+                )) {
+                    for (const [field, matches] of Object.entries(fields)) {
+                        for (const match of matches.position) {
+                            highlightedResult[field].matches.push([
+                                match[0],
+                                match[0] + match[1],
+                            ]);
+                        }
+                    }
                 }
+                // The matches are naturally ordered by term; sort them by index instead
+                // so that they can be highlighted.
+                const sortMatches = (a, b) => a[0] - b[0];
+                highlightedResult.id.matches.sort(sortMatches);
+                highlightedResult.name.matches.sort(sortMatches);
+                highlightedResult.description.matches.sort(sortMatches);
                 highlightedResults.push(highlightedResult);
             }
         }
@@ -125,7 +139,7 @@
             <HighlightMatches
                 text={result.description.text}
                 matches={result.description.matches}
-                maxLength={200}
+                maxLength={descriptionMaxLength}
             />
         </p>
         <p>
