@@ -21,6 +21,7 @@ export function formatObject(format, object) {
         .replace("{id}", object.id.text)
         .replace("{name}", object.name.text)
         .replace("{type}", object.type)
+        .replace("{stixId}", object.stixId)
         .replace("{url}", object.url);
 }
 

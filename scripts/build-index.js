@@ -56,10 +56,10 @@ function cleanAttackText(text) {
 function extractAttackObject(stixObject) {
     // Name and description are taken from the top-level STIX object.
     const attackObject = {
+        stixId: stixObject.id,
         name: stixObject.name,
         description: cleanAttackText(stixObject.description || ""),
     }
-    console.log(attackObject.description);
 
     // ID and URL are extract from the first reference that is sourced to
     // MITRE.
@@ -99,6 +99,7 @@ function extractAttackObject(stixObject) {
     // Assign an object type.
     if (stixObject.type in stixTypeToAttackTypeMap) {
         attackObject.type = stixTypeToAttackTypeMap[stixObject.type];
+        attackObject.relatedTechniques = [];
     } else if (stixObject.type === "attack-pattern") {
         attackObject.type = stixObject.x_mitre_is_subtechnique ?
             "subtechnique" : "technique";
@@ -119,11 +120,9 @@ function extractAttackObject(stixObject) {
  * A generator function that yields ATT&CK objects in a format suitable for
  * indexing.
  *
- * @param {string} stixPath - Path to a STIX document
+ * @param {object} attackStix - A parsed STIX document
  */
-function* parseAttackStix(stixPath) {
-    const attackStixText = fs.readFileSync(stixPath);
-    const attackStix = JSON.parse(attackStixText);
+function* parseAttackObjects(attackStix) {
     for (const stixObject of attackStix.objects) {
         if (stixObject.type === "attack-pattern"
             || stixObject.type in stixTypeToAttackTypeMap) {
@@ -132,7 +131,43 @@ function* parseAttackStix(stixPath) {
             continue;
         }
     }
+}
 
+/**
+ * A generator function that yields ATT&CK relationships to/from techniques.
+ *
+ * Yields pairs of object STIX ID -> technique STIX ID.
+ *
+ * @param {object} attackStix - A parsed STIX document
+ */
+function* parseAttackRelationships(attackStix) {
+    for (const stixObject of attackStix.objects) {
+        if (stixObject.type === "relationship") {
+            let techniqueStixId = null;
+            let objStixId = null;
+            // The "deprecated" field is based on logic described here:
+            // https://github.com/mitre/cti/blob/master/USAGE.md#working-with-deprecated-and-revoked-objects
+            if (stixObject.x_mitre_deprecated === true ||
+                stixObject.revoked === true) {
+                continue;
+            }
+            if (stixObject.source_ref.startsWith("attack-pattern--")) {
+                techniqueStixId = stixObject.source_ref;
+                objStixId = stixObject.target_ref;
+            } else if (stixObject.target_ref.startsWith("attack-pattern--")) {
+                objStixId = stixObject.source_ref;
+                techniqueStixId = stixObject.target_ref;
+            }
+            if (objStixId) {
+                const objType = objStixId.split("--")[0];
+                if (typeof stixTypeToAttackTypeMap[objType] !== "undefined") {
+                    yield [objStixId, techniqueStixId];
+                }
+            }
+        } else {
+            continue;
+        }
+    }
 }
 
 /**
@@ -142,7 +177,8 @@ function main() {
     process.stderr.write("Building ATT&CK search index…\n");
 
     const attackObjects = [];
-    const attackLookup = {};
+    const attackOidLookup = {};
+    const attackStixLookup = {};
     const objectCounts = {
         tactic: 0, technique: 0, subtechnique: 0, software: 0,
         group: 0, mitigation: 0, dataSource: 0, campaign: 0,
@@ -152,7 +188,12 @@ function main() {
 
     for (const inputFile of inputFiles) {
         process.stderr.write(`Reading ${inputFile}… `);
-        for (const attackObject of parseAttackStix(inputFile)) {
+
+        const attackStixText = fs.readFileSync(inputFile);
+        const attackStix = JSON.parse(attackStixText);
+
+        // Make one pass to parse out the objects.
+        for (const attackObject of parseAttackObjects(attackStix)) {
             if (attackObject.id in uniqueObjectIds) {
                 continue;
             }
@@ -162,13 +203,25 @@ function main() {
                 deprecatedCount++;
             }
             attackObjects.push(attackObject);
-            attackLookup[attackObject.id] = attackObject;
+            attackOidLookup[attackObject.id] = attackObject;
+            attackStixLookup[attackObject.stixId] = attackObject;
+        }
+
+        // Make a second pass to parse relationships.
+        for (const [objStixId, techniqueStixId] of parseAttackRelationships(attackStix)) {
+            const obj = attackStixLookup[objStixId];
+            if (!obj) {
+                process.stderr.write(`Warning: no object exists for ID=${objStixId}\n`);
+                continue;
+            }
+            const technique = attackStixLookup[techniqueStixId];
+            obj.relatedTechniques.push(technique.id);
         }
         process.stderr.write("done\n");
     }
 
     process.stderr.write("Writing data/attack.json…\n");
-    fs.writeFileSync("data/attack.json", JSON.stringify(attackLookup));
+    fs.writeFileSync("data/attack.json", JSON.stringify(attackOidLookup));
 
     process.stderr.write("Writing data/lunr-index.json…\n");
     const index = lunr(function () {

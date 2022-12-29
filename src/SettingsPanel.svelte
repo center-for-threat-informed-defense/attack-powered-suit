@@ -25,7 +25,8 @@
     following variables names can be used inside curly braces: <code
         >{"{description}"}</code
     >, <code>{"{name}"}</code>,
-    <code>{"{id}"}</code>, <code>{"{type}"}</code>, <code>{"{url}"}</code>
+    <code>{"{id}"}</code>, <code>{"{type}"}</code>, <code>{"{url}"}</code>,
+    <code>{"{stixId}"}</code>
 </div>
 
 <table class="table">

@@ -24,6 +24,7 @@
             for (const result of results.items) {
                 const highlightedResult = {
                     id: { text: result.id, matches: [] },
+                    stixId: result.stixId,
                     type: result.type,
                     deprecated: result.deprecated,
                     name: { text: result.name, matches: [] },

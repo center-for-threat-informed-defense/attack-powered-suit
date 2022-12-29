@@ -8,6 +8,7 @@ import lunr from 'lunr';
 export const lunrOptions = function () {
     this.ref("lunrRef");
     this.field("id", { boost: 3 });
+    this.field("stixId");
     this.field("type");
     this.field("name", { boost: 2 });
     this.field("description", { boost: 1 });
@@ -18,7 +19,6 @@ export const lunrOptions = function () {
 }
 
 const maxResults = 25;
-const minChars = 3;
 
 // The index is created empty at first. Data is added inside initializeSearch().
 let index = lunr(function () {
@@ -80,4 +80,11 @@ export function search(query, filters) {
         items: filteredResults,
         totalCount: resultCount,
     };
+}
+
+/**
+ * Look up an ATT&CK object by its ID.
+ */
+export function lookupAttack(object_id) {
+    return attackData[object_id];
 }
