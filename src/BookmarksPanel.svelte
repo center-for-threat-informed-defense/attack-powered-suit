@@ -55,14 +55,33 @@
 
     function exportAttackLayer() {
         // Set up the data to export.
+        let exportDomain = document.getElementById("attackDomain").value;
         let exportTitle =
             document.getElementById("layerTitle").value || defaultExportTitle;
         let colorFlag = colorBy == "Color";
-        let techniques = $bookmarksStore.filter(
-            (b) => b.type == "technique" || b.type == "subtechnique"
-        );
-        // TODO pull in related techniques, i.e. techniques related to a software object?
-        // check how navigator does it
+        let techniques = [];
+        for (const bookmark of $bookmarksStore) {
+            const obj = lookupAttack(bookmark.id);
+            if (
+                bookmark.type == "technique" ||
+                bookmark.type == "subtechnique"
+            ) {
+                techniques.push(bookmark.id);
+            } else if (typeof obj.relatedTechniques !== "undefined") {
+                for (const rt of obj.relatedTechniques) {
+                    console.log("rt", rt);
+                    techniques.push({
+                        id: rt,
+                        color: bookmark.color,
+                        score: bookmark.score,
+                        notes:
+                            bookmark.notes +
+                            ` (Related to bookmark: ${bookmark.id})`,
+                    });
+                }
+            }
+            console.log(techniques);
+        }
         const data = buildAttackLayer(
             exportDomain,
             exportTitle,
@@ -218,18 +237,30 @@
             class:show={accordionSelected === "navigator"}
         >
             <div class="accordion-body">
+                <p class="exportText">
+                    Export bookmarked techniques to an ATT&CK Navigator layer.
+                    Other bookmarks (e.g. software, group) are mapped to their
+                    related techniques.
+                </p>
                 <form on:submit={(e) => e.preventDefault()}>
                     <div class="row">
                         <div class="col">
                             <div class="form-floating">
-                                <input
+                                <select
+                                    class="form-select"
                                     id="attackDomain"
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="ATT&amp;CK Domain"
-                                    value="enterprise-attack"
-                                    required
-                                />
+                                    aria-label="Select ATT&CK domain"
+                                >
+                                    <option value="enterprise-attack" selected
+                                        >enterprise-attack</option
+                                    >
+                                    <option value="mobile-attack"
+                                        >mobile-attack</option
+                                    >
+                                    <option value="ics-attack"
+                                        >ics-attack</option
+                                    >
+                                </select>
                                 <label for="attackDomain"
                                     >ATT&amp;CK Domain</label
                                 >
@@ -284,6 +315,12 @@
 
     .accordion-collapse {
         padding: 1rem;
+    }
+
+    p.exportText {
+        color: var(--me-core-gray);
+        margin-bottom: 0.5rem;
+        font-size: 10pt;
     }
 
     form .row {
