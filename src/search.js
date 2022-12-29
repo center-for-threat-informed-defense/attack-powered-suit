@@ -81,3 +81,10 @@ export function search(query, filters) {
         totalCount: resultCount,
     };
 }
+
+/**
+ * Look up an ATT&CK object by its ID.
+ */
+export function lookupAttack(object_id) {
+    return attackData[object_id];
+}

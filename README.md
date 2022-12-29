@@ -216,6 +216,7 @@ changes that need to be made:
 * `fetch-attack.js`: update `attackUrls`
 * `SettingsPanel.svelte`: update the text inside the `<p class="credits">`
   paragraph
+* `attack.js`: update the metadata in `newLayerTemplate()`.
 
 After making these changes, run these commands again to download the new release
 and re-index it:

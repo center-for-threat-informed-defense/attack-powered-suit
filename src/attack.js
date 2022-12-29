@@ -53,7 +53,7 @@ export function getAttackUrl(text) {
  *
  * @param {string} attackDomain - The ATT&CK domain
  * @param {string} layerTitle - The name to assign to the layer
- * @param {Array} techniques - Array of techniques to
+ * @param {Array} techniques - Array of techniques to export
  * @param {bool} colorFlag - Toggle to color techniques by score or color selection
  */
 export function buildAttackLayer(attackDomain, layerTitle, techniques,
@@ -89,9 +89,9 @@ function newLayerTemplate() {
     return {
         name: null, // This is filled in by buildLayer().
         versions: {
-            "attack": "11",
-            "navigator": "4.6.4",
-            "layer": "4.3"
+            "attack": "12",
+            "navigator": "4.8.0",
+            "layer": "4.4"
         },
         domain: null, // This is filled in by buildLayer().
         description: "",
