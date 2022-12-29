@@ -10,6 +10,34 @@ const attackUrls = {
     "TA": "https://attack.mitre.org/tactics/{id}/",
 }
 
+const platforms = {
+    "enterprise-attack": [
+        "Linux",
+        "macOS",
+        "Windows",
+        "Azure AD",
+        "Office 365",
+        "SaaS",
+        "IaaS",
+        "Google Workspace",
+        "PRE",
+        "Network",
+        "Containers",
+    ],
+    "mobile-attack": ["Android", "iOS"],
+    "ics-attack": ["Field Controller/RTU/PLC/IED",
+        "Device Configuration/Parameters",
+        "Human-Machine Interface",
+        "Control Server",
+        "Data Historian",
+        "Engineering Workstation",
+        "Safety Instrumented System/Protection Relay",
+        "None",
+        "Input/Output Server",
+        "Windows",
+    ],
+};
+
 /**
  * Extract an ATT&CK object ID and it's type (i.e. prefix) from text.
  */
@@ -58,9 +86,8 @@ export function getAttackUrl(text) {
  */
 export function buildAttackLayer(attackDomain, layerTitle, techniques,
     colorFlag) {
-    const layer = Object.assign({}, newLayerTemplate());
+    const layer = Object.assign({}, newLayerTemplate(attackDomain, layerTitle));
     layer.name = layerTitle;
-    layer.domain = attackDomain;
     let color = "";
 
     for (let technique of techniques) {
@@ -85,30 +112,24 @@ export function buildAttackLayer(attackDomain, layerTitle, techniques,
     return layer;
 }
 
-function newLayerTemplate() {
+/**
+ * Create an empty new layer.
+ *
+ * @param {string} domain - The ATT&CK domain
+ * @param {string} name - The name to assign to the layer
+ */
+function newLayerTemplate(domain, name) {
     return {
-        name: null, // This is filled in by buildLayer().
+        name,
+        domain,
         versions: {
             "attack": "12",
             "navigator": "4.8.0",
             "layer": "4.4"
         },
-        domain: null, // This is filled in by buildLayer().
         description: "",
         filters: {
-            platforms: [
-                "Linux",
-                "macOS",
-                "Windows",
-                "Azure AD",
-                "Office 365",
-                "SaaS",
-                "IaaS",
-                "Google Workspace",
-                "PRE",
-                "Network",
-                "Containers",
-            ],
+            platforms: platforms[domain],
         },
         sorting: 0,
         layout: {
