@@ -42,10 +42,10 @@ released for free (and with open source code) in service of our mission: to
 advance the state of the art and the state of the practice in threat-informed
 defense globally.
 
-The Center for Threat-Informed Defense does not collect or share any data about
-users or their usage of ATT&CK Powered Suit. Search queries and other features
-are performed locally in the browser. If you are signed into Chrome using a
-Google account, then your bookmarks data is synced via your Google account.
+The Center for Threat-Informed Defense does not collect or share any data about users or
+their usage of ATT&CK Powered Suit. Search queries and other features are performed
+locally in the browser. (If you are signed into Chrome using a Google account, then your
+bookmarks data is synced via your Google account.
 
 ### Deep Links
 
@@ -79,10 +79,15 @@ Otherwise, choose "Search in ATT&CK" to view the search results.
 
 ## Installation
 
-Click this image to download ATT&CK Powered Suit for free from the Chrome Web
-Store.
+The easiest way to install is to visit the store for your web browser of choice:
+
+**Google Chrome**
 
 [![Chrome Web Store badge](media/chrome_web_store.png)](https://chrome.google.com/webstore/detail/attck-powered-suit/gfhomppaadldngjnmbefmmiokgefjddd?hl=en&authuser=0)
+
+**Microsoft Edge**
+
+[![Microsoft Edge Store badge](media/microsoft_edge_store.png)](https://apps.microsoft.com/store/detail/attck-powered-suit/0RDCKF6WMNPP?cid=github&referrer=appbadge&source=)
 
 ## Community
 
