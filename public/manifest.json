@@ -11,9 +11,14 @@
   },
   "minimum_chrome_version": "101",
   "background": {
-    "service_worker": "build/worker.js",
-    "type": "module"
+    "scripts": ["build/worker.js"]
+  }, 
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "ctid_attack_powered_suit@mitre-engenuity.org"
+    }
   },
+
   "content_scripts": [
     {
       "matches": [
@@ -30,7 +35,8 @@
   "permissions": [
     "clipboardWrite",
     "contextMenus",
-    "storage"
+    "storage",
+    "tabs"
   ],
   "action": {
     "default_popup": "index.html",
@@ -39,5 +45,8 @@
       "48": "image/icon-48.png"
     }
   },
-  "options_page": "index.html?view=settings"
+  "options_ui": {
+    "page": "index.html?view=settings",
+    "browser_style": true
+  }
 }
