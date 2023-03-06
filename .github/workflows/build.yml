@@ -2,11 +2,11 @@ name: Build
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
 
 jobs:
-  build:
+  build-ubuntu:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,9 +30,38 @@ jobs:
       run: npm run build-index
     - name: Build Svelte Application
       run: npm run build
+    - name: Build Chrome extension
+      run: make chrome-ext
     - name: Package Chrome Extension
       uses: actions/upload-artifact@v3
       with:
         name: attack-powered-suit-chrome
         path: |
-          public/**
+          browsers/chrome/**
+
+  build-macos:
+    # Safari must be built on MacOS, so this job is separate. Note that it does not
+    # execute unit tests or coverage since that's already handled above.
+    runs-on: macos-latest
+
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '17'
+    - name: Install Build Dependencies
+      run: npm ci
+    steps:
+    - name: Fetch ATT&CK STIX Data
+      run: npm run fetch-attack
+    - name: Build Search Index
+      run: npm run build-index
+    - name: Build Svelte Application
+      run: npm run build
+    - name: Build Safari extension
+      run: make safari-ext
+    - name: Package Safari Extension
+      uses: actions/upload-artifact@v3
+      with:
+        name: attack-powered-suit-safari
+        path: |
+          browsers/safari/build/attack-powered-suit.app*

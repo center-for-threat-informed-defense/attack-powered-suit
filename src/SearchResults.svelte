@@ -5,7 +5,7 @@
         removeBookmark,
     } from "./bookmarks";
     import { formatsStore, formatObject } from "./formats.js";
-    import sleep from "./sleep.js";
+    import { sleep } from "./sleep.js";
     import HighlightMatches from "./HighlightMatches.svelte";
 
     export let results = null;
@@ -219,6 +219,7 @@
     .format {
         margin-right: 1rem;
         color: var(--me-core-purple-light);
+        cursor: pointer;
     }
 
     .format:hover {

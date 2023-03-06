@@ -31,3 +31,12 @@ lint: ## Lint code
 .PHONY: test
 test: ## Run tests
 	npm run test
+
+.PHONY: chrome-ext
+chrome-ext: ## Copy Node.js artifacts to Chrome extension directory.
+	cp -r public/index.html public/global.css public/build public/image browsers/chrome
+
+.PHONY: safari-ext
+safari-ext: ## Copy Node.js artifacts to Safari extension and build the extension.
+	cp -r public/index.html public/global.css public/build public/image browsers/safari/attack-powered-suit\ Extension/Resources/
+	xcodebuild -project browsers/safari/attack-powered-suit.xcodeproj -target attack-powered-suit build

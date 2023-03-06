@@ -11,14 +11,9 @@
   },
   "minimum_chrome_version": "101",
   "background": {
-    "scripts": ["build/worker.js"]
-  }, 
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "ctid_attack_powered_suit@mitre-engenuity.org"
-    }
+    "service_worker": "build/worker.js",
+    "type": "module"
   },
-
   "content_scripts": [
     {
       "matches": [
@@ -29,24 +24,16 @@
       ]
     }
   ],
-  "omnibox": {
-    "keyword": "&"
-  },
   "permissions": [
     "clipboardWrite",
     "contextMenus",
-    "storage",
-    "tabs"
+    "storage"
   ],
   "action": {
     "default_popup": "index.html",
     "default_icon": {
-      "32": "image/icon-32.png",
-      "48": "image/icon-48.png"
+      "32": "image/icon-32.png"
     }
   },
-  "options_ui": {
-    "page": "index.html?view=settings",
-    "browser_style": true
-  }
+  "options_page": "index.html?view=settings"
 }

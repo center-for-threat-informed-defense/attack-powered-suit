@@ -1,0 +1,592 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C51CAE7929B27326006F7C36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51CAE7829B27326006F7C36 /* AppDelegate.swift */; };
+		C51CAE7D29B27326006F7C36 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = C51CAE7B29B27326006F7C36 /* Main.html */; };
+		C51CAE7F29B27326006F7C36 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C51CAE7E29B27326006F7C36 /* Icon.png */; };
+		C51CAE8129B27326006F7C36 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = C51CAE8029B27326006F7C36 /* Style.css */; };
+		C51CAE8329B27326006F7C36 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = C51CAE8229B27326006F7C36 /* Script.js */; };
+		C51CAE8529B27326006F7C36 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51CAE8429B27326006F7C36 /* ViewController.swift */; };
+		C51CAE8829B27326006F7C36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C51CAE8629B27326006F7C36 /* Main.storyboard */; };
+		C51CAE8A29B27328006F7C36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C51CAE8929B27328006F7C36 /* Assets.xcassets */; };
+		C51CAE9229B27328006F7C36 /* attack-powered-suit Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C51CAE9129B27328006F7C36 /* attack-powered-suit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C51CAE9729B27328006F7C36 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51CAE9629B27328006F7C36 /* SafariWebExtensionHandler.swift */; };
+		C51CAE9E29B27329006F7C36 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = C51CAE9D29B27329006F7C36 /* manifest.json */; };
+		C51CAEB829B278BB006F7C36 /* image in Resources */ = {isa = PBXBuildFile; fileRef = C51CAEB429B278BB006F7C36 /* image */; };
+		C51CAEB929B278BB006F7C36 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = C51CAEB529B278BB006F7C36 /* index.html */; };
+		C51CAEBB29B278BB006F7C36 /* build in Resources */ = {isa = PBXBuildFile; fileRef = C51CAEB729B278BB006F7C36 /* build */; };
+		C544CA2529B7809600CC1010 /* global.css in Resources */ = {isa = PBXBuildFile; fileRef = C544CA2429B7778900CC1010 /* global.css */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C51CAE9329B27328006F7C36 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C51CAE6D29B27326006F7C36 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C51CAE9029B27328006F7C36;
+			remoteInfo = "attack-powered-suit Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C51CAEB029B27329006F7C36 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C51CAE9229B27328006F7C36 /* attack-powered-suit Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C51CAE7529B27326006F7C36 /* attack-powered-suit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "attack-powered-suit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C51CAE7829B27326006F7C36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C51CAE7C29B27326006F7C36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
+		C51CAE7E29B27326006F7C36 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		C51CAE8029B27326006F7C36 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		C51CAE8229B27326006F7C36 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		C51CAE8429B27326006F7C36 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C51CAE8729B27326006F7C36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C51CAE8929B27328006F7C36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C51CAE8B29B27328006F7C36 /* attack_powered_suit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = attack_powered_suit.entitlements; sourceTree = "<group>"; };
+		C51CAE8C29B27328006F7C36 /* attack-powered-suit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "attack-powered-suit.entitlements"; sourceTree = "<group>"; };
+		C51CAE9129B27328006F7C36 /* attack-powered-suit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "attack-powered-suit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C51CAE9629B27328006F7C36 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		C51CAE9D29B27329006F7C36 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
+		C51CAEA929B27329006F7C36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C51CAEAA29B27329006F7C36 /* attack_powered_suit_Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = attack_powered_suit_Extension.entitlements; sourceTree = "<group>"; };
+		C51CAEB429B278BB006F7C36 /* image */ = {isa = PBXFileReference; lastKnownFileType = folder; path = image; sourceTree = "<group>"; };
+		C51CAEB529B278BB006F7C36 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		C51CAEB729B278BB006F7C36 /* build */ = {isa = PBXFileReference; lastKnownFileType = folder; path = build; sourceTree = "<group>"; };
+		C544CA2429B7778900CC1010 /* global.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = global.css; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C51CAE7229B27326006F7C36 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C51CAE8E29B27328006F7C36 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C51CAE6C29B27326006F7C36 = {
+			isa = PBXGroup;
+			children = (
+				C51CAE7729B27326006F7C36 /* attack-powered-suit */,
+				C51CAE9529B27328006F7C36 /* attack-powered-suit Extension */,
+				C51CAE7629B27326006F7C36 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C51CAE7629B27326006F7C36 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C51CAE7529B27326006F7C36 /* attack-powered-suit.app */,
+				C51CAE9129B27328006F7C36 /* attack-powered-suit Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C51CAE7729B27326006F7C36 /* attack-powered-suit */ = {
+			isa = PBXGroup;
+			children = (
+				C51CAE7829B27326006F7C36 /* AppDelegate.swift */,
+				C51CAE8429B27326006F7C36 /* ViewController.swift */,
+				C51CAE8629B27326006F7C36 /* Main.storyboard */,
+				C51CAE8929B27328006F7C36 /* Assets.xcassets */,
+				C51CAE8B29B27328006F7C36 /* attack_powered_suit.entitlements */,
+				C51CAE8C29B27328006F7C36 /* attack-powered-suit.entitlements */,
+				C51CAE7A29B27326006F7C36 /* Resources */,
+			);
+			path = "attack-powered-suit";
+			sourceTree = "<group>";
+		};
+		C51CAE7A29B27326006F7C36 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C51CAE7B29B27326006F7C36 /* Main.html */,
+				C51CAE7E29B27326006F7C36 /* Icon.png */,
+				C51CAE8029B27326006F7C36 /* Style.css */,
+				C51CAE8229B27326006F7C36 /* Script.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C51CAE9529B27328006F7C36 /* attack-powered-suit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C51CAE9629B27328006F7C36 /* SafariWebExtensionHandler.swift */,
+				C51CAEA929B27329006F7C36 /* Info.plist */,
+				C51CAEAA29B27329006F7C36 /* attack_powered_suit_Extension.entitlements */,
+				C51CAE9829B27328006F7C36 /* Resources */,
+			);
+			path = "attack-powered-suit Extension";
+			sourceTree = "<group>";
+		};
+		C51CAE9829B27328006F7C36 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C51CAEB729B278BB006F7C36 /* build */,
+				C51CAEB429B278BB006F7C36 /* image */,
+				C544CA2429B7778900CC1010 /* global.css */,
+				C51CAEB529B278BB006F7C36 /* index.html */,
+				C51CAE9D29B27329006F7C36 /* manifest.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C51CAE7429B27326006F7C36 /* attack-powered-suit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C51CAEB129B27329006F7C36 /* Build configuration list for PBXNativeTarget "attack-powered-suit" */;
+			buildPhases = (
+				C51CAE7129B27326006F7C36 /* Sources */,
+				C51CAE7229B27326006F7C36 /* Frameworks */,
+				C51CAE7329B27326006F7C36 /* Resources */,
+				C51CAEB029B27329006F7C36 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C51CAE9429B27328006F7C36 /* PBXTargetDependency */,
+			);
+			name = "attack-powered-suit";
+			productName = "attack-powered-suit";
+			productReference = C51CAE7529B27326006F7C36 /* attack-powered-suit.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C51CAE9029B27328006F7C36 /* attack-powered-suit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C51CAEAD29B27329006F7C36 /* Build configuration list for PBXNativeTarget "attack-powered-suit Extension" */;
+			buildPhases = (
+				C51CAE8D29B27328006F7C36 /* Sources */,
+				C51CAE8E29B27328006F7C36 /* Frameworks */,
+				C51CAE8F29B27328006F7C36 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "attack-powered-suit Extension";
+			productName = "attack-powered-suit Extension";
+			productReference = C51CAE9129B27328006F7C36 /* attack-powered-suit Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C51CAE6D29B27326006F7C36 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					C51CAE7429B27326006F7C36 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					C51CAE9029B27328006F7C36 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+				};
+			};
+			buildConfigurationList = C51CAE7029B27326006F7C36 /* Build configuration list for PBXProject "attack-powered-suit" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C51CAE6C29B27326006F7C36;
+			productRefGroup = C51CAE7629B27326006F7C36 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C51CAE7429B27326006F7C36 /* attack-powered-suit */,
+				C51CAE9029B27328006F7C36 /* attack-powered-suit Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C51CAE7329B27326006F7C36 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C51CAE7F29B27326006F7C36 /* Icon.png in Resources */,
+				C51CAE8829B27326006F7C36 /* Main.storyboard in Resources */,
+				C51CAE8329B27326006F7C36 /* Script.js in Resources */,
+				C51CAE7D29B27326006F7C36 /* Main.html in Resources */,
+				C51CAE8A29B27328006F7C36 /* Assets.xcassets in Resources */,
+				C51CAE8129B27326006F7C36 /* Style.css in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C51CAE8F29B27328006F7C36 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C51CAEBB29B278BB006F7C36 /* build in Resources */,
+				C51CAEB929B278BB006F7C36 /* index.html in Resources */,
+				C544CA2529B7809600CC1010 /* global.css in Resources */,
+				C51CAEB829B278BB006F7C36 /* image in Resources */,
+				C51CAE9E29B27329006F7C36 /* manifest.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C51CAE7129B27326006F7C36 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C51CAE8529B27326006F7C36 /* ViewController.swift in Sources */,
+				C51CAE7929B27326006F7C36 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C51CAE8D29B27328006F7C36 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C51CAE9729B27328006F7C36 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C51CAE9429B27328006F7C36 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C51CAE9029B27328006F7C36 /* attack-powered-suit Extension */;
+			targetProxy = C51CAE9329B27328006F7C36 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C51CAE7B29B27326006F7C36 /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C51CAE7C29B27326006F7C36 /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		C51CAE8629B27326006F7C36 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C51CAE8729B27326006F7C36 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C51CAEAB29B27329006F7C36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C51CAEAC29B27329006F7C36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		C51CAEAE29B27329006F7C36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "attack-powered-suit Extension/attack_powered_suit_Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MSB8V5CMLX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "attack-powered-suit Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "attack-powered-suit Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.2.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.center-for-threat-informed-defense.attack-powered-suit.Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C51CAEAF29B27329006F7C36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "attack-powered-suit Extension/attack_powered_suit_Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MSB8V5CMLX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "attack-powered-suit Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "attack-powered-suit Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.2.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.center-for-threat-informed-defense.attack-powered-suit.Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C51CAEB229B27329006F7C36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "attack-powered-suit/attack-powered-suit.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MSB8V5CMLX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "ATT&CK Powered Suit";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.2.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.center-for-threat-informed-defense.attack-powered-suit";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C51CAEB329B27329006F7C36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "attack-powered-suit/attack-powered-suit.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MSB8V5CMLX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "ATT&CK Powered Suit";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.2.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.center-for-threat-informed-defense.attack-powered-suit";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C51CAE7029B27326006F7C36 /* Build configuration list for PBXProject "attack-powered-suit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C51CAEAB29B27329006F7C36 /* Debug */,
+				C51CAEAC29B27329006F7C36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C51CAEAD29B27329006F7C36 /* Build configuration list for PBXNativeTarget "attack-powered-suit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C51CAEAE29B27329006F7C36 /* Debug */,
+				C51CAEAF29B27329006F7C36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C51CAEB129B27329006F7C36 /* Build configuration list for PBXNativeTarget "attack-powered-suit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C51CAEB229B27329006F7C36 /* Debug */,
+				C51CAEB329B27329006F7C36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C51CAE6D29B27326006F7C36 /* Project object */;
+}
