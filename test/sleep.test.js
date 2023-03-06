@@ -1,4 +1,4 @@
-import sleep from "../src/sleep.js";
+import { sleep } from "../src/sleep.js";
 
 describe("sleep.js", () => {
     test("sleep should return a promise", () => {
