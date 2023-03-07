@@ -83,4 +83,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: attack-powered-suit-safari
-        path: browsers/safari/build/attack-powered-suit.app*
+        path: browsers/safari/build/Release/*attack-powered-suit.app
