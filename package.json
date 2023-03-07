@@ -8,7 +8,6 @@
     "dev": "rollup -c -w",
     "test": "jest",
     "watch-test": "jest --collect-coverage --watch",
-    "lint": "docker run -e RUN_LOCAL=true -e VALIDATE_JAVASCRIPT_ES=true -e VALIDATE_MARKDOWN=true -v $PWD:/tmp/lint github/super-linter",
     "start": "sirv public --no-clear",
     "fetch-attack": "node scripts/fetch-attack.js",
     "build-index": "node scripts/build-index.js",
