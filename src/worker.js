@@ -1,11 +1,11 @@
 /**
- * The background script for the Chrome extension.
+ * The background script for the extension.
  */
 
 import { getAttackUrl } from "./attack.js";
 import { initializeSearch, search } from "./search.js";
 
-/* Set up Chrome context menus. */
+/* Set up context menus. */
 
 chrome = chrome ?? null;
 
@@ -68,64 +68,65 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-/* Set up Chrome omnibox (i.e. the URL bar). */
+/* Set up Omnibox interactions for browsers that support this API. */
+if (typeof chrome.omnibox !== "undefined") {
+    initializeSearch();
+    const searchFilters = {
+        technique: true,
+        subtechnique: true,
+        mitigation: true,
+        software: true,
+        tactic: true,
+        dataSource: true,
+        group: true,
+        deprecated: false,
+    };
 
-initializeSearch();
-const searchFilters = {
-    technique: true,
-    subtechnique: true,
-    mitigation: true,
-    software: true,
-    tactic: true,
-    dataSource: true,
-    group: true,
-    deprecated: false,
-};
+    chrome.omnibox.setDefaultSuggestion({
+        description: 'Search in ATT&amp;CK',
+    });
 
-chrome.omnibox.setDefaultSuggestion({
-    description: 'Search in ATT&amp;CK',
-});
-
-chrome.omnibox.onInputChanged.addListener(
-    (inputText, suggestCallback) => {
-        if (inputText.length == 0) {
-            return;
-        }
-        var suggestions = [];
-        try {
-            const results = search(inputText, searchFilters);
-            for (const result of results.items) {
-                suggestions.push({
-                    content: result.url,
-                    description: `${result.id}: ${result.name}`,
-                });
+    chrome.omnibox.onInputChanged.addListener(
+        (inputText, suggestCallback) => {
+            if (inputText.length == 0) {
+                return;
             }
-        } catch (e) {
-            console.error("Search failed", e);
+            var suggestions = [];
+            try {
+                const results = search(inputText, searchFilters);
+                for (const result of results.items) {
+                    suggestions.push({
+                        content: result.url,
+                        description: `${result.id}: ${result.name}`,
+                    });
+                }
+            } catch (e) {
+                console.error("Search failed", e);
+            }
+            suggestCallback(suggestions);
         }
-        suggestCallback(suggestions);
-    }
-);
+    );
 
-chrome.omnibox.onInputEntered.addListener(
-    async (inputText) => {
-        const query = encodeURIComponent(inputText);
-        var url;
-        if (inputText.startsWith("http")) {
-            // If the user selects one of the ATT&CK suggestions, it will be
-            // received here as a URL, so we should navigate directly to it.
-            url = inputText;
-        } else {
-            url = chrome.runtime.getURL(`index.html?q=${query}`);
+    chrome.omnibox.onInputEntered.addListener(
+        async (inputText) => {
+            const query = encodeURIComponent(inputText);
+            var url;
+            if (inputText.startsWith("http")) {
+                // If the user selects one of the ATT&CK suggestions, it will be
+                // received here as a URL, so we should navigate directly to it.
+                url = inputText;
+            } else {
+                url = chrome.runtime.getURL(`index.html?q=${query}`);
+            }
+            const tabs = await chrome.tabs.query({
+                active: true,
+                currentWindow: true,
+            });
+            if (tabs.length > 0) {
+                await chrome.tabs.update(tabs[0].id, { url });
+            } else {
+                await chrome.tabs.create({ url });
+            }
         }
-        const tabs = await chrome.tabs.query({
-            active: true,
-            currentWindow: true,
-        });
-        if (tabs.length > 0) {
-            await chrome.tabs.update(tabs[0].id, { url });
-        } else {
-            await chrome.tabs.create({ url });
-        }
-    }
-);
+    );
+}

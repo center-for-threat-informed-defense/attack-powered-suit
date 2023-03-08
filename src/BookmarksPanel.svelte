@@ -45,7 +45,7 @@
         }
 
         // Do the export.
-        const blob = new Blob(data, {
+        const blob = new File(data, {
             type: "text/csv",
         });
         const url = URL.createObjectURL(blob);
@@ -53,8 +53,13 @@
         anchor.style.display = "none";
         anchor.download = "powered_suit_boomarks.csv";
         anchor.href = url;
+        anchor.target = "_blank";
+        document.body.appendChild(anchor);
         anchor.click();
-        URL.revokeObjectURL(url);
+        setTimeout(() => {
+            URL.revokeObjectURL(url);
+            document.body.removeChild(anchor);
+        }, 100);
     }
 
     function exportAttackLayer() {

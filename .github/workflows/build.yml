@@ -1,12 +1,12 @@
-name: Build
+name: Build Extensions
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
 
 jobs:
-  build:
+  build-ubuntu:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,9 +30,57 @@ jobs:
       run: npm run build-index
     - name: Build Svelte Application
       run: npm run build
+    - name: Build Chrome extension
+      run: make chrome-ext
     - name: Package Chrome Extension
       uses: actions/upload-artifact@v3
       with:
         name: attack-powered-suit-chrome
-        path: |
-          public/**
+        path: browsers/chrome/
+
+  # Safari must be built on MacOS, so this job is separate. Note that it does not
+  # execute unit tests or coverage since that's already handled above.
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '17'
+    - name: Install Code Signing Certificate
+      env:
+        BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+        BUILD_CERTIFICATE_PASSWORD: ${{ secrets.BUILD_CERTIFICATE_PASSWORD }}
+        KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+      run: |
+        # create variables
+        CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+        KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+        # import certificate and provisioning profile from secrets
+        echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+
+        # create temporary keychain
+        security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+        security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+        security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+        # import certificate to keychain
+        security import $CERTIFICATE_PATH -P "$BUILD_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+        security list-keychain -d user -s $KEYCHAIN_PATH
+    - name: Install Build Dependencies
+      run: npm ci
+    - name: Fetch ATT&CK STIX Data
+      run: npm run fetch-attack
+    - name: Build Search Index
+      run: npm run build-index
+    - name: Build Svelte Application
+      run: npm run build
+    - name: Build Safari extension
+      run: make safari-ext
+    - name: Package Safari Extension
+      uses: actions/upload-artifact@v3
+      with:
+        name: attack-powered-suit-safari
+        path: browsers/safari/build/Release/*attack-powered-suit.app

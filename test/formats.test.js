@@ -1,4 +1,4 @@
-import sleep from "../src/sleep";
+import { sleep } from "../src/sleep";
 import {
     initializeFormats,
     addFormat,

@@ -24,9 +24,6 @@
       ]
     }
   ],
-  "omnibox": {
-    "keyword": "&"
-  },
   "permissions": [
     "clipboardWrite",
     "contextMenus",
@@ -35,8 +32,7 @@
   "action": {
     "default_popup": "index.html",
     "default_icon": {
-      "32": "image/icon-32.png",
-      "48": "image/icon-48.png"
+      "32": "image/icon-32.png"
     }
   },
   "options_page": "index.html?view=settings"
