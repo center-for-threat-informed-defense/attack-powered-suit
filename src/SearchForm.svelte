@@ -1,36 +1,30 @@
 <script>
     import { createEventDispatcher, onMount } from "svelte";
     import { initializeSearch, search } from "./search.js";
+    import { filters } from "./filters";
 
     export let results = null;
 
-    const dispatch = createEventDispatcher();
-
-    // Initialized isn't currently used, but might be useful, e.g. for a loading
-    // screen.
-    let initialized = false;
-
     let query = "";
-    let techniquesEnabled = true;
-    let subtechniquesEnabled = true;
-    let mitigationsEnabled = true;
-    let softwareEnabled = true;
-    let tacticsEnabled = true;
-    let dataSourcesEnabled = true;
-    let groupsEnabled = true;
-    let campaignEnabled = true;
-    let deprecatedEnabled = false;
-    let enterpriseEnabled = true;
-    let icsEnabled = true;
-    let mobileEnabled = true;
+
+    const dispatch = createEventDispatcher();
 
     onMount(() => {
         initializeSearch().then(() => {
-            initialized = true;
             const params = new URLSearchParams(window.location.search);
             query = params.get("q") || "";
         });
     });
+
+    function setAllFilters(enabled) {
+        const newFilters = {};
+        for (const key of Object.keys($filters)) {
+            if (key !== "includeDeprecated") {
+                newFilters[key] = enabled;
+            }
+        }
+        filters.set(newFilters);
+    }
 
     // Update search results whenever the query or filters are modified.
     $: {
@@ -38,18 +32,18 @@
             results = null;
         } else {
             results = search(query, {
-                technique: techniquesEnabled,
-                subtechnique: subtechniquesEnabled,
-                mitigation: mitigationsEnabled,
-                software: softwareEnabled,
-                tactic: tacticsEnabled,
-                dataSource: dataSourcesEnabled,
-                group: groupsEnabled,
-                campaign: campaignEnabled,
-                deprecated: deprecatedEnabled,
-                Enterprise: enterpriseEnabled,
-                ICS: icsEnabled,
-                Mobile: mobileEnabled,
+                technique: $filters["includeTechniques"],
+                subtechnique: $filters["includeSubtechniques"],
+                mitigation: $filters["includeMitigations"],
+                software: $filters["includeSoftware"],
+                tactic: $filters["includeTactics"],
+                dataSource: $filters["includeDataSources"],
+                group: $filters["includeGroups"],
+                campaign: $filters["includeCampaigns"],
+                Enterprise: $filters["includeEnterprise"],
+                ICS: $filters["includeIcs"],
+                Mobile: $filters["includeMobile"],
+                deprecated: $filters["includeDeprecated"],
             });
         }
     }
@@ -94,8 +88,15 @@
         </div>
     </div>
     <div class="gray-box">
+        <p class="text-muted small" style="float: right;">
+            <!-- svelte-ignore a11y-invalid-attribute -->
+            <a href="#" on:click={() => setAllFilters(true)}>Select all</a>
+            |
+            <!-- svelte-ignore a11y-invalid-attribute -->
+            <a href="#" on:click={() => setAllFilters(false)}>none</a>
+        </p>
         <p class="text-muted small">
-            Select the types of objects to include in search results:
+            Select the types of objects to include in search results.
         </p>
         <div class="row">
             <div class="col">
@@ -105,7 +106,7 @@
                         type="checkbox"
                         role="switch"
                         class="form-check-input"
-                        bind:checked={tacticsEnabled}
+                        bind:checked={$filters["includeTactics"]}
                     />
                     <label for="tactics" class="form-check-label">Tactics</label
                     >
@@ -118,7 +119,7 @@
                         type="checkbox"
                         role="switch"
                         class="form-check-input"
-                        bind:checked={mitigationsEnabled}
+                        bind:checked={$filters["includeMitigations"]}
                     />
                     <label for="mitigations" class="form-check-label"
                         >Mitigations</label
@@ -128,13 +129,13 @@
             <div class="col">
                 <div class="form-check form-switch">
                     <input
-                        id="Enterprise"
+                        id="enterprise"
                         type="checkbox"
                         role="switch"
                         class="form-check-input"
-                        bind:checked={enterpriseEnabled}
+                        bind:checked={$filters["includeEnterprise"]}
                     />
-                    <label for="mitigations" class="form-check-label"
+                    <label for="enterprise" class="form-check-label"
                         >Enterprise</label
                     >
                 </div>
@@ -148,7 +149,7 @@
                         type="checkbox"
                         role="switch"
                         class="form-check-input"
-                        bind:checked={techniquesEnabled}
+                        bind:checked={$filters["includeTechniques"]}
                     />
                     <label for="techniques" class="form-check-label"
                         >Techniques</label
@@ -162,7 +163,7 @@
                         type="checkbox"
                         role="switch"
                         class="form-check-input"
-                        bind:checked={softwareEnabled}
+                        bind:checked={$filters["includeSoftware"]}
                     />
                     <label for="software" class="form-check-label"
                         >Software</label
@@ -172,14 +173,14 @@
             <div class="col">
                 <div class="form-check form-switch">
                     <input
-                        id="ICS"
+                        id="ics"
                         type="checkbox"
                         role="switch"
                         class="form-check-input"
-                        bind:checked={icsEnabled}
+                        bind:checked={$filters["includeIcs"]}
+                        on:click={(e) => "clickFilterICS"()}
                     />
-                    <label for="mitigations" class="form-check-label">ICS</label
-                    >
+                    <label for="ics" class="form-check-label">ICS</label>
                 </div>
             </div>
         </div>
@@ -191,7 +192,7 @@
                         type="checkbox"
                         role="switch"
                         class="form-check-input"
-                        bind:checked={subtechniquesEnabled}
+                        bind:checked={$filters["includeSubtechniques"]}
                     />
                     <label for="subtechniques" class="form-check-label"
                         >Sub-techniques</label
@@ -205,7 +206,7 @@
                         type="checkbox"
                         role="switch"
                         class="form-check-input"
-                        bind:checked={groupsEnabled}
+                        bind:checked={$filters["includeGroups"]}
                     />
                     <label for="groups" class="form-check-label">Groups</label>
                 </div>
@@ -213,15 +214,13 @@
             <div class="col">
                 <div class="form-check form-switch">
                     <input
-                        id="Mobile"
+                        id="mobile"
                         type="checkbox"
                         role="switch"
                         class="form-check-input"
-                        bind:checked={mobileEnabled}
+                        bind:checked={$filters["includeMobile"]}
                     />
-                    <label for="mitigations" class="form-check-label"
-                        >Mobile</label
-                    >
+                    <label for="mobile" class="form-check-label">Mobile</label>
                 </div>
             </div>
         </div>
@@ -229,14 +228,14 @@
             <div class="col">
                 <div class="form-check form-switch">
                     <input
-                        id="Campaign"
+                        id="campaigns"
                         type="checkbox"
                         role="switch"
                         class="form-check-input"
-                        bind:checked={campaignEnabled}
+                        bind:checked={$filters["includeCampaigns"]}
                     />
-                    <label for="mitigations" class="form-check-label"
-                        >Campaign</label
+                    <label for="campaigns" class="form-check-label"
+                        >Campaigns</label
                     >
                 </div>
             </div>
@@ -247,7 +246,7 @@
                         type="checkbox"
                         role="switch"
                         class="form-check-input"
-                        bind:checked={dataSourcesEnabled}
+                        bind:checked={$filters["includeDataSources"]}
                     />
                     <label for="dataSources" class="form-check-label"
                         >Data Sources</label
@@ -261,7 +260,7 @@
                         type="checkbox"
                         role="switch"
                         class="form-check-input"
-                        bind:checked={deprecatedEnabled}
+                        bind:checked={$filters["includeDeprecated"]}
                     />
                     <label for="deprecated" class="form-check-label"
                         >Deprecated</label

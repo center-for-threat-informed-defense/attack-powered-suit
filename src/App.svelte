@@ -5,14 +5,18 @@
     import SearchPanel from "./SearchPanel.svelte";
     import SettingsPanel from "./SettingsPanel.svelte";
     import { initializeBookmarks } from "./bookmarks";
+    import { initializeFilters } from "./filters";
     import { initializeFormats } from "./formats";
 
     const params = new URLSearchParams(window.location.search);
-    let selectedPanel = params.get("view") || "search";
+    let selectedPanel;
 
     onMount(async () => {
         await initializeBookmarks();
         await initializeFormats();
+        await initializeFilters();
+        // Don't display a view until everything is initialized.
+        selectedPanel = params.get("view") || "search";
     });
 </script>
 
