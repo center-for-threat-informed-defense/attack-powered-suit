@@ -41,7 +41,7 @@
         }
 
         // Do the export.
-        const blob = new File(data, {
+        const blob = new Blob(data, {
             type: "text/csv",
         });
         const url = URL.createObjectURL(blob);
