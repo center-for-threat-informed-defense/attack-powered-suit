@@ -5,8 +5,9 @@
         removeBookmark,
     } from "./bookmarks";
     import { formatsStore, formatObject } from "./formats.js";
-    import { sleep } from "./sleep.js";
+    import sleep from "./sleep.js";
     import HighlightMatches from "./HighlightMatches.svelte";
+    import { supportsClipboard } from "./Clipboard.js"
 
     export let results = null;
 
@@ -14,6 +15,7 @@
     const descriptionMaxLength = 400;
     let highlightResultIdx = -1;
     let highlightFormatIdx = -1;
+    let supportsHTML = supportsClipboard();
 
     // Reformat the results so that they can be fed into the highlighter
     // component.
@@ -63,21 +65,33 @@
      * Use the specified format and ATT&CK object to place a snippet on the
      * clipboard.
      */
-    async function copyFormat(format, object, resultIdx, formatIdx) {
+     async function copyFormat(format, object, resultIdx, formatIdx) {
         const text = formatObject(format.rule, object);
-        let blobs = {
-            [defaultMimeType]: new Blob([text], { type: defaultMimeType }),
-        };
-        if (format.mime != defaultMimeType) {
-            blobs[format.mime] = new Blob([text], { type: format.mime });
+        
+<<<<<<< Updated upstream
+        if (supportsHTML) {
+=======
+        // if(typeof ClipboardItem !== "undefined") {
+        if(navigator.clipboard && window.isSecureContext) {
+>>>>>>> Stashed changes
+            let blobs = {
+                [defaultMimeType]: new Blob([text], { type: defaultMimeType }),
+            };
+            if (format.mime != defaultMimeType) {
+                blobs[format.mime] = new Blob([text], { type: format.mime });
+            }
+            let clipboardItem = [new ClipboardItem(blobs)];
+            await navigator.clipboard.write(clipboardItem);
+        } else {
+            navigator.clipboard.writeText(text);
+<<<<<<< Updated upstream
+         }
+=======
         }
-        let clipboardItem = [new ClipboardItem(blobs)];
-        await navigator.clipboard.write(clipboardItem);
+>>>>>>> Stashed changes
         highlightResultIdx = resultIdx;
         highlightFormatIdx = formatIdx;
         await sleep(1000);
-        highlightResultIdx = -1;
-        highlightFormatIdx = -1;
     }
 </script>
 
@@ -219,10 +233,10 @@
     .format {
         margin-right: 1rem;
         color: var(--me-core-purple-light);
-        cursor: pointer;
     }
 
     .format:hover {
         color: var(--me-core-purple);
+        cursor: pointer;
     }
 </style>
