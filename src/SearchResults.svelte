@@ -5,7 +5,7 @@
         removeBookmark,
     } from "./bookmarks";
     import { formatsStore, formatObject } from "./formats.js";
-    import sleep from "./sleep.js";
+    import { sleep } from "./sleep.js";
     import HighlightMatches from "./HighlightMatches.svelte";
     import { supportsClipboard } from "./Clipboard.js"
 
@@ -68,12 +68,7 @@
      async function copyFormat(format, object, resultIdx, formatIdx) {
         const text = formatObject(format.rule, object);
         
-<<<<<<< Updated upstream
         if (supportsHTML) {
-=======
-        // if(typeof ClipboardItem !== "undefined") {
-        if(navigator.clipboard && window.isSecureContext) {
->>>>>>> Stashed changes
             let blobs = {
                 [defaultMimeType]: new Blob([text], { type: defaultMimeType }),
             };
@@ -84,11 +79,7 @@
             await navigator.clipboard.write(clipboardItem);
         } else {
             navigator.clipboard.writeText(text);
-<<<<<<< Updated upstream
          }
-=======
-        }
->>>>>>> Stashed changes
         highlightResultIdx = resultIdx;
         highlightFormatIdx = formatIdx;
         await sleep(1000);

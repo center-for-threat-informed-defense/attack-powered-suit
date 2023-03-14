@@ -8,8 +8,10 @@
         addFormat,
     } from "./formats.js";
     import BackButton from "./BackButton.svelte";
+    import { supportsClipboard } from "./Clipboard.js";
 
     const dispatch = createEventDispatcher();
+    const clipboardSupported = supportsClipboard();
 
     function newFormat() {
         addFormat("new format", "", "text/plain");
@@ -46,30 +48,57 @@
         {/if}
         {#each $formatsStore as format, formatIdx (format.id)}
             <tr out:fade>
-                <td
-                    ><input
-                        type="text"
-                        class="form-control"
-                        bind:value={format.name}
-                        on:input={saveFormats}
-                    /></td
-                >
-                <td>
-                    <input
-                        type="text"
-                        class="form-control"
-                        bind:value={format.rule}
-                        on:input={saveFormats}
-                    />
-                </td>
-                <td>
-                    <input
-                        type="text"
-                        class="form-control"
-                        bind:value={format.mime}
-                        on:input={saveFormats}
-                    />
-                </td>
+                {#if !clipboardSupported}
+                    <td
+                        ><input readonly="readonly"
+                            type="text"
+                            class="form-control"
+                            bind:value={format.name}
+                            on:input={saveFormats}
+                        /></td
+                    >
+                    <td>
+                        <input readonly="readonly"
+                            type="text"
+                            class="form-control"
+                            bind:value={format.rule}
+                            on:input={saveFormats}
+                        />
+                    </td>
+                    <td>
+                        <input readonly="readonly"
+                            type="text"
+                            class="form-control"
+                            bind:value={format.mime}
+                            on:input={saveFormats}
+                        />
+                    </td>
+                {:else}
+                    <td
+                        ><input
+                            type="text"
+                            class="form-control"
+                            bind:value={format.name}
+                            on:input={saveFormats}
+                        /></td
+                    >
+                    <td>
+                        <input
+                            type="text"
+                            class="form-control"
+                            bind:value={format.rule}
+                            on:input={saveFormats}
+                        />
+                    </td>
+                    <td>
+                        <input
+                            type="text"
+                            class="form-control"
+                            bind:value={format.mime}
+                            on:input={saveFormats}
+                        />
+                    </td>
+                {/if}
                 <td class="remove-format"
                     ><i
                         on:click={() => removeFormat(format.id)}

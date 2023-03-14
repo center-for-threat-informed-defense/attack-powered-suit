@@ -7,6 +7,7 @@
 
 const debounceTimers = {};
 
+var chrome = chrome ?? null;
 /**
  * Save the specified key and value to best available storage backend.
  *
@@ -43,7 +44,6 @@ export function saveToStorage(key, value, debounce = 500) {
  */
 export async function loadFromStorage(key) {
     let storedData = null;
-
     if (chrome && chrome.storage) {
         const storageResult = await chrome.storage.sync.get({ [key]: [] });
         if (storageResult) {
