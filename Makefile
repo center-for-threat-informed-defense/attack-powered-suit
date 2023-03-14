@@ -41,6 +41,6 @@ safari-ext: ## Copy Node.js artifacts to Safari extension and build the extensio
 	cp -r public/index.html public/global.css public/build public/image browsers/safari/attack-powered-suit\ Extension/Resources/
 	xcodebuild -project browsers/safari/attack-powered-suit.xcodeproj -target attack-powered-suit build
 
-.PHONE: firefox-ext
+.PHONY: firefox-ext
 firefox-ext: ## Copy Node.js artifacts to Firefox extension directory.
 	cp -r public/index.html public/global.css public/build public/image browsers/firefox

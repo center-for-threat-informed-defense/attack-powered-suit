@@ -224,6 +224,7 @@
     .format {
         margin-right: 1rem;
         color: var(--me-core-purple-light);
+        cursor: pointer;
     }
 
     .format:hover {
