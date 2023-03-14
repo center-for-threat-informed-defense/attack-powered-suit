@@ -11,7 +11,6 @@
     import { supportsClipboard } from "./Clipboard.js";
 
     const dispatch = createEventDispatcher();
-    const clipboardSupported = supportsClipboard();
 
     function newFormat() {
         addFormat("new format", "", "text/plain");
@@ -48,7 +47,7 @@
         {/if}
         {#each $formatsStore as format, formatIdx (format.id)}
             <tr out:fade>
-                {#if !clipboardSupported}
+                {#if !supportsClipboard()}
                     <td
                         ><input readonly="readonly"
                             type="text"

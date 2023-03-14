@@ -15,7 +15,6 @@
     const descriptionMaxLength = 400;
     let highlightResultIdx = -1;
     let highlightFormatIdx = -1;
-    let supportsHTML = supportsClipboard();
 
     // Reformat the results so that they can be fed into the highlighter
     // component.
@@ -68,7 +67,7 @@
      async function copyFormat(format, object, resultIdx, formatIdx) {
         const text = formatObject(format.rule, object);
         
-        if (supportsHTML) {
+        if (supportsClipboard()) {
             let blobs = {
                 [defaultMimeType]: new Blob([text], { type: defaultMimeType }),
             };
