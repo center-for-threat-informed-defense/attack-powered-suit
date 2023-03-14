@@ -13,10 +13,6 @@
     let accordionSelected = null;
     let mappedTechniques = [];
 
-    // Update mapped techniques for Navigator export.
-    $: {
-    }
-
     function exportCsv() {
         // Set up the data to export.
         const colorCol = colorBy === "Color" ? "color" : "score";
@@ -45,7 +41,7 @@
         }
 
         // Do the export.
-        const blob = new File(data, {
+        const blob = new Blob(data, {
             type: "text/csv",
         });
         const url = URL.createObjectURL(blob);
@@ -109,8 +105,12 @@
         anchor.style.display = "none";
         anchor.download = "attack_navigator_layer.json";
         anchor.href = url;
+        document.body.appendChild(anchor);
         anchor.click();
-        URL.revokeObjectURL(url);
+        setTimeout(() => {
+            URL.revokeObjectURL(url);
+            document.body.removeChild(anchor);
+        }, 100);
     }
 
     function accordion(section) {

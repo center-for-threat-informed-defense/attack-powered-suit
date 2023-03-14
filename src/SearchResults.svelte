@@ -41,7 +41,7 @@
                 )) {
                     for (const [field, matches] of Object.entries(fields)) {
                         for (const match of matches.position) {
-                            highlightedResult[field].matches.push([
+                            highlightedResult[field].matches?.push([
                                 match[0],
                                 match[0] + match[1],
                             ]);
