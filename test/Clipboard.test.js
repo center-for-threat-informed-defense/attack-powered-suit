@@ -7,7 +7,6 @@ describe("Clipboard.js", () => {
         window.ClipboardItem = new Object();
         let results = supportsClipboard();
         expect(results).toBeTruthy();
-        // delete window.ClipboardItem;
     });
 
     test("No ClipboardItem support", () => {

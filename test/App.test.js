@@ -3,7 +3,7 @@ import App from "../src/App.svelte";
 import fs from "fs";
 
 const attackFixture = fs.readFileSync(__dirname + "/fixtures/attack-objects.json", { encoding: "utf8", flag: "r" });
-const lunrIndexFixture = fs.readFileSync(__dirname + "/fixtures/lunr-index.json", { encoding: "utf8", flag: "r" });
+const lunrIndexFixture = fs.readFileSync(__dirname + "/fixtures/lunr-index.jsonx", { encoding: "utf8", flag: "r" });
 
 describe("App.svelte", () => {
     beforeEach(() => {
@@ -19,7 +19,7 @@ describe("App.svelte", () => {
         window.fetch = jest.fn(url => {
             if (url.endsWith("attack.json")) {
                 return { json: () => JSON.parse(attackFixture) };
-            } else if (url.endsWith("lunr-index.json")) {
+            } else if (url.endsWith("lunr-index.jsonx")) {
                 return { json: () => JSON.parse(lunrIndexFixture) };
             } else {
                 return null;
