@@ -37,6 +37,13 @@ jobs:
       with:
         name: attack-powered-suit-chrome
         path: browsers/chrome/
+    - name: Build Firefox extension
+      run: make firefox-ext
+    - name: Package Chrome Extension
+      uses: actions/upload-artifact@v3
+      with:
+        name: attack-powered-suit-firefox
+        path: browsers/firefox/
 
   # Safari must be built on MacOS, so this job is separate. Note that it does not
   # execute unit tests or coverage since that's already handled above.
