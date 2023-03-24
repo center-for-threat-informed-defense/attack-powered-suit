@@ -38,7 +38,6 @@ describe("bookmarks.js", () => {
 
     test("add and remove bookmarks", async () => {
         await initializeBookmarks();
-        await sleep(1000);
         expect(window.chrome.storage.sync.get).toBeCalled();
         expect(bookmarks).toEqual([]);
         expect(bookmarksSet).toEqual({});

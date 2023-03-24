@@ -8,7 +8,7 @@
         addFormat,
     } from "./formats.js";
     import BackButton from "./BackButton.svelte";
-    import { supportsClipboard } from "./Clipboard.js";
+    import { supportsClipboardItem } from "./Clipboard.js";
 
     const dispatch = createEventDispatcher();
 
@@ -47,9 +47,9 @@
         {/if}
         {#each $formatsStore as format, formatIdx (format.id)}
             <tr out:fade>
-                {#if !supportsClipboard()}
+                {#if !supportsClipboardItem()}
                     <td
-                        ><input readonly="readonly"
+                        ><input
                             type="text"
                             class="form-control"
                             bind:value={format.name}
@@ -57,7 +57,7 @@
                         /></td
                     >
                     <td>
-                        <input readonly="readonly"
+                        <input
                             type="text"
                             class="form-control"
                             bind:value={format.rule}
@@ -65,9 +65,11 @@
                         />
                     </td>
                     <td>
-                        <input readonly="readonly"
+                        <input 
+                            readonly="readonly"
                             type="text"
                             class="form-control"
+                            title="MIME type is not supported in Firefox."
                             bind:value={format.mime}
                             on:input={saveFormats}
                         />

@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 import { loadFromStorage, saveToStorage } from "./storage.js";
-import { supportsClipboard } from "./Clipboard.js";
+import { supportsClipboardItem } from "./Clipboard.js";
 
 let formats = [];
 
@@ -38,7 +38,7 @@ export function initializeFormats() {
             addFormat("Name", "{name}", "text/plain");
             addFormat("Summary", "{id} ({type}): {name} – {description}", "text/plain");
 
-            if (supportsClipboard()) {
+            if (supportsClipboardItem()) {
                 addFormat("Link", '<a href="{url}">{id}: {name}</a>', "text/html");
             } else {
                 addFormat("Link", "{url}", "text/plain")

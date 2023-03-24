@@ -1,16 +1,15 @@
-import { supportsClipboard } from "../src/Clipboard";
-// import { initializeFormats } from "../src/formats.js"
+import { supportsClipboardItem } from "../src/Clipboard";
 
 describe("Clipboard.js", () => {
     afterEach(() => delete window.ClipboardItem);
     test("Rich HTML support", () => {
         window.ClipboardItem = new Object();
-        let results = supportsClipboard();
+        let results = supportsClipboardItem();
         expect(results).toBeTruthy();
     });
 
     test("No ClipboardItem support", () => {
-        let results = supportsClipboard();
+        let results = supportsClipboardItem();
         expect(results).toBeFalsy();
     });
 });

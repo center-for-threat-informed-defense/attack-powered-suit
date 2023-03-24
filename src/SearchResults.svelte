@@ -7,7 +7,7 @@
     import { formatsStore, formatObject } from "./formats.js";
     import { sleep } from "./sleep.js";
     import HighlightMatches from "./HighlightMatches.svelte";
-    import { supportsClipboard } from "./Clipboard.js"
+    import { supportsClipboardItem } from "./Clipboard.js"
 
     export let results = null;
 
@@ -64,10 +64,10 @@
      * Use the specified format and ATT&CK object to place a snippet on the
      * clipboard.
      */
-     async function copyFormat(format, object, resultIdx, formatIdx) {
+    async function copyFormat(format, object, resultIdx, formatIdx) {
         const text = formatObject(format.rule, object);
         
-        if (supportsClipboard()) {
+        if (supportsClipboardItem()) {
             let blobs = {
                 [defaultMimeType]: new Blob([text], { type: defaultMimeType }),
             };

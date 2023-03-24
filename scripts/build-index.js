@@ -223,6 +223,8 @@ function main() {
     process.stderr.write("Writing data/attack.json…\n");
     fs.writeFileSync("data/attack.json", JSON.stringify(attackOidLookup));
 
+    // Mozilla blocks addons with large .json files. Changing a .json file to a .jsonx is a
+    // workaround as .jsonx can still be parsed as a .json.
     process.stderr.write("Writing data/lunr-index.jsonx…\n");
     const index = lunr(function () {
         lunrOptions.apply(this);

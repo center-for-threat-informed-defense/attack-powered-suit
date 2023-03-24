@@ -103,6 +103,16 @@ permission is used for the "Search ATT&CK for &lt;highlighted text&gt;" context 
 ![Use the Safari Extensions preferences to grant permission to view all
 sites.](safari-permissions.png)
 
+### Firefox
+
+To test in Firefox, you need to copy the build artifacts into `browsers/firefox` by
+running `make firefox-ext`. Then load the extension into Firefox:
+
+1. Make sure you're using Firefox Developer Edition.
+2. Go to the page `about:debugging` and nagivate to "This Firefox" in the left menu.
+3. Click "Load Temporary Add-on" and select the `attack_powered_suit/browsers/firefox` directory.
+4. The extension will appear in the extension list and is now usable.
+
 ## Unit Tests
 
 To run the test suite:
