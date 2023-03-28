@@ -7,29 +7,34 @@ let bookmarksSet = {};
 /**
  * A store that contains an array of bookmarks.
  */
-export let bookmarksStore = writable(bookmarks)
+export let bookmarksStore = writable(bookmarks);
 
 /**
  * A store that contains an object containing keys for each bookmark that is
  * currently set (the value is always "true")
  */
-export let bookmarksSetStore = writable(bookmarksSet)
+export let bookmarksSetStore = writable(bookmarksSet);
+
+/**
+ * A store that represents whether to shade bookmarks by color or score.
+ */
+export let bookmarksColorByStore = writable("Color");
 
 /**
  * Initialize bookmarks.
  */
-export function initializeBookmarks() {
-    return loadFromStorage("bookmarks").then(function (loadedBookmarks) {
-        bookmarks = loadedBookmarks;
-        bookmarksStore.set(bookmarks);
+export async function initializeBookmarks() {
+    bookmarks = await loadFromStorage("bookmarks");
+    bookmarksStore.set(bookmarks);
+    const bookmarksColorBy = await loadFromStorage("bookmarks_color_by");
+    bookmarksColorByStore.set(bookmarksColorBy);
 
-        // Create bookmarks set
-        bookmarksSet = {};
-        for (let bookmark of bookmarks) {
-            bookmarksSet[bookmark.id] = true;
-        }
-        bookmarksSetStore.set(bookmarksSet);
-    });
+    // Create bookmarks set
+    bookmarksSet = {};
+    for (let bookmark of bookmarks) {
+        bookmarksSet[bookmark.id] = true;
+    }
+    bookmarksSetStore.set(bookmarksSet);
 }
 
 /**
@@ -93,4 +98,12 @@ export function removeBookmark(id) {
  */
 export function saveBookmarks() {
     saveToStorage("bookmarks", bookmarks);
+}
+
+/**
+ * Save the current set of bookmarks.
+ */
+export function saveBookmarksColorBy(colorBy) {
+    bookmarksColorByStore.set(colorBy);
+    saveToStorage("bookmarks_color_by", colorBy);
 }

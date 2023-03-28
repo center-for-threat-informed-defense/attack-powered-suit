@@ -50,7 +50,10 @@
 </script>
 
 <div class="title">
-    <a class="logo" href="https://ctid.mitre-engenuity.org/" target="_blank"
+    <a
+        class="logo"
+        href="https://mitre-engenuity.org/cybersecurity/center-for-threat-informed-defense/"
+        target="_blank"
         ><img
             src="/image/ctid-logo.png"
             alt="Logo for MITRE Engenuity Center for Threat-Informed Defense"
