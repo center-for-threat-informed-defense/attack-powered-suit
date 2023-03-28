@@ -34,7 +34,7 @@ export async function initializeSearch() {
     // use the fetch() API here.
     const attackResponse = await fetch("/build/attack.json");
     attackData = await attackResponse.json();
-    const indexResponse = await fetch("/build/lunr-index.json");
+    const indexResponse = await fetch("/build/lunr-index.jsonx");
     const indexData = await indexResponse.json();
     index = lunr.Index.load(indexData);
     console.log("Search index is initialized.");

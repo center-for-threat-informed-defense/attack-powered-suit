@@ -64,7 +64,7 @@ export default [{
                     src: "data/attack.json",
                     dest: "public/build/"
                 }, {
-                    src: "data/lunr-index.json",
+                    src: "data/lunr-index.jsonx",
                     dest: "public/build/"
                 }
             ],

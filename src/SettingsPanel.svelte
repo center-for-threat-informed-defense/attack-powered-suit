@@ -8,6 +8,7 @@
         addFormat,
     } from "./formats.js";
     import BackButton from "./BackButton.svelte";
+    import { supportsClipboardItem } from "./Clipboard.js";
 
     const dispatch = createEventDispatcher();
 
@@ -46,30 +47,59 @@
         {/if}
         {#each $formatsStore as format, formatIdx (format.id)}
             <tr out:fade>
-                <td
-                    ><input
-                        type="text"
-                        class="form-control"
-                        bind:value={format.name}
-                        on:input={saveFormats}
-                    /></td
-                >
-                <td>
-                    <input
-                        type="text"
-                        class="form-control"
-                        bind:value={format.rule}
-                        on:input={saveFormats}
-                    />
-                </td>
-                <td>
-                    <input
-                        type="text"
-                        class="form-control"
-                        bind:value={format.mime}
-                        on:input={saveFormats}
-                    />
-                </td>
+                {#if !supportsClipboardItem()}
+                    <td
+                        ><input
+                            type="text"
+                            class="form-control"
+                            bind:value={format.name}
+                            on:input={saveFormats}
+                        /></td
+                    >
+                    <td>
+                        <input
+                            type="text"
+                            class="form-control"
+                            bind:value={format.rule}
+                            on:input={saveFormats}
+                        />
+                    </td>
+                    <td>
+                        <input 
+                            readonly="readonly"
+                            type="text"
+                            class="form-control"
+                            title="MIME type is not supported in Firefox."
+                            bind:value={format.mime}
+                            on:input={saveFormats}
+                        />
+                    </td>
+                {:else}
+                    <td
+                        ><input
+                            type="text"
+                            class="form-control"
+                            bind:value={format.name}
+                            on:input={saveFormats}
+                        /></td
+                    >
+                    <td>
+                        <input
+                            type="text"
+                            class="form-control"
+                            bind:value={format.rule}
+                            on:input={saveFormats}
+                        />
+                    </td>
+                    <td>
+                        <input
+                            type="text"
+                            class="form-control"
+                            bind:value={format.mime}
+                            on:input={saveFormats}
+                        />
+                    </td>
+                {/if}
                 <td class="remove-format"
                     ><i
                         on:click={() => removeFormat(format.id)}

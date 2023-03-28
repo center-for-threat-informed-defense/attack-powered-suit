@@ -223,13 +223,15 @@ function main() {
     process.stderr.write("Writing data/attack.json…\n");
     fs.writeFileSync("data/attack.json", JSON.stringify(attackOidLookup));
 
-    process.stderr.write("Writing data/lunr-index.json…\n");
+    // Mozilla blocks addons with large .json files. Changing a .json file to a .jsonx is a
+    // workaround as .jsonx can still be parsed as a .json.
+    process.stderr.write("Writing data/lunr-index.jsonx…\n");
     const index = lunr(function () {
         lunrOptions.apply(this);
         this.metadataWhitelist = ['position'];
         attackObjects.forEach(function (d) { this.add(d) }, this);
     });
-    fs.writeFileSync("data/lunr-index.json", JSON.stringify(index));
+    fs.writeFileSync("data/lunr-index.jsonx", JSON.stringify(index));
 
     // Display summary of ingested data.
     process.stderr.write("Loaded object counts:\n");

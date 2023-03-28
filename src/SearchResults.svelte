@@ -7,6 +7,7 @@
     import { formatsStore, formatObject } from "./formats.js";
     import { sleep } from "./sleep.js";
     import HighlightMatches from "./HighlightMatches.svelte";
+    import { supportsClipboardItem } from "./Clipboard.js"
 
     export let results = null;
 
@@ -65,19 +66,22 @@
      */
     async function copyFormat(format, object, resultIdx, formatIdx) {
         const text = formatObject(format.rule, object);
-        let blobs = {
-            [defaultMimeType]: new Blob([text], { type: defaultMimeType }),
-        };
-        if (format.mime != defaultMimeType) {
-            blobs[format.mime] = new Blob([text], { type: format.mime });
-        }
-        let clipboardItem = [new ClipboardItem(blobs)];
-        await navigator.clipboard.write(clipboardItem);
+        
+        if (supportsClipboardItem()) {
+            let blobs = {
+                [defaultMimeType]: new Blob([text], { type: defaultMimeType }),
+            };
+            if (format.mime != defaultMimeType) {
+                blobs[format.mime] = new Blob([text], { type: format.mime });
+            }
+            let clipboardItem = [new ClipboardItem(blobs)];
+            await navigator.clipboard.write(clipboardItem);
+        } else {
+            navigator.clipboard.writeText(text);
+         }
         highlightResultIdx = resultIdx;
         highlightFormatIdx = formatIdx;
         await sleep(1000);
-        highlightResultIdx = -1;
-        highlightFormatIdx = -1;
     }
 </script>
 
@@ -224,5 +228,6 @@
 
     .format:hover {
         color: var(--me-core-purple);
+        cursor: pointer;
     }
 </style>

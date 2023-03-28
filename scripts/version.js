@@ -29,6 +29,7 @@ const version = process.env.npm_package_version;
 const manifests = [
     "browsers/chrome/manifest.json",
     "browsers/safari/attack-powered-suit\ Extension/Resources/manifest.json",
+    "browsers/firefox/manifest.json"
 ]
 
 for (const manifest of manifests) {
