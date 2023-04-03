@@ -3,7 +3,7 @@
   "author": "Center for Threat-Informed Defense <ctid@mitre-engenuity.org>",
   "name": "ATT&CK Powered Suit",
   "description": "Powered Suit puts the MITRE ATT&CK® knowledge base at your fingertips. Instantly search ATT&CK techniques, groups, and more.",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "icons": {
     "32": "image/icon-32.png",
     "48": "image/icon-48.png",
@@ -11,14 +11,15 @@
   },
   "minimum_chrome_version": "101",
   "background": {
-    "scripts": ["build/worker.js"]
-  }, 
+    "scripts": [
+      "build/worker.js"
+    ]
+  },
   "browser_specific_settings": {
     "gecko": {
       "id": "attack_powered_suit@mitre-engenuity.org"
     }
   },
-
   "content_scripts": [
     {
       "matches": [
