@@ -5,6 +5,7 @@
 - [Browsers](#browsers)
   - [Chrome](#chrome)
   - [Safari](#safari)
+  - [Firefox](#firefox)
 - [Unit Tests](#unit-tests)
 - [Linter](#linter)
 - [Upgrading ATT\&CK](#upgrading-attck)
@@ -158,9 +159,10 @@ To upgrade the extension to use a newer version of ATT&CK, there are a few
 changes that need to be made:
 
 * `fetch-attack.js`: update `attackUrls`
-* `SettingsPanel.svelte`: update the text inside the `<p class="credits">`
+* `SearchForm.svelte`: update the text inside the `<p class="notice">`
   paragraph
-* `attack.js`: update the metadata in `newLayerTemplate()`.
+* `attack.js`: update the metadata in `newLayerTemplate()`. (Only applies to major
+  version changes.)
 
 After making these changes, run these commands again to download the new release
 and re-index it:
