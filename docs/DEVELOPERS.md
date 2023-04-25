@@ -161,8 +161,9 @@ changes that need to be made:
 * `fetch-attack.js`: update `attackUrls`
 * `SearchForm.svelte`: update the text inside the `<p class="notice">`
   paragraph
-* `attack.js`: update the metadata in `newLayerTemplate()`. (Only applies to major
-  version changes.)
+* `attack.js` and `attack.test.js`: update the metadata in `newLayerTemplate()` and
+  corresponding unit test. (Only applies to major version changes.)
+* `README.md`: change the ATT&CK badge version
 
 After making these changes, run these commands again to download the new release
 and re-index it:
