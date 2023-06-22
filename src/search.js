@@ -68,7 +68,14 @@ export function search(query, filters) {
                     attackObject.id = result.ref;
                     attackObject.score = result.score;
                     attackObject.matchData = result.matchData;
+                    if (attackObject.type == "subtechnique") {
+                        console.log(attackObject.name);
+                        let parentTechnique = result.ref.slice(0, result.ref.length - 4);
+                        parentTechnique = attackData[parentTechnique].name + ": ";
+                        if (!attackObject.name.includes(parentTechnique)) attackObject.name = parentTechnique + attackObject.name;
+                    }
                     filteredResults.push(attackObject);
+                    console.log(attackObject);
                 }
                 resultCount++;
             }
