@@ -4,6 +4,7 @@
 - [Developer Setup](#developer-setup)
 - [Browsers](#browsers)
   - [Chrome](#chrome)
+  - [Edge](#edge)
   - [Safari](#safari)
   - [Firefox](#firefox)
 - [Unit Tests](#unit-tests)
@@ -69,6 +70,10 @@ in `public/` is rebuilt:
 ```
 fswatch -o public | xargs -n1 make chrome-ext
 ```
+
+### Edge
+
+Follow the same instructions as Chrome.
 
 ### Safari
 

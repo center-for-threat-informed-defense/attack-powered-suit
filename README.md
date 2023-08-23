@@ -75,13 +75,22 @@ Otherwise, choose "Search in ATT&CK" to view the search results.
 
 The easiest way to install is to visit the store for your web browser of choice:
 
-**Google Chrome**
+**Chrome**
 
 [![Chrome Web Store badge](media/chrome_web_store.png)](https://chrome.google.com/webstore/detail/attck-powered-suit/gfhomppaadldngjnmbefmmiokgefjddd?hl=en&authuser=0)
 
-**Microsoft Edge**
+**Firefox**
+
+[![Firefox Add-Ons badge](media/firefox.png)](https://addons.mozilla.org/en-US/firefox/addon/att-ck-powered-suit/)
+
+**Edge**
 
 [![Microsoft Edge Store badge](media/microsoft_edge_store.png)](https://apps.microsoft.com/store/detail/attck-powered-suit/0RDCKF6WMNPP?cid=github&referrer=appbadge&source=)
+
+**Safari**
+
+[![Safari Store badge](media/apple_store.png)](https://apps.apple.com/us/app/att-ck-powered-suit/id6447588511?mt=12)
+
 
 ## Community
 
