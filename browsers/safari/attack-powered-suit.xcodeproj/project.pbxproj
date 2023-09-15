@@ -69,7 +69,7 @@
 		C51CAEB529B278BB006F7C36 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		C51CAEB729B278BB006F7C36 /* build */ = {isa = PBXFileReference; lastKnownFileType = folder; path = build; sourceTree = "<group>"; };
 		C544CA2429B7778900CC1010 /* global.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = global.css; sourceTree = "<group>"; };
-		C5DB64C32A8BD7F700596007 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C57429942AB4E8EE00A73967 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +111,6 @@
 		C51CAE7729B27326006F7C36 /* attack-powered-suit */ = {
 			isa = PBXGroup;
 			children = (
-				C5DB64C32A8BD7F700596007 /* Info.plist */,
 				C51CAE7829B27326006F7C36 /* AppDelegate.swift */,
 				C51CAE8429B27326006F7C36 /* ViewController.swift */,
 				C51CAE8629B27326006F7C36 /* Main.storyboard */,
@@ -119,6 +118,7 @@
 				C51CAE8B29B27328006F7C36 /* attack_powered_suit.entitlements */,
 				C51CAE8C29B27328006F7C36 /* attack-powered-suit.entitlements */,
 				C51CAE7A29B27326006F7C36 /* Resources */,
+				C57429942AB4E8EE00A73967 /* Info.plist */,
 			);
 			path = "attack-powered-suit";
 			sourceTree = "<group>";
