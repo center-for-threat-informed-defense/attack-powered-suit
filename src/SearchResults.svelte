@@ -7,14 +7,14 @@
     import { formatsStore, formatObject } from "./formats.js";
     import { sleep } from "./sleep.js";
     import HighlightMatches from "./HighlightMatches.svelte";
-    import { supportsClipboardItem } from "./Clipboard.js"
+    import { supportsClipboardItem } from "./Clipboard.js";
 
     export let results = null;
 
     const defaultMimeType = "text/plain";
     const descriptionMaxLength = 400;
-    let highlightResultIdx = -1;
-    let highlightFormatIdx = -1;
+    let copyResultIdx = -1;
+    let copyFormatIdx = -1;
 
     // Reformat the results so that they can be fed into the highlighter
     // component.
@@ -38,7 +38,7 @@
                     is_mobile: result.is_mobile,
                 };
                 for (const [term, fields] of Object.entries(
-                    result.matchData.metadata
+                    result.matchData.metadata,
                 )) {
                     for (const [field, matches] of Object.entries(fields)) {
                         for (const match of matches.position) {
@@ -66,7 +66,7 @@
      */
     async function copyFormat(format, object, resultIdx, formatIdx) {
         const text = formatObject(format.rule, object);
-        
+
         if (supportsClipboardItem()) {
             let blobs = {
                 [defaultMimeType]: new Blob([text], { type: defaultMimeType }),
@@ -78,10 +78,12 @@
             await navigator.clipboard.write(clipboardItem);
         } else {
             navigator.clipboard.writeText(text);
-         }
-        highlightResultIdx = resultIdx;
-        highlightFormatIdx = formatIdx;
+        }
+        copyResultIdx = resultIdx;
+        copyFormatIdx = formatIdx;
         await sleep(1000);
+        copyResultIdx = -1;
+        copyFormatIdx = -1;
     }
 </script>
 
@@ -155,7 +157,7 @@
                     on:click={() =>
                         copyFormat(format, result, resultIdx, formatIdx)}
                 >
-                    {#if highlightResultIdx == resultIdx && highlightFormatIdx === formatIdx}
+                    {#if copyResultIdx == resultIdx && copyFormatIdx === formatIdx}
                         Copied <i class="bi bi-clipboard-check" />
                     {:else}
                         {format.name} <i class="bi bi-clipboard" />
