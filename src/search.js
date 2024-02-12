@@ -7,10 +7,11 @@ import lunr from 'lunr';
  */
 export const lunrOptions = function () {
     this.ref("lunrRef");
-    this.field("id", { boost: 3 });
+    this.field("id", { boost: 4 });
     this.field("stixId");
     this.field("type");
-    this.field("name", { boost: 2 });
+    this.field("name", { boost: 3 });
+    this.field("parentName", { boost: 2 });
     this.field("description", { boost: 1 });
     this.field("url");
     this.field("is_enterprise");

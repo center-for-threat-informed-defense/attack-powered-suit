@@ -43,19 +43,19 @@ describe("formats.js", () => {
                 "id": 0,
                 "mime": "text/plain",
                 "name": "Name",
-                "rule": "{name}",
+                "rule": "{fullName}",
             },
             {
                 "id": 1,
                 "mime": "text/plain",
                 "name": "Summary",
-                "rule": "{id} ({type}): {name} – {description}",
+                "rule": "{id} ({type}): {fullName} – {description}",
             },
             {
                 "id": 2,
                 "mime": "text/html",
                 "name": "Link",
-                "rule": "<a href=\"{url}\">{id}: {name}</a>",
+                "rule": "<a href=\"{url}\">{id}: {fullName}</a>",
             },
         ]);
 
@@ -65,13 +65,13 @@ describe("formats.js", () => {
                 "id": 1,
                 "mime": "text/plain",
                 "name": "Summary",
-                "rule": "{id} ({type}): {name} – {description}",
+                "rule": "{id} ({type}): {fullName} – {description}",
             },
             {
                 "id": 2,
                 "mime": "text/html",
                 "name": "Link",
-                "rule": "<a href=\"{url}\">{id}: {name}</a>",
+                "rule": "<a href=\"{url}\">{id}: {fullName}</a>",
             },
         ]);
 
@@ -81,13 +81,13 @@ describe("formats.js", () => {
                 "id": 1,
                 "mime": "text/plain",
                 "name": "Summary",
-                "rule": "{id} ({type}): {name} – {description}",
+                "rule": "{id} ({type}): {fullName} – {description}",
             },
             {
                 "id": 2,
                 "mime": "text/html",
                 "name": "Link",
-                "rule": "<a href=\"{url}\">{id}: {name}</a>",
+                "rule": "<a href=\"{url}\">{id}: {fullName}</a>",
             },
             {
                 "id": 3,
@@ -109,13 +109,13 @@ describe("formats.js", () => {
                 "id": 0,
                 "mime": "text/plain",
                 "name": "Name",
-                "rule": "{name}",
+                "rule": "{fullName}",
             },
             {
                 "id": 1,
                 "mime": "text/plain",
                 "name": "Summary",
-                "rule": "{id} ({type}): {name} – {description}",
+                "rule": "{id} ({type}): {fullName} – {description}",
             },
             {
                 "id": 2,
@@ -131,7 +131,7 @@ describe("formats.js", () => {
                 "id": 1,
                 "mime": "text/plain",
                 "name": "Summary",
-                "rule": "{id} ({type}): {name} – {description}",
+                "rule": "{id} ({type}): {fullName} – {description}",
             },
             {
                 "id": 2,
@@ -147,7 +147,7 @@ describe("formats.js", () => {
                 "id": 1,
                 "mime": "text/plain",
                 "name": "Summary",
-                "rule": "{id} ({type}): {name} – {description}",
+                "rule": "{id} ({type}): {fullName} – {description}",
             },
             {
                 "id": 2,

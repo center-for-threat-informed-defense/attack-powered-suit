@@ -58,6 +58,7 @@ function extractAttackObject(stixObject) {
     const attackObject = {
         stixId: stixObject.id,
         name: stixObject.name,
+        parentName: null,
         description: cleanAttackText(stixObject.description || ""),
     }
 
@@ -92,7 +93,7 @@ function extractAttackObject(stixObject) {
 
 
     if (!("id" in attackObject)) {
-        console.log(stixObject);
+        process.stderr.write(JSON.stringify(stixObject) + "\n");
         throw new Exception("Could not extract reference from STIX object.");
     }
 
@@ -104,7 +105,7 @@ function extractAttackObject(stixObject) {
         attackObject.type = stixObject.x_mitre_is_subtechnique ?
             "subtechnique" : "technique";
     } else {
-        console.log(stixObject);
+        process.stderr.write(JSON.stringify(stixObject) + "\n");
         throw new Exception("Could not derive ATT&CK type from STIX object.");
     }
 
@@ -136,7 +137,11 @@ function* parseAttackObjects(attackStix) {
 /**
  * A generator function that yields ATT&CK relationships to/from techniques.
  *
- * Yields pairs of object STIX ID -> technique STIX ID.
+ * Yields triples: [technique STIX ID, relationship, object STIX ID].
+ *
+ * It is possible that both objects are techniques, e.g. a techinque/subtechnique
+ * relationship. In this case, the subtechnique is returned in the first position and
+ * the parent is in the third position.
  *
  * @param {object} attackStix - A parsed STIX document
  */
@@ -151,17 +156,20 @@ function* parseAttackRelationships(attackStix) {
                 stixObject.revoked === true) {
                 continue;
             }
-            if (stixObject.source_ref.startsWith("attack-pattern--")) {
+            const sourceIsAttackPattern = stixObject.source_ref.startsWith("attack-pattern--");
+            const targetIsAttackPattern = stixObject.target_ref.startsWith("attack-pattern--");
+            if (sourceIsAttackPattern) {
                 techniqueStixId = stixObject.source_ref;
                 objStixId = stixObject.target_ref;
-            } else if (stixObject.target_ref.startsWith("attack-pattern--")) {
+            } else if (targetIsAttackPattern) {
                 objStixId = stixObject.source_ref;
                 techniqueStixId = stixObject.target_ref;
             }
             if (objStixId) {
                 const objType = objStixId.split("--")[0];
-                if (typeof stixTypeToAttackTypeMap[objType] !== "undefined") {
-                    yield [objStixId, techniqueStixId];
+                if ((sourceIsAttackPattern && targetIsAttackPattern) ||
+                    (typeof stixTypeToAttackTypeMap[objType] !== "undefined")) {
+                    yield [techniqueStixId, stixObject.relationship_type, objStixId];
                 }
             }
         } else {
@@ -208,14 +216,23 @@ function main() {
         }
 
         // Make a second pass to parse relationships.
-        for (const [objStixId, techniqueStixId] of parseAttackRelationships(attackStix)) {
+        for (const [techniqueStixId, relationship, objStixId] of parseAttackRelationships(attackStix)) {
             const obj = attackStixLookup[objStixId];
             if (!obj) {
                 process.stderr.write(`Warning: no object exists for ID=${objStixId}\n`);
                 continue;
             }
             const technique = attackStixLookup[techniqueStixId];
-            obj.relatedTechniques.push(technique.id);
+            if (relationship === "subtechnique-of") {
+                // Subtechniques carry the name of their parent technique.
+                const parentTechnique = attackStixLookup[objStixId];
+                technique.parentName = parentTechnique.name;
+            } else if (relationship === "revoked-by") {
+                // Do nothing; we don't track revocations.
+            } else {
+                // Non (sub)technique objects carry a list of related (sub)techniques.
+                obj.relatedTechniques.push(technique.id);
+            }
         }
         process.stderr.write("done\n");
     }
