@@ -21,6 +21,8 @@ export function formatObject(format, object) {
         .replace("{description}", object.description.text)
         .replace("{id}", object.id.text)
         .replace("{name}", object.name.text)
+        .replace("{fullName}", object.parentName.text ? `${object.parentName.text}: ${object.name.text}` : object.name.text)
+        .replace("{parentName}", object.parentName.text ?? "")
         .replace("{type}", object.type)
         .replace("{stixId}", object.stixId)
         .replace("{url}", object.url);
@@ -35,11 +37,11 @@ export function initializeFormats() {
 
         // Set up initial formats if none found.
         if (formats.length === 0) {
-            addFormat("Name", "{name}", "text/plain");
-            addFormat("Summary", "{id} ({type}): {name} – {description}", "text/plain");
+            addFormat("Name", "{fullName}", "text/plain");
+            addFormat("Summary", "{id} ({type}): {fullName} – {description}", "text/plain");
 
             if (supportsClipboardItem()) {
-                addFormat("Link", '<a href="{url}">{id}: {name}</a>', "text/html");
+                addFormat("Link", '<a href="{url}">{id}: {fullName}</a>', "text/html");
             } else {
                 addFormat("Link", "{url}", "text/plain")
             }

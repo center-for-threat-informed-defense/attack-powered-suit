@@ -25,7 +25,8 @@
     You can add custom formats that copy snippets from search results. The
     following variables names can be used inside curly braces: <code
         >{"{description}"}</code
-    >, <code>{"{name}"}</code>,
+    >, <code>{"{name}"}</code>, <code>{"{fullName}"}</code>,
+    <code>{"{parentName}"}</code>,
     <code>{"{id}"}</code>, <code>{"{type}"}</code>, <code>{"{url}"}</code>,
     <code>{"{stixId}"}</code>
 </div>
@@ -65,7 +66,7 @@
                         />
                     </td>
                     <td>
-                        <input 
+                        <input
                             readonly="readonly"
                             type="text"
                             class="form-control"

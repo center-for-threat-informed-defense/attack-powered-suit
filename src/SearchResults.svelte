@@ -29,6 +29,7 @@
                     type: result.type,
                     deprecated: result.deprecated,
                     name: { text: result.name, matches: [] },
+                    parentName: { text: result.parentName, matches: [] },
                     source_name: result.source_name,
                     description: { text: result.description, matches: [] },
                     url: result.url,
@@ -54,6 +55,7 @@
                 const sortMatches = (a, b) => a[0] - b[0];
                 highlightedResult.id.matches.sort(sortMatches);
                 highlightedResult.name.matches.sort(sortMatches);
+                highlightedResult.parentName.matches.sort(sortMatches);
                 highlightedResult.description.matches.sort(sortMatches);
                 highlightedResults.push(highlightedResult);
             }
@@ -120,8 +122,16 @@
                 <HighlightMatches
                     text={result.id.text}
                     matches={result.id.matches}
-                />:
+                />
             </span>
+            {#if result.parentName}
+                <span class="result-name">
+                    <HighlightMatches
+                        text={result.parentName.text}
+                        matches={result.parentName.matches}
+                    />:
+                </span>
+            {/if}
             <span class="result-name">
                 <HighlightMatches
                     text={result.name.text}
