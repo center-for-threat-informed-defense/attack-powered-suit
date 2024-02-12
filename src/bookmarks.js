@@ -24,9 +24,9 @@ export let bookmarksColorByStore = writable("Color");
  * Initialize bookmarks.
  */
 export async function initializeBookmarks() {
-    bookmarks = await loadFromStorage("bookmarks");
+    bookmarks = await loadFromStorage("bookmarks") ?? [];
     bookmarksStore.set(bookmarks);
-    const bookmarksColorBy = await loadFromStorage("bookmarks_color_by");
+    const bookmarksColorBy = await loadFromStorage("bookmarks_color_by") ?? "Color";
     bookmarksColorByStore.set(bookmarksColorBy);
 
     // Create bookmarks set
@@ -45,7 +45,7 @@ export async function initializeBookmarks() {
  * @param {string} notes - used for exporting ATT&CK layer
  * @param {string} color - used for exporting ATT&CK layer
  */
-export function addBookmark(id, name, score = 0, notes = "", color = "#000000") {
+export function addBookmark(id, name, score = 0, notes = "", color = "#f54d4d") {
     // Update bookmarks array
     bookmarks.push({
         id: id,
