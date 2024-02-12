@@ -42,10 +42,22 @@ export async function initializeSearch() {
 }
 
 /**
+ * Decide if the query should have a wild card appended.
+ *
+ * Adding the wildcard can produce better results, especially for incomplete
+ * queries, e.g. if you're typing the word "powershell", you won't get any hits
+ * for "powersh" but you would get hits for "powersh*".
+ */
+function canAddWildcard(query) {
+    return query.indexOf("*") === -1 && query.indexOf(" ") === -1;
+}
+
+/**
  * Run a query on the search index and return the results.
  */
 export function search(query, filters) {
     let unfilteredResults;
+
     try {
         unfilteredResults = index.search(query);
     } catch (e) {
@@ -76,11 +88,19 @@ export function search(query, filters) {
         }
     }
 
-    return {
-        query,
-        items: filteredResults,
-        totalCount: resultCount,
-    };
+    // If we got zero results and the query is wildcard-eligible, then try again with a
+    // wildcard.
+    if (filteredResults.length === 0 && canAddWildcard(query)) {
+        return search(`${query}*`, filters);
+    } else {
+        return {
+            query,
+            items: filteredResults,
+            totalCount: resultCount,
+        };
+    }
+
+
 }
 
 /**
