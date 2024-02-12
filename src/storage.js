@@ -39,9 +39,9 @@ export function saveToStorage(key, value, debounce = 500) {
  * storage backend.
  *
  * @param {string} key
- * @returns {object} - the stored object or null if the key doesn't exist
+ * @returns {object} - the stored object or null if it doesn't exist
  */
-export async function loadFromStorage(key) {
+export async function loadFromStorage(key, defaultValue) {
     let storedData = null;
     if (window.chrome && window.chrome.storage) {
         const storageResult = await window.chrome.storage.sync.get({ [key]: [] });
@@ -51,10 +51,7 @@ export async function loadFromStorage(key) {
     } else if (localStorage) {
         const storedDataJson = localStorage.getItem(key);
         try {
-            if (storedDataJson == null) {
-                storedData = []
-            }
-            else {
+            if (storedDataJson !== null) {
                 storedData = JSON.parse(storedDataJson);
             }
         } catch (e) {
