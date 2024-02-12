@@ -91,18 +91,15 @@
         </div>
     </div>
     <div class="gray-box">
-        <p class="text-muted small" style="float: right;">
+        <p class="select-controls">
             <!-- svelte-ignore a11y-invalid-attribute -->
             <a href="#" on:click={() => setAllFilters(true)}>Select all</a>
             |
             <!-- svelte-ignore a11y-invalid-attribute -->
             <a href="#" on:click={() => setAllFilters(false)}>none</a>
         </p>
-        <p class="text-muted small">
-            Select the types of objects to include in search results.
-        </p>
         <div class="row">
-            <div class="col">
+            <div class="col-sm-4">
                 <div class="form-check form-switch">
                     <input
                         id="tactics"
@@ -115,7 +112,7 @@
                     >
                 </div>
             </div>
-            <div class="col">
+            <div class="col-sm-4">
                 <div class="form-check form-switch">
                     <input
                         id="mitigations"
@@ -129,7 +126,7 @@
                     >
                 </div>
             </div>
-            <div class="col">
+            <div class="col-sm-4 separator-left">
                 <div class="form-check form-switch">
                     <input
                         id="enterprise"
@@ -145,7 +142,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-sm-4">
                 <div class="form-check form-switch">
                     <input
                         id="techniques"
@@ -159,7 +156,7 @@
                     >
                 </div>
             </div>
-            <div class="col">
+            <div class="col-sm-4">
                 <div class="form-check form-switch">
                     <input
                         id="software"
@@ -173,7 +170,7 @@
                     >
                 </div>
             </div>
-            <div class="col">
+            <div class="col-sm-4 separator-left">
                 <div class="form-check form-switch">
                     <input
                         id="ics"
@@ -181,14 +178,13 @@
                         role="switch"
                         class="form-check-input"
                         bind:checked={$filters["includeIcs"]}
-                        on:click={(e) => "clickFilterICS"()}
                     />
                     <label for="ics" class="form-check-label">ICS</label>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-sm-4">
                 <div class="form-check form-switch">
                     <input
                         id="subtechniques"
@@ -202,7 +198,7 @@
                     >
                 </div>
             </div>
-            <div class="col">
+            <div class="col-sm-4">
                 <div class="form-check form-switch">
                     <input
                         id="groups"
@@ -214,7 +210,7 @@
                     <label for="groups" class="form-check-label">Groups</label>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-sm-4 separator-left">
                 <div class="form-check form-switch">
                     <input
                         id="mobile"
@@ -228,7 +224,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-sm-4">
                 <div class="form-check form-switch">
                     <input
                         id="campaigns"
@@ -242,7 +238,7 @@
                     >
                 </div>
             </div>
-            <div class="col">
+            <div class="col-sm-4">
                 <div class="form-check form-switch">
                     <input
                         id="dataSources"
@@ -256,7 +252,7 @@
                     >
                 </div>
             </div>
-            <div class="col">
+            <div class="col-sm-4 separator-left">
                 <div class="form-check form-switch">
                     <input
                         id="deprecated"
@@ -269,6 +265,17 @@
                         >Deprecated</label
                     >
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <p class="legend">
+                    Select the types of objects to include in search results.
+                </p>
+            </div>
+            <!-- <div class="col"></div> -->
+            <div class="col-sm-4 separator-left">
+                <p class="legend">Filter by domain, etc.</p>
             </div>
         </div>
     </div>
@@ -303,9 +310,33 @@
         margin-bottom: 0.5rem;
     }
 
+    .gray-box {
+        position: relative;
+        padding: 1.25rem 0.75rem 0.75rem 0.75rem;
+    }
+
+    .select-controls {
+        position: absolute;
+        top: 2px;
+        right: 6px;
+        color: #6c757d !important;
+        font-size: 0.75em;
+    }
+
+    .separator-left {
+        border-left: 1px solid #bfbfbf;
+    }
+
     .form-check-input:checked {
         background-color: var(--me-core-purple);
         border-color: var(--me-core-purple);
+    }
+
+    .legend {
+        color: #6c757d !important;
+        font-size: 0.75em;
+        margin-top: 0.5em;
+        margin-bottom: 0;
     }
 
     .search-row {
