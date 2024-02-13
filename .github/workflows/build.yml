@@ -19,7 +19,7 @@ jobs:
     - name: Run Unit Tests
       run: npm run test
     - name: Upload Coverage to CodeCov
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v4
       with:
         token: ${{ secrets.CODECOV_SECRET }}
         files: coverage/coverage-final.json
