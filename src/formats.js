@@ -29,6 +29,17 @@ export function formatObject(format, object) {
 }
 
 /**
+ * Given an HTML string, return the same string as plaintext.
+ * @param {*} text
+ *  The HTML to format.
+ * @returns
+ *  The HTML formatted as plaintext.
+ */
+export function formatHtmlAsPlaintext(text) {
+    return new DOMParser().parseFromString(text, 'text/html').body.innerText;
+}
+
+/**
  * Initialize formats.
  */
 export function initializeFormats() {
