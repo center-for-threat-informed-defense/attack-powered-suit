@@ -10,6 +10,7 @@ body {
     margin: 0 auto;
     min-width: 600px;
     max-width: 800px;
+    min-height: 393px;
     padding: 1rem;
     box-sizing: border-box;
     font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
