@@ -84,7 +84,7 @@
                             j--;
                         }
                         extent = 0;
-                        tokens[i] = `...${clip.slice(j + 1)}`;
+                        tokens[i] = `…${clip.slice(j + 1)}`;
                     }
                 }
                 extraExtent += extent;
@@ -103,7 +103,7 @@
                             j++;
                         }
                         extent = 0;
-                        tokens[i] = `${clip.slice(0, j)}...`;
+                        tokens[i] = `${clip.slice(0, j)}…`;
                     }
                 }
                 extraExtent += extent;
