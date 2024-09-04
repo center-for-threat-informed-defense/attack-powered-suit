@@ -2,9 +2,9 @@
     import {
         bookmarksSetStore,
         addBookmark,
-        removeBookmark,
+        removeBookmark, 
     } from "./bookmarks";
-    import { formatsStore, formatObject } from "./formats.js";
+    import { formatsStore, formatObject, formatHtmlAsPlaintext } from "./formats.js";
     import { sleep } from "./sleep.js";
     import HighlightMatches from "./HighlightMatches.svelte";
     import { supportsClipboardItem } from "./Clipboard.js";
@@ -24,39 +24,40 @@
         if (results) {
             for (const result of results.items) {
                 const highlightedResult = {
-                    id: { text: result.id, matches: [] },
+                    id: { text: result.id, highlights: [] },
                     stixId: result.stixId,
                     type: result.type,
                     deprecated: result.deprecated,
-                    name: { text: result.name, matches: [] },
-                    parentName: { text: result.parentName, matches: [] },
+                    name: { text: result.name, highlights: [] },
+                    parentName: { text: result.parentName, highlights: [] },
                     source_name: result.source_name,
-                    description: { text: result.description, matches: [] },
+                    description: { 
+                        text: formatHtmlAsPlaintext(result.description),
+                        html: result.description,
+                        highlights: []
+                    },
                     url: result.url,
                     isBookmarked: result.id in $bookmarksSetStore,
                     is_enterprise: result.is_enterprise,
                     is_ics: result.is_ics,
                     is_mobile: result.is_mobile,
                 };
-                for (const [term, fields] of Object.entries(
-                    result.matchData.metadata,
-                )) {
-                    for (const [field, matches] of Object.entries(fields)) {
-                        for (const match of matches.position) {
-                            highlightedResult[field].matches?.push([
-                                match[0],
-                                match[0] + match[1],
-                            ]);
+                for (const fields of Object.values(result.matchData.metadata)) {
+                    for (let [field, fieldHighlights] of Object.entries(fields)) {
+                        const allHighlights = highlightedResult[field].highlights;
+                        if(allHighlights) {
+                            fieldHighlights = fieldHighlights.highlights.flat();
+                            highlightedResult[field].highlights = allHighlights.concat(fieldHighlights);
                         }
                     }
                 }
                 // The matches are naturally ordered by term; sort them by index instead
                 // so that they can be highlighted.
-                const sortMatches = (a, b) => a[0] - b[0];
-                highlightedResult.id.matches.sort(sortMatches);
-                highlightedResult.name.matches.sort(sortMatches);
-                highlightedResult.parentName.matches.sort(sortMatches);
-                highlightedResult.description.matches.sort(sortMatches);
+                const sortHighlights = (a, b) => a[0] - b[0];
+                highlightedResult.id.highlights.sort(sortHighlights);
+                highlightedResult.name.highlights.sort(sortHighlights);
+                highlightedResult.parentName.highlights.sort(sortHighlights);
+                highlightedResult.description.highlights.sort(sortHighlights);
                 highlightedResults.push(highlightedResult);
             }
         }
@@ -68,7 +69,7 @@
      */
     async function copyFormat(format, object, resultIdx, formatIdx) {
         const text = formatObject(format.rule, object);
-
+        
         if (supportsClipboardItem()) {
             let blobs = {
                 [defaultMimeType]: new Blob([text], { type: defaultMimeType }),
@@ -121,21 +122,21 @@
             <span class="result-id">
                 <HighlightMatches
                     text={result.id.text}
-                    matches={result.id.matches}
+                    highlights={result.id.highlights}
                 />
             </span>
             {#if result.parentName}
                 <span class="result-name">
                     <HighlightMatches
                         text={result.parentName.text}
-                        matches={result.parentName.matches}
+                        highlights={result.parentName.highlights}
                     />:
                 </span>
             {/if}
             <span class="result-name">
                 <HighlightMatches
                     text={result.name.text}
-                    matches={result.name.matches}
+                    highlights={result.name.highlights}
                 />
             </span>
             {#if result.is_enterprise}
@@ -154,8 +155,8 @@
         </p>
         <p>
             <HighlightMatches
-                text={result.description.text}
-                matches={result.description.matches}
+                text={result.description.html}
+                highlights={result.description.highlights}
                 maxLength={descriptionMaxLength}
             />
         </p>

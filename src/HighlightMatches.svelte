@@ -1,119 +1,138 @@
 <script>
-    const FROM_RIGHT = true;
-    const FROM_LEFT = false;
+    import sanitizeHtml from 'sanitize-html';
+
     export let text;
-    export let matches;
+    export let highlights;
     export let maxLength = null;
 
-    // Trim a string to a specified length.
-    //
-    // If fromRight is true, start at the right end and move left to find the
-    // appropriate length. Otherwise start at the left end and move right. Add ellipses
-    // as appropriate.
-    function snippet(str, length, direction = FROM_RIGHT) {
-        let snip;
-        if (str.length > length) {
-            if (direction == FROM_RIGHT) {
-                // Scan right from the length to the first space (or end of string if
-                // no more spaces.
-                let idx = length + 1;
-                while (idx < str.length && str.charAt(idx) != " ") {
-                    idx++;
-                }
-                snip = str.substring(0, idx) + "…";
-            } else {
-                // Scan left from the starting point to the first space (or end of
-                // string if no more spaces.
-                let idx = str.length - length;
-                while (idx >= 0 && str.charAt(idx) != " ") {
-                    idx--;
-                }
-                snip = "…" + str.substring(idx);
-            }
-        } else {
-            snip = str;
+    /**
+     * Highlights the specified regions of text.
+     * @param text
+     *  The text to highlight.
+     * @param highlights
+     *  The highlight regions (in ascending order).
+     * @returns
+     *  The highlighted text.
+     */
+    function highlight(text, highlights) {
+        if(text === null || text === "") {
+            return "";
         }
-        return [snip, str.length - snip.length];
+        let base = 0;
+        let highlightedText = "";
+        for(let i = 0; i < highlights.length; i++) {
+            const h = highlights[i];
+            highlightedText += text.slice(base, h[0]);
+            highlightedText += `<mark>${text.slice(h[0], h[1])}</mark>`;
+            base = h[1];
+        }
+        return highlightedText + text.slice(base, text.length);
     }
 
-    let segments;
-    $: {
-        // Process the text into a series of alternating segments. Each odd-numbered
-        // index is highlighted and each even-numbered index is not.
-        segments = [];
-        let lowIdx = 0;
-        for (const match of matches) {
-            const unhighlighted = text.substring(lowIdx, match[0]);
-            segments.push(unhighlighted);
-            const highlighted = text.substring(match[0], match[1]);
-            segments.push(highlighted);
-            lowIdx = match[1];
+    /**
+     * Cuts out a snippet of text surrounding the first chunk of highlighted
+     * text. (Highlighted text is any text encapsulated in a <mark> tag.)
+     * @param text
+     *  The text to cut from.
+     * @param length
+     *  The length of the snippet (not including HTML tags).
+     */
+    function cutOutHighlightedSnippet(text, length) {
+        if(length === null) {
+            // If no length, return text as is
+            return text;
         }
-
-        // The previous section leaves the text to the right of the last highlight
-        // unprocessed, so we pull that in here.
-        const lastSegment = text ? text.substring(lowIdx) : "";
-        if (lastSegment.length > 0) {
-            segments.push(lastSegment);
+        const emptyTags = /<\s*?([a-zA-Z0-9]+)[^<>]*><\/\s*?([a-zA-Z0-9]+)\s*>/;
+        // Tokenize text
+        const tokens = text.split(/(<.*?>)/);
+        // Select focal token
+        const focalToken = tokens.indexOf("<mark>") + 1;
+        if(focalToken === 0) {
+            // If no highlight, return text as is
+            return text;
         }
-
-        // Now enforce the maxLength constraint.
-        if (maxLength) {
-            // Two basic approaches here:
-            if (segments.length == 1) {
-                // If there is only 1 segment, then there are no highlights and we can
-                // just trim the right side of the segment.
-                const [snip, removed] = snippet(
-                    segments[0],
-                    maxLength,
-                    FROM_RIGHT
-                );
-                segments[0] = snip;
-            } else {
-                let totalLength = segments.reduce(
-                    (total, segment) => total + segment.length,
-                    0
-                );
-
-                // If there are multiple segments, start by snipping the first segment.
-                const firstSnipLength = Math.ceil(maxLength / 2);
-                const [snip0, snip0Removed] = snippet(
-                    segments[0],
-                    firstSnipLength,
-                    FROM_LEFT
-                );
-                segments[0] = snip0;
-                totalLength -= snip0Removed;
-
-                // Now pop segments off the end to get under the maxLength, but keep at
-                // least 2 segments (so we keep at least one highlighted).
-                let segment = null;
-                while (totalLength > maxLength && segments.length > 2) {
-                    segment = segments.pop();
-                    totalLength -= segment.length;
-                }
-
-                // Now add however many remaining characters we have from the last
-                // popped segment.
-                if (segment !== null) {
-                    const [snip, removed] = snippet(
-                        segment,
-                        maxLength - totalLength,
-                        FROM_RIGHT
-                    );
-                    segments.push(snip);
-                }
+        // Recalculate max length
+        length -= tokens[focalToken].length;
+        if (length <= 0) {
+            return tokens.slice(focalToken - 1, focalToken + 2).join();
+        }
+        // Find length of text on each side of focal token
+        let l_len = 0, r_len = 0;
+        for(let i = 0; i < tokens.length; i += 2) {
+            if(i < focalToken) {
+                l_len += tokens[i].length;
+            }
+            if(focalToken < i) {
+                r_len += tokens[i].length;
             }
         }
+        // Trim ends
+        const swap = l_len <= r_len ? 0 : 1; 
+        for(let i = 0, extraExtent = 0; i < 2; i++) {
+            if(((i + swap) % 2) === 0) {
+                // Trim beginning
+                let extent = Math.ceil(length / 2) + extraExtent;
+                for (let i = focalToken - 2; 0 <= i; i -= 2) {
+                    let clip = tokens[i];
+                    if (extent === 0) {
+                        tokens[i] = "";
+                    } else if (clip.length <= extent) {
+                        extent -= clip.length;
+                    } else {
+                        let j = clip.length - extent;
+                        while (0 <= j && clip[j].match(/\S/)) {
+                            j--;
+                        }
+                        extent = 0;
+                        tokens[i] = `…${clip.slice(j + 1)}`;
+                    }
+                }
+                extraExtent += extent;
+            } else {
+                // Trim end
+                let extent = Math.floor(length / 2) + extraExtent;
+                for (let i = focalToken + 2; i < tokens.length; i += 2) {
+                    let clip = tokens[i];
+                    if (extent === 0) {
+                        tokens[i] = "";
+                    } else if (clip.length <= extent) {
+                        extent -= clip.length;
+                    } else {
+                        let j = extent;
+                        while (j < clip.length && clip[j].match(/\S/)) {
+                            j++;
+                        }
+                        extent = 0;
+                        tokens[i] = `${clip.slice(0, j)}…`;
+                    }
+                }
+                extraExtent += extent;
+            }
+        }
+        // Filter empty HTML tags
+        let trimmedText = tokens.join("");
+        while (emptyTags.test(trimmedText)) {
+            trimmedText = trimmedText.replace(
+                emptyTags,
+                (str, begTag, endTag) => {
+                    if (begTag === endTag) {
+                        return "";
+                    } else {
+                        return str;
+                    }
+                }
+            )
+        }
+        return trimmedText;
     }
 </script>
 
-{#each segments as segment, index}
-    <span class:highlight={index % 2 == 1}>{segment}</span>
-{/each}
+<span class="markdown">{@html 
+    sanitizeHtml(cutOutHighlightedSnippet(highlight(text, highlights), maxLength))
+}</span>
 
 <style>
-    .highlight {
+    :global(mark) {
         color: var(--me-ext-orange-dark);
     }
 </style>

@@ -34,18 +34,35 @@ const mitreSources = {
 }
 
 /**
- * Clean up the markup in ATT&CK text.
- *
- * ATT&CK uses a combination of Markdown and HTML tags, so the easiest way to
- * clean it is to render the Markdown to HTML, then convert HTML back to plain
- * text. Older versions of ATT&CK may not be parsable as Markdown, so in that
- * case just return the original text.
+ * Replaces:
+ *  - Common HTML tags found in `source` with their markdown equivalent.
+ *  - Citations with Markdown superscripts.
+ * @param {*} source
+ *  The markdown source.
+ * @param {*} references
+ *  The citation references.
  */
-function cleanAttackText(text) {
-    const trimmed = text.trim();
-    const html = marked.parse(text);
-    const converted = convert(html) ?? trimmed;
-    return converted.replace(/\s+/g, " ");
+function processMarkdownText(source, references = []) {
+    // Replace common HTML tags
+    source = source
+        .replace(/<\/?code>/g, "`");
+    // Replace citations
+    const citationIndex = new Map();
+    source = source.replace(/\(Citation: (.*?)\)/g, (match, name) => {
+        if (!citationIndex.has(name)) {
+            const ref = references;
+            const url = ref[ref.findIndex(o => o.source_name === name)]?.url;
+            if (!url) {
+                // If no url, bail on replacement
+                return match;
+            }
+            citationIndex.set(name, [citationIndex.size + 1, url]);
+        }
+        const [index, url] = citationIndex.get(name);
+        return `<sup>[[${index}]](${url})</sup>`
+    });
+    // Convert to HTML
+    return marked.parse(source);
 }
 
 /**
@@ -59,8 +76,14 @@ function extractAttackObject(stixObject) {
         stixId: stixObject.id,
         name: stixObject.name,
         parentName: null,
-        description: cleanAttackText(stixObject.description || ""),
+        description: stixObject.description ?? "",
     }
+
+    // Normalize markdown text and incorporate citations.
+    attackObject.description = processMarkdownText(
+        attackObject.description,
+        stixObject.external_references
+    );
 
     // ID and URL are extract from the first reference that is sourced to
     // MITRE.
@@ -179,6 +202,103 @@ function* parseAttackRelationships(attackStix) {
 }
 
 /**
+ * Implements a custom Lunr tokenizer that enables search over raw HTML text.
+ * For more information regarding custom tokenizers see:
+ * https://lunrjs.com/docs/lunr.html#.tokenizer
+ * @remarks
+ *  This tokenizer splits `obj` into tokens following the same rules as Lunr's
+ *  default tokenizer while ignoring all HTML markup that appears in `obj`.
+ *  Each token includes a set of `highlights` in its metadata. A token's
+ *  highlights are the regions of HTML that need to be marked when the token
+ *  appears in a search.
+ * 
+ *  Example #1:
+ *  
+ *  Text:
+ *  `<p>Levers of Power</p>`
+ *  
+ *  Tokens:
+ *   - `levers` (Highlights: `[[3,9]]`) 
+ *   - `of`     (Highlights: `[[10,12]]`) 
+ *   - `power`  (Highlights: `[[13,18]]`) 
+ * 
+ *  Search for 'of':
+ *  `<p>Levers <mark>of</mark> Power</p>`
+ * 
+ *  Example #2:
+ * 
+ *  Text:
+ *  `<p>With or with<b>out you</b></p>`
+ *  
+ *  Tokens:
+ *   - `with`    (Highlights: `[[3,7]]`) 
+ *   - `or`      (Highlights: `[[8,10]]`) 
+ *   - `without` (Highlights: `[[11,15], [18,21]]`) 
+ *   - `you`     (Highlights: `[[22,25]]`) 
+ * 
+ *  Search for 'without':
+ *  `<p>With or <mark>with</mark><b><mark>out</mark> you</b></p>`
+ * 
+ * @param {*} obj
+ *  The object to tokenize.
+ * @param {*} metadata
+ *  Additional metadata to assign to each Token.
+ * @returns
+ *  A list of Tokens.
+ */
+function htmlTokenizer(obj, metadata) {
+    if (obj == null || obj == undefined) {
+       return []
+    }
+    let tokens = [];
+    if (Array.isArray(obj)) {
+        for(let o of obj) {
+            tokens = tokens.concat(htmlTokenizer(o, metadata))
+        }
+        return tokens;
+    }
+    let str = obj.toString().toLocaleLowerCase();
+    let len = str.length;
+    let highlights = [];
+    for(let index = 0, token = ""; index <= len; index++) {
+        let char = str.charAt(index);
+        let lastHighlight = highlights[highlights.length - 1];
+        // Fast-forward past HTML tag
+        while(char.match(/[<]/)) {
+            if(lastHighlight && !("end" in lastHighlight)) {
+                lastHighlight.end = index;
+            }
+            for(;index < len; char = str.charAt(++index)) {
+                if(char.match(/[>]/)) {
+                    char = str.charAt(++index);
+                    break;
+                }
+            }
+        }
+        // Process character
+        if(char.match(lunr.tokenizer.separator) || index === len) {
+            if (token.length > 0) {
+                if(lastHighlight && !("end" in lastHighlight)) {
+                    lastHighlight.end = index;
+                }
+                const tokenMetadata = lunr.utils.clone(metadata) || {}
+                tokenMetadata["highlights"] = highlights.map(o => [o.beg, o.end]);
+                tokenMetadata["index"] = tokens.length;
+                tokens.push(new lunr.Token (token, tokenMetadata));
+                highlights = [];
+                token = "";
+            }
+        } else {
+            if(!lastHighlight || "end" in lastHighlight) {
+                highlights.push({ beg: index });
+            }
+            token += char;
+        }
+    }
+    return tokens;
+}
+
+/**
  * Main entry point.
  */
 function main() {
@@ -243,9 +363,15 @@ function main() {
     // Mozilla blocks addons with large .json files. Changing a .json file to a .jsonx is a
     // workaround as .jsonx can still be parsed as a .json.
     process.stderr.write("Writing data/lunr-index.jsonx…\n");
+    
+    // Configure HTML tokenizer
+    lunr.tokenizer = htmlTokenizer;
+    lunr.tokenizer.separator = /[\s\-]+/;
+   
+    // Build index
     const index = lunr(function () {
         lunrOptions.apply(this);
-        this.metadataWhitelist = ['position'];
+        this.metadataWhitelist = ['highlights'];
         attackObjects.forEach(function (d) { this.add(d) }, this);
     });
     fs.writeFileSync("data/lunr-index.jsonx", JSON.stringify(index));
