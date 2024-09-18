@@ -62,7 +62,14 @@ function processMarkdownText(source, references = []) {
         return `<sup>[[${index}]](${url})</sup>`
     });
     // Convert to HTML
-    return marked.parse(source);
+    const renderer = new marked.Renderer();
+    const renderLink = renderer.link;
+    renderer.link = (href, title, text) => {
+        const html = renderLink.call(renderer, href, title, text);
+        // Render all links with target="_blank"
+        return html.replace(/^<a/, `<a target="_blank" rel="noreferrer noopener nofollow"`)
+    }
+    return marked(source, { renderer });
 }
 
 /**
