@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: '17'
     - name: Install Build Dependencies
@@ -33,14 +33,14 @@ jobs:
     - name: Build Chrome extension
       run: make chrome-ext
     - name: Package Chrome Extension
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: attack-powered-suit-chrome
         path: browsers/chrome/
     - name: Build Firefox extension
       run: make firefox-ext
     - name: Package Chrome Extension
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: attack-powered-suit-firefox
         path: browsers/firefox/

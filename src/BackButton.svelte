@@ -6,7 +6,7 @@
 
 <div>
     <button
-        class="btn btn-block btn-danger btn-sm"
+        class="btn btn-block btn-primary btn-sm"
         on:click={() => dispatch("back")}
     >
         <i class="bi bi-caret-left-fill" />

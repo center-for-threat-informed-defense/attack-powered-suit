@@ -40,7 +40,7 @@
                 row
                     .map((s) => s.replaceAll('"', '""'))
                     .map((s) => `"${s}"`)
-                    .join() + "\r\n"
+                    .join() + "\r\n",
             );
         }
 
@@ -97,7 +97,7 @@
             exportDomain,
             exportTitle,
             techniques,
-            colorFlag
+            colorFlag,
         );
 
         // Do the export.
@@ -123,7 +123,9 @@
 </script>
 
 <BackButton on:back={() => dispatch("showSearch")} />
-<h2>ATT&CK Powered Suit</h2>
+<div class="logo">
+    <img src="/image/aps-logo-alt.png" alt="ATT&CK Powered Suit logo" />
+</div>
 <h3><i class="bi bi-bookmark-fill" /> Bookmarks</h3>
 
 <table class="table">
@@ -316,16 +318,20 @@
 </div>
 
 <style>
+    .logo {
+        text-align: center;
+    }
+
     .colorToggle {
-        color: var(--me-ext-orange-dark);
+        color: var(--mitre-blue);
     }
 
     .accordion-button {
-        background-color: var(--me-core-gray-light);
+        background-color: var(--mitre-light-silver);
     }
 
     .accordion-button:not(.collapsed) {
-        color: var(--me-core-purple);
+        color: var(--mitre-navy);
     }
 
     .accordion-button:not(.collapsed)::after {
@@ -337,7 +343,7 @@
     }
 
     p.exportText {
-        color: var(--me-core-gray);
+        color: var(--mitre-dark-gray);
         margin-bottom: 0.5rem;
         font-size: 10pt;
     }
@@ -352,12 +358,12 @@
 
     .bookmark-icon {
         cursor: pointer;
-        color: var(--me-ext-green-dark);
+        color: var(--dark-green);
         font-size: 1.4em;
     }
 
     .bookmark-icon:hover {
-        color: var(--me-ext-green-highlighter);
+        color: var(--light-green);
     }
 
     .color-picker {

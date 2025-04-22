@@ -50,17 +50,17 @@
 </script>
 
 <div class="title">
-    <a
-        class="logo"
-        href="https://mitre-engenuity.org/cybersecurity/center-for-threat-informed-defense/"
-        target="_blank"
+    <img
+        class="aps-logo"
+        src="/image/aps-logo.png"
+        alt="Logo for ATT&CK Powered Suit"
+    />
+    <a class="ctid-logo" href="https://ctid.mitre.org/" target="_blank"
         ><img
-            src="/image/ctid-logo.png"
-            alt="Logo for MITRE Engenuity Center for Threat-Informed Defense"
+            src="/image/ctid-logo.svg"
+            alt="Logo for MITRE Center for Threat-Informed Defense"
         /></a
     >
-
-    <h1>ATT&amp;CK Powered Suit</h1>
 </div>
 
 <form on:submit={(e) => e.preventDefault()}>
@@ -282,28 +282,24 @@
 </form>
 
 {#if results === null}
-    <p class="notice">Powered Suit uses MITRE ATT&CK® v16.0.</p>
+    <p class="notice">ATT&CK Powered Suit uses MITRE ATT&CK® v16.0.</p>
 {/if}
 
 <style>
     div.title {
         clear: both;
         margin-top: 0.5em;
-        margin-bottom: 1.5em;
+        margin-bottom: 1em;
     }
 
-    div.title a.logo {
+    div.title a.ctid-logo {
         display: block;
-        float: left;
+        float: right;
     }
 
-    div.title a.logo img {
-        width: 8em;
-    }
-
-    div.title h1 {
-        text-align: right;
-        font-size: 28pt;
+    div.title a.ctid-logo img {
+        margin-top: 1.2rem;
+        width: 15rem;
     }
 
     input {
@@ -328,8 +324,8 @@
     }
 
     .form-check-input:checked {
-        background-color: var(--me-core-purple);
-        border-color: var(--me-core-purple);
+        background-color: var(--mitre-blue);
+        border-color: var(--mitre-blue);
     }
 
     .legend {
@@ -348,7 +344,7 @@
     }
 
     .nav-icons * {
-        color: var(--me-core-purple);
+        color: var(--mitre-navy);
         display: block;
         margin-left: 0.5em;
         position: relative;

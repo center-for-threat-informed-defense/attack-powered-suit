@@ -97,7 +97,7 @@ The easiest way to install is to visit the store for your web browser of choice:
 ### Questions and Feedback
 
 Please submit issues for any technical questions/concerns or contact
-ctid@mitre-engenuity.org directly for more general inquiries.
+ctid@mitre.org directly for more general inquiries.
 
 Also see the guidance for contributors if are you interested in contributing or
 simply reporting issues.
@@ -110,7 +110,7 @@ or simply reporting issues.](/CONTRIBUTING.md)
 
 Please submit
 [issues](https://github.com/center-for-threat-informed-defense/attack_powered_suite/issues)
-for any technical questions/concerns or contact ctid@mitre-engenuity.org
+for any technical questions/concerns or contact ctid@mitre.org
 directly for more general inquiries.
 
 ### Contributors
@@ -134,7 +134,7 @@ See [DEVELOPERS.MD](docs/DEVELOPERS.md).
 
 ## Notice
 
-Copyright 2021 MITRE Engenuity. Approved for public release. Document number
+Copyright 2021-2025 MITRE. Approved for public release. Document number
 CT0052.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use

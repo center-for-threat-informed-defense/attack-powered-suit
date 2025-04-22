@@ -2,9 +2,13 @@
     import {
         bookmarksSetStore,
         addBookmark,
-        removeBookmark, 
+        removeBookmark,
     } from "./bookmarks";
-    import { formatsStore, formatObject, formatHtmlAsPlaintext } from "./formats.js";
+    import {
+        formatsStore,
+        formatObject,
+        formatHtmlAsPlaintext,
+    } from "./formats.js";
     import { sleep } from "./sleep.js";
     import HighlightMatches from "./HighlightMatches.svelte";
     import { supportsClipboardItem } from "./Clipboard.js";
@@ -31,10 +35,10 @@
                     name: { text: result.name, highlights: [] },
                     parentName: { text: result.parentName, highlights: [] },
                     source_name: result.source_name,
-                    description: { 
+                    description: {
                         text: formatHtmlAsPlaintext(result.description),
                         html: result.description,
-                        highlights: []
+                        highlights: [],
                     },
                     url: result.url,
                     isBookmarked: result.id in $bookmarksSetStore,
@@ -43,11 +47,15 @@
                     is_mobile: result.is_mobile,
                 };
                 for (const fields of Object.values(result.matchData.metadata)) {
-                    for (let [field, fieldHighlights] of Object.entries(fields)) {
-                        const allHighlights = highlightedResult[field].highlights;
-                        if(allHighlights) {
+                    for (let [field, fieldHighlights] of Object.entries(
+                        fields,
+                    )) {
+                        const allHighlights =
+                            highlightedResult[field].highlights;
+                        if (allHighlights) {
                             fieldHighlights = fieldHighlights.highlights.flat();
-                            highlightedResult[field].highlights = allHighlights.concat(fieldHighlights);
+                            highlightedResult[field].highlights =
+                                allHighlights.concat(fieldHighlights);
                         }
                     }
                 }
@@ -69,7 +77,7 @@
      */
     async function copyFormat(format, object, resultIdx, formatIdx) {
         const text = formatObject(format.rule, object);
-        
+
         if (supportsClipboardItem()) {
             let blobs = {
                 [defaultMimeType]: new Blob([text], { type: defaultMimeType }),
@@ -221,11 +229,11 @@
     }
 
     .remove-bookmark {
-        color: var(--me-ext-green-dark);
+        color: var(--dark-green);
     }
 
     .remove-bookmark:hover {
-        color: var(--me-ext-green-highlighter);
+        color: var(--light-green);
     }
 
     .result-id,
@@ -235,12 +243,12 @@
 
     .format {
         margin-right: 1rem;
-        color: var(--me-core-purple-light);
+        color: var(--mitre-blue);
         cursor: pointer;
     }
 
     .format:hover {
-        color: var(--me-core-purple);
+        color: var(--mitre-navy);
         cursor: pointer;
     }
 </style>
