@@ -18,7 +18,9 @@
 </script>
 
 <BackButton on:back={() => dispatch("showSearch")} />
-<h2>ATT&CK Powered Suit</h2>
+<div class="logo">
+    <img src="/image/aps-logo-alt.png" alt="ATT&CK Powered Suit logo" />
+</div>
 <h3><i class="bi bi-gear-fill" /> Settings</h3>
 
 <div class="gray-box">
@@ -120,9 +122,8 @@
 </p>
 
 <p class="credits">
-    ATT&CK Powered Suit is published by the <a
-        href="https://ctid.mitre-engenuity.org"
-        >Center for Threat-Informed Defense</a
+    ATT&CK Powered Suit is published by the <a href="https://ctid.mitre.org"
+        >MITRE Center for Threat-Informed Defense</a
     >. Special thanks to Toshitaka Satomi from Fujitsu for sharing the idea and
     code.
     <i
@@ -134,13 +135,17 @@
 <p />
 
 <style>
+    .logo {
+        text-align: center;
+    }
+
     .remove-format {
         cursor: pointer;
-        color: var(--me-ext-orange-dark);
+        color: var(--mitre-blue);
     }
 
     .remove-format:hover {
-        color: var(--me-ext-orange-highlighter);
+        color: var(--mitre-light-blue);
     }
 
     .credits {

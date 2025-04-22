@@ -1,5 +1,5 @@
 <script>
-    import sanitizeHtml from 'sanitize-html';
+    import sanitizeHtml from "sanitize-html";
 
     export let text;
     export let highlights;
@@ -15,12 +15,12 @@
      *  The highlighted text.
      */
     function highlight(text, highlights) {
-        if(text === null || text === "") {
+        if (text === null || text === "") {
             return "";
         }
         let base = 0;
         let highlightedText = "";
-        for(let i = 0; i < highlights.length; i++) {
+        for (let i = 0; i < highlights.length; i++) {
             const h = highlights[i];
             highlightedText += text.slice(base, h[0]);
             highlightedText += `<mark>${text.slice(h[0], h[1])}</mark>`;
@@ -38,7 +38,7 @@
      *  The length of the snippet (not including HTML tags).
      */
     function cutOutHighlightedSnippet(text, length) {
-        if(length === null) {
+        if (length === null) {
             // If no length, return text as is
             return text;
         }
@@ -47,7 +47,7 @@
         const tokens = text.split(/(<.*?>)/);
         // Select focal token
         const focalToken = tokens.indexOf("<mark>") + 1;
-        if(focalToken === 0) {
+        if (focalToken === 0) {
             // If no highlight, return text as is
             return text;
         }
@@ -57,19 +57,20 @@
             return tokens.slice(focalToken - 1, focalToken + 2).join();
         }
         // Find length of text on each side of focal token
-        let l_len = 0, r_len = 0;
-        for(let i = 0; i < tokens.length; i += 2) {
-            if(i < focalToken) {
+        let l_len = 0,
+            r_len = 0;
+        for (let i = 0; i < tokens.length; i += 2) {
+            if (i < focalToken) {
                 l_len += tokens[i].length;
             }
-            if(focalToken < i) {
+            if (focalToken < i) {
                 r_len += tokens[i].length;
             }
         }
         // Trim ends
-        const swap = l_len <= r_len ? 0 : 1; 
-        for(let i = 0, extraExtent = 0; i < 2; i++) {
-            if(((i + swap) % 2) === 0) {
+        const swap = l_len <= r_len ? 0 : 1;
+        for (let i = 0, extraExtent = 0; i < 2; i++) {
+            if ((i + swap) % 2 === 0) {
                 // Trim beginning
                 let extent = Math.ceil(length / 2) + extraExtent;
                 for (let i = focalToken - 2; 0 <= i; i -= 2) {
@@ -120,19 +121,21 @@
                     } else {
                         return str;
                     }
-                }
-            )
+                },
+            );
         }
         return trimmedText;
     }
 </script>
 
-<span class="markdown">{@html 
-    sanitizeHtml(cutOutHighlightedSnippet(highlight(text, highlights), maxLength))
-}</span>
+<span class="markdown"
+    >{@html sanitizeHtml(
+        cutOutHighlightedSnippet(highlight(text, highlights), maxLength),
+    )}</span
+>
 
 <style>
     :global(mark) {
-        color: var(--me-ext-orange-dark);
+        color: var(--mitre-blue);
     }
 </style>
