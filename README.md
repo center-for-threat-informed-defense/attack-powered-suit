@@ -1,4 +1,4 @@
-[![MITRE ATT&CK® v16](https://img.shields.io/badge/MITRE%20ATT%26CK®-v16-red)](https://attack.mitre.org/versions/v16/)
+[![MITRE ATT&CK® v17](https://img.shields.io/badge/MITRE%20ATT%26CK®-v17-red)](https://attack.mitre.org/versions/v17/)
 [![build](https://github.com/center-for-threat-informed-defense/attack-powered-suit/actions/workflows/build.yml/badge.svg)](https://github.com/center-for-threat-informed-defense/attack-powered-suit/actions/workflows/build.yml)
 [![codecov](https://img.shields.io/codecov/c/github/center-for-threat-informed-defense/attack-powered-suit?token=ejCIZhBRGr)](https://codecov.io/gh/center-for-threat-informed-defense/attack-powered-suit)
 
@@ -81,7 +81,7 @@ The easiest way to install is to visit the store for your web browser of choice:
 
 **Firefox**
 
-[![Firefox Add-Ons badge](media/firefox.png)](https://addons.mozilla.org/en-US/firefox/addon/att-ck-powered-suit/)
+[![Firefox Add-Ons badge](media/firefox.png)](https://addons.mozilla.org/en-US/firefox/addon/attack-powered-suit/)
 
 **Edge**
 
@@ -109,7 +109,7 @@ Please see the guidance for contributors if are you interested in [contributing
 or simply reporting issues.](/CONTRIBUTING.md)
 
 Please submit
-[issues](https://github.com/center-for-threat-informed-defense/attack_powered_suite/issues)
+[issues](https://github.com/center-for-threat-informed-defense/attack-powered-suit/issues)
 for any technical questions/concerns or contact ctid@mitre.org
 directly for more general inquiries.
 

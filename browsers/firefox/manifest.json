@@ -17,7 +17,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "attack_powered_suit@mitre.org"
+      "id": "attack_powered_suit@mitre-engenuity.org"
     }
   },
   "content_scripts": [
