@@ -24,9 +24,9 @@
             `object_id,type,name,description,url,${colorCol},notes\r\n`,
         ];
         for (const bookmark of $bookmarksStore) {
-            const obj = lookupAttack(bookmark.id);
+            const obj = lookupAttack(bookmark.stixId);
             const row = [
-                bookmark.id,
+                obj.attackId,
                 obj.type,
                 bookmark.name,
                 obj.description,
@@ -70,7 +70,7 @@
         let colorFlag = $bookmarksColorByStore == "Color";
         let techniques = [];
         for (const bookmark of $bookmarksStore) {
-            const obj = lookupAttack(bookmark.id);
+            const obj = lookupAttack(bookmark.stixId);
             if (
                 (exportDomain === "enterprise-attack" && !obj.is_enterprise) ||
                 (exportDomain === "mobile-attack" && !obj.is_mobile) ||
@@ -83,12 +83,12 @@
             } else if (typeof obj.relatedTechniques !== "undefined") {
                 for (const rt of obj.relatedTechniques) {
                     techniques.push({
-                        id: rt,
+                        attackId: rt,
                         color: bookmark.color,
                         score: bookmark.score,
                         notes:
                             bookmark.notes +
-                            ` (Related to bookmark: ${bookmark.id})`,
+                            ` (Related to bookmark: ${obj.attackId})`,
                     });
                 }
             }
@@ -136,7 +136,7 @@
     <thead>
         <tr>
             <th><!--Bookmark icon column--></th>
-            <th>Object ID</th>
+            <th>ATT&CK ID</th>
             <th>Name</th>
             {#if $bookmarksColorByStore == "Color"}
                 <th
@@ -170,16 +170,16 @@
                 >
             </tr>
         {/if}
-        {#each $bookmarksStore as bookmark, bookmarkIdx (bookmark.id)}
+        {#each $bookmarksStore as bookmark, bookmarkIdx (bookmark.stixId)}
             <tr out:fade>
                 <td
                     ><i
-                        on:click={() => removeBookmark(bookmark.id)}
+                        on:click={() => removeBookmark(bookmark.stixId)}
                         title="Remove this bookmark"
                         class="bookmark-icon bi bi-bookmark-check-fill"
                     /></td
                 >
-                <td>{bookmark.id}</td>
+                <td>{bookmark.attackId}</td>
                 <td>{bookmark.name}</td>
                 {#if $bookmarksColorByStore == "Color"}
                     <td

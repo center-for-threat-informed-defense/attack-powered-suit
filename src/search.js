@@ -7,7 +7,7 @@ import lunr from 'lunr';
  */
 export const lunrOptions = function () {
     this.ref("lunrRef");
-    this.field("id", { boost: 4 });
+    this.field("attackId", { boost: 4 });
     this.field("stixId");
     this.field("type");
     this.field("name", { boost: 3 });
@@ -78,7 +78,6 @@ export function search(query, filters) {
         if (filters[type] === true && (!deprecated || filters.deprecated === true)) {
             if (filters["ICS"] == attackObject.is_ics || filters["Mobile"] == attackObject.is_mobile || filters["Enterprise"] == attackObject.is_enterprise) {
                 if (resultCount < maxResults) {
-                    attackObject.id = result.ref;
                     attackObject.score = result.score;
                     attackObject.matchData = result.matchData;
                     filteredResults.push(attackObject);
@@ -99,13 +98,11 @@ export function search(query, filters) {
             totalCount: resultCount,
         };
     }
-
-
 }
 
 /**
- * Look up an ATT&CK object by its ID.
+ * Look up an ATT&CK object by its STIX ID.
  */
-export function lookupAttack(object_id) {
-    return attackData[object_id];
+export function lookupAttack(stixId) {
+    return attackData[stixId];
 }

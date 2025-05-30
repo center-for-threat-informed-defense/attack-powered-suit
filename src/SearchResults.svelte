@@ -28,7 +28,7 @@
         if (results) {
             for (const result of results.items) {
                 const highlightedResult = {
-                    id: { text: result.id, highlights: [] },
+                    attackId: { text: result.attackId, highlights: [] },
                     stixId: result.stixId,
                     type: result.type,
                     deprecated: result.deprecated,
@@ -41,7 +41,7 @@
                         highlights: [],
                     },
                     url: result.url,
-                    isBookmarked: result.id in $bookmarksSetStore,
+                    isBookmarked: result.stixId in $bookmarksSetStore,
                     is_enterprise: result.is_enterprise,
                     is_ics: result.is_ics,
                     is_mobile: result.is_mobile,
@@ -62,7 +62,7 @@
                 // The matches are naturally ordered by term; sort them by index instead
                 // so that they can be highlighted.
                 const sortHighlights = (a, b) => a[0] - b[0];
-                highlightedResult.id.highlights.sort(sortHighlights);
+                highlightedResult.attackId.highlights.sort(sortHighlights);
                 highlightedResult.name.highlights.sort(sortHighlights);
                 highlightedResult.parentName.highlights.sort(sortHighlights);
                 highlightedResult.description.highlights.sort(sortHighlights);
@@ -116,21 +116,24 @@
                 <span
                     class="remove-bookmark"
                     title="Remove this bookmark"
-                    on:click={removeBookmark(result.id.text)}
+                    on:click={removeBookmark(result.stixId)}
                     ><i class="bi bi-bookmark-check-fill" /></span
                 >
             {:else}
                 <span
                     class="add-bookmark"
                     title="Bookmark this object"
-                    on:click={addBookmark(result.id.text, result.name.text)}
-                    ><i class="bi bi-bookmark-plus-fill" /></span
+                    on:click={addBookmark(
+                        result.stixId,
+                        result.attackId.text,
+                        result.name.text,
+                    )}><i class="bi bi-bookmark-plus-fill" /></span
                 >
             {/if}
             <span class="result-id">
                 <HighlightMatches
-                    text={result.id.text}
-                    highlights={result.id.highlights}
+                    text={result.attackId.text}
+                    highlights={result.attackId.highlights}
                 />
             </span>
             {#if result.parentName}

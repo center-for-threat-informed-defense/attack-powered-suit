@@ -80,6 +80,7 @@ function processMarkdownText(source, references = []) {
 function extractAttackObject(stixObject) {
     // Name and description are taken from the top-level STIX object.
     const attackObject = {
+        lunrRef: stixObject.id,
         stixId: stixObject.id,
         name: stixObject.name,
         parentName: null,
@@ -96,8 +97,7 @@ function extractAttackObject(stixObject) {
     // MITRE.
     for (const reference of stixObject.external_references) {
         if (reference.source_name in mitreSources) {
-            attackObject.lunrRef = reference.external_id;
-            attackObject.id = reference.external_id;
+            attackObject.attackId = reference.external_id;
             attackObject.url = reference.url;
             break;
         }
@@ -116,13 +116,12 @@ function extractAttackObject(stixObject) {
                 attackObject.is_mobile = true;
                 break;
             default:
-                process.stderr.write(`warning: could not determine the matrix for object:${attackObject.id}\n`);
+                process.stderr.write(`warning: could not determine the matrix for object:${attackObject.attackId}\n`);
                 break;
         }
     }
 
-
-    if (!("id" in attackObject)) {
+    if (!("attackId" in attackObject)) {
         process.stderr.write(JSON.stringify(stixObject) + "\n");
         throw new Exception("Could not extract reference from STIX object.");
     }
@@ -218,34 +217,34 @@ function* parseAttackRelationships(attackStix) {
  *  Each token includes a set of `highlights` in its metadata. A token's
  *  highlights are the regions of HTML that need to be marked when the token
  *  appears in a search.
- * 
+ *
  *  Example #1:
- *  
+ *
  *  Text:
  *  `<p>Levers of Power</p>`
- *  
+ *
  *  Tokens:
- *   - `levers` (Highlights: `[[3,9]]`) 
- *   - `of`     (Highlights: `[[10,12]]`) 
- *   - `power`  (Highlights: `[[13,18]]`) 
- * 
+ *   - `levers` (Highlights: `[[3,9]]`)
+ *   - `of`     (Highlights: `[[10,12]]`)
+ *   - `power`  (Highlights: `[[13,18]]`)
+ *
  *  Search for 'of':
  *  `<p>Levers <mark>of</mark> Power</p>`
- * 
+ *
  *  Example #2:
- * 
+ *
  *  Text:
  *  `<p>With or with<b>out you</b></p>`
- *  
+ *
  *  Tokens:
- *   - `with`    (Highlights: `[[3,7]]`) 
- *   - `or`      (Highlights: `[[8,10]]`) 
- *   - `without` (Highlights: `[[11,15], [18,21]]`) 
- *   - `you`     (Highlights: `[[22,25]]`) 
- * 
+ *   - `with`    (Highlights: `[[3,7]]`)
+ *   - `or`      (Highlights: `[[8,10]]`)
+ *   - `without` (Highlights: `[[11,15], [18,21]]`)
+ *   - `you`     (Highlights: `[[22,25]]`)
+ *
  *  Search for 'without':
  *  `<p>With or <mark>with</mark><b><mark>out</mark> you</b></p>`
- * 
+ *
  * @param {*} obj
  *  The object to tokenize.
  * @param {*} metadata
@@ -255,11 +254,11 @@ function* parseAttackRelationships(attackStix) {
  */
 function htmlTokenizer(obj, metadata) {
     if (obj == null || obj == undefined) {
-       return []
+        return []
     }
     let tokens = [];
     if (Array.isArray(obj)) {
-        for(let o of obj) {
+        for (let o of obj) {
             tokens = tokens.concat(htmlTokenizer(o, metadata))
         }
         return tokens;
@@ -267,36 +266,36 @@ function htmlTokenizer(obj, metadata) {
     let str = obj.toString().toLocaleLowerCase();
     let len = str.length;
     let highlights = [];
-    for(let index = 0, token = ""; index <= len; index++) {
+    for (let index = 0, token = ""; index <= len; index++) {
         let char = str.charAt(index);
         let lastHighlight = highlights[highlights.length - 1];
         // Fast-forward past HTML tag
-        while(char.match(/[<]/)) {
-            if(lastHighlight && !("end" in lastHighlight)) {
+        while (char.match(/[<]/)) {
+            if (lastHighlight && !("end" in lastHighlight)) {
                 lastHighlight.end = index;
             }
-            for(;index < len; char = str.charAt(++index)) {
-                if(char.match(/[>]/)) {
+            for (; index < len; char = str.charAt(++index)) {
+                if (char.match(/[>]/)) {
                     char = str.charAt(++index);
                     break;
                 }
             }
         }
         // Process character
-        if(char.match(lunr.tokenizer.separator) || index === len) {
+        if (char.match(lunr.tokenizer.separator) || index === len) {
             if (token.length > 0) {
-                if(lastHighlight && !("end" in lastHighlight)) {
+                if (lastHighlight && !("end" in lastHighlight)) {
                     lastHighlight.end = index;
                 }
                 const tokenMetadata = lunr.utils.clone(metadata) || {}
                 tokenMetadata["highlights"] = highlights.map(o => [o.beg, o.end]);
                 tokenMetadata["index"] = tokens.length;
-                tokens.push(new lunr.Token (token, tokenMetadata));
+                tokens.push(new lunr.Token(token, tokenMetadata));
                 highlights = [];
                 token = "";
             }
         } else {
-            if(!lastHighlight || "end" in lastHighlight) {
+            if (!lastHighlight || "end" in lastHighlight) {
                 highlights.push({ beg: index });
             }
             token += char;
@@ -312,13 +311,11 @@ function main() {
     process.stderr.write("Building ATT&CK search index…\n");
 
     const attackObjects = [];
-    const attackOidLookup = {};
     const attackStixLookup = {};
     const objectCounts = {
         tactic: 0, technique: 0, subtechnique: 0, software: 0,
         group: 0, mitigation: 0, dataSource: 0, campaign: 0,
     };
-    const uniqueObjectIds = {};
     let deprecatedCount = 0;
 
     for (const inputFile of inputFiles) {
@@ -329,16 +326,11 @@ function main() {
 
         // Make one pass to parse out the objects.
         for (const attackObject of parseAttackObjects(attackStix)) {
-            if (attackObject.id in uniqueObjectIds) {
-                continue;
-            }
-            uniqueObjectIds[attackObject.id] = true;
             objectCounts[attackObject.type]++;
             if (attackObject.deprecated) {
                 deprecatedCount++;
             }
             attackObjects.push(attackObject);
-            attackOidLookup[attackObject.id] = attackObject;
             attackStixLookup[attackObject.stixId] = attackObject;
         }
 
@@ -358,23 +350,23 @@ function main() {
                 // Do nothing; we don't track revocations.
             } else {
                 // Non (sub)technique objects carry a list of related (sub)techniques.
-                obj.relatedTechniques.push(technique.id);
+                obj.relatedTechniques.push(technique.attackId);
             }
         }
         process.stderr.write("done\n");
     }
 
     process.stderr.write("Writing data/attack.json…\n");
-    fs.writeFileSync("data/attack.json", JSON.stringify(attackOidLookup));
+    fs.writeFileSync("data/attack.json", JSON.stringify(attackStixLookup));
 
     // Mozilla blocks addons with large .json files. Changing a .json file to a .jsonx is a
     // workaround as .jsonx can still be parsed as a .json.
     process.stderr.write("Writing data/lunr-index.jsonx…\n");
-    
+
     // Configure HTML tokenizer
     lunr.tokenizer = htmlTokenizer;
     lunr.tokenizer.separator = /[\s\-]+/;
-   
+
     // Build index
     const index = lunr(function () {
         lunrOptions.apply(this);

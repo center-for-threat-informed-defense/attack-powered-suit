@@ -42,19 +42,27 @@ describe("bookmarks.js", () => {
         expect(bookmarks).toEqual([]);
         expect(bookmarksSet).toEqual({});
 
-        addBookmark("T1548", "Abuse Elevation Control Mechanism", 1.0, "My notes part 1", "#112233");
+        addBookmark(
+            "attack-pattern--67720091-eee3-4d2d-ae16-8264567f6f5b",
+            "T1548",
+            "Abuse Elevation Control Mechanism",
+            1.0,
+            "My notes part 1",
+            "#112233"
+        );
         expect(bookmarks).toEqual([{
-            id: "T1548",
+            stixId: "attack-pattern--67720091-eee3-4d2d-ae16-8264567f6f5b",
+            attackId: "T1548",
             name: "Abuse Elevation Control Mechanism",
             score: 1.0,
             notes: "My notes part 1",
             color: "#112233",
         }]);
         expect(bookmarksSet).toEqual({
-            "T1548": true,
+            "attack-pattern--67720091-eee3-4d2d-ae16-8264567f6f5b": true,
         });
 
-        removeBookmark("T1548");
+        removeBookmark("attack-pattern--67720091-eee3-4d2d-ae16-8264567f6f5b");
         expect(bookmarks).toEqual([]);
         expect(bookmarksSet).toEqual({});
     });

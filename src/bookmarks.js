@@ -39,16 +39,18 @@ export async function initializeBookmarks() {
 
 /**
  * Add the specified object to the bookmarks.
- * @param {string} id
+ * @param {string} stixId
+ * @param {string} attackId
  * @param {string} name
  * @param {number} score - used for exporting ATT&CK layer
  * @param {string} notes - used for exporting ATT&CK layer
  * @param {string} color - used for exporting ATT&CK layer
  */
-export function addBookmark(id, name, score = 0, notes = "", color = "#f54d4d") {
+export function addBookmark(stixId, attackId, name, score = 0, notes = "", color = "#f54d4d") {
     // Update bookmarks array
     bookmarks.push({
-        id: id,
+        stixId: stixId,
+        attackId: attackId,
         name: name,
         score: score,
         notes: notes,
@@ -57,7 +59,7 @@ export function addBookmark(id, name, score = 0, notes = "", color = "#f54d4d") 
     bookmarksStore.set(bookmarks);
 
     // Update bookmarks set
-    bookmarksSet[id] = true;
+    bookmarksSet[stixId] = true;
     bookmarksSetStore.set(bookmarksSet);
 
     // Persist the bookmarks.
@@ -66,13 +68,13 @@ export function addBookmark(id, name, score = 0, notes = "", color = "#f54d4d") 
 
 /**
  * Remove the specified object from bookmarks.
- * @param {string} id
+ * @param {string} stixId
  */
-export function removeBookmark(id) {
+export function removeBookmark(stixId) {
     // Update bookmarks array
     let removeIdx = -1;
     for (let i = 0; i < bookmarks.length; i++) {
-        if (bookmarks[i].id == id) {
+        if (bookmarks[i].stixId == stixId) {
             removeIdx = i;
             break;
         }
@@ -85,9 +87,8 @@ export function removeBookmark(id) {
     bookmarksStore.set(bookmarks);
 
     // Update bookmarks set
-    delete bookmarksSet[id];
+    delete bookmarksSet[stixId];
     bookmarksSetStore.set(bookmarksSet);
-
 
     // Persist the bookmarks.
     saveBookmarks();
@@ -101,7 +102,7 @@ export function saveBookmarks() {
 }
 
 /**
- * Save the current set of bookmarks.
+ * Save the bookmark color preference.
  */
 export function saveBookmarksColorBy(colorBy) {
     bookmarksColorByStore.set(colorBy);
