@@ -52,7 +52,8 @@
 <div class="title">
     <img
         class="aps-logo"
-        src="/image/aps-logo.png"
+        src="/image/aps-logo-1x.png"
+        srcset="/image/aps-logo-1x.png 1x, /image/aps-logo-2x.png 2x, /image/aps-logo-3x.png 3x"
         alt="Logo for ATT&CK Powered Suit"
     />
     <a class="ctid-logo" href="https://ctid.mitre.org/" target="_blank"

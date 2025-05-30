@@ -19,7 +19,11 @@
 
 <BackButton on:back={() => dispatch("showSearch")} />
 <div class="logo">
-    <img src="/image/aps-logo-alt.png" alt="ATT&CK Powered Suit logo" />
+    <img
+        src="/image/aps-logo-alt-1x.png"
+        srcset="/image/aps-logo-alt-1x.png 1x, /image/aps-logo-alt-2x.png 2x, /image/aps-logo-alt-3x.png 3x"
+        alt="ATT&CK Powered Suit logo"
+    />
 </div>
 <h3><i class="bi bi-gear-fill" /> Settings</h3>
 
