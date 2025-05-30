@@ -25,6 +25,15 @@ export let bookmarksColorByStore = writable("Color");
  */
 export async function initializeBookmarks() {
     bookmarks = await loadFromStorage("bookmarks") ?? [];
+
+    // In an older version, bookmarks were indexed by ATT&CK ID, not STIX ID. If we detect
+    // that situation, then clear all the bookmarks.
+    for (const bookmark of bookmarks) {
+        if ("id" in bookmark) {
+            bookmarks = [];
+        }
+    }
+
     bookmarksStore.set(bookmarks);
     const bookmarksColorBy = await loadFromStorage("bookmarks_color_by") ?? "Color";
     bookmarksColorByStore.set(bookmarksColorBy);
