@@ -61,10 +61,10 @@ export default [{
                     src: "node_modules/bootstrap-icons/font/fonts/",
                     dest: "public/build/"
                 }, {
-                    src: "data/attack.json",
+                    src: "data/attack.jsonz",
                     dest: "public/build/"
                 }, {
-                    src: "data/lunr-index.jsonx",
+                    src: "data/lunr-index.jsonz",
                     dest: "public/build/"
                 }
             ],

@@ -33,10 +33,12 @@ let attackData = {};
 export async function initializeSearch() {
     // Note that Chrome service workers don't support XMLHttpRequest, so we must
     // use the fetch() API here.
-    const attackResponse = await fetch("/build/attack.json");
-    attackData = await attackResponse.json();
-    const indexResponse = await fetch("/build/lunr-index.jsonx");
-    const indexData = await indexResponse.json();
+    const attackResponse = await fetch("/build/attack.jsonz");
+    const attackStream = attackResponse.body.pipeThrough(new DecompressionStream("gzip"));
+    attackData = await new Response(attackStream).json();
+    const indexResponse = await fetch("/build/lunr-index.jsonz");
+    const indexStream = indexResponse.body.pipeThrough(new DecompressionStream("gzip"));
+    const indexData = await new Response(indexStream).json();
     index = lunr.Index.load(indexData);
     console.log("Search index is initialized.");
 }

@@ -2,12 +2,12 @@
  * This script pre-computes a search index for ATT&CK Powered Suit so that it
  * doesn't need to be recomputed every time APS runs.
  */
-import fs from "fs";
-import process from "process";
+import fs, { write } from "fs";
 import lunr from "lunr";
+import process from "process";
+import zlib from "zlib";
 import { lunrOptions } from "../src/search.js";
 import { marked } from "marked";
-import { convert } from 'html-to-text';
 
 const inputFiles = [
     "data/enterprise-attack.json",
@@ -305,6 +305,28 @@ function htmlTokenizer(obj, metadata) {
 }
 
 /**
+ * Save a string to a gzip-compressed file.
+ *
+ * @param {string} path
+ * @param {string} data
+ */
+function writeGzipFile(path, data) {
+    zlib.gzip(data, (err, compressedData) => {
+        if (err) {
+            console.error('Error during compression:', err);
+            return;
+        }
+
+        fs.writeFileSync(path, compressedData, (writeErr) => {
+            if (writeErr) {
+                console.error('Error writing compressed data to file:', writeErr);
+                return;
+            }
+        });
+    });
+}
+
+/**
  * Main entry point.
  */
 function main() {
@@ -356,12 +378,12 @@ function main() {
         process.stderr.write("done\n");
     }
 
-    process.stderr.write("Writing data/attack.json…\n");
-    fs.writeFileSync("data/attack.json", JSON.stringify(attackStixLookup));
-
-    // Mozilla blocks addons with large .json files. Changing a .json file to a .jsonx is a
-    // workaround as .jsonx can still be parsed as a .json.
-    process.stderr.write("Writing data/lunr-index.jsonx…\n");
+    // The file extension is .jsonz instead of .json.gz because the fetch() API
+    // will automatically gunzip .gz files served over HTTP but not over the
+    // extension protocol (e.g. chrome-extension://), and we want to avoid
+    // inducing different behavior between dev and prod.
+    process.stderr.write("Writing data/attack.jsonz…\n");
+    writeGzipFile("data/attack.jsonz", JSON.stringify(attackStixLookup));
 
     // Configure HTML tokenizer
     lunr.tokenizer = htmlTokenizer;
@@ -373,7 +395,8 @@ function main() {
         this.metadataWhitelist = ['highlights'];
         attackObjects.forEach(function (d) { this.add(d) }, this);
     });
-    fs.writeFileSync("data/lunr-index.jsonx", JSON.stringify(index));
+    process.stderr.write("Writing data/lunr-index.jsonz…\n");
+    writeGzipFile("data/lunr-index.jsonz", JSON.stringify(index));
 
     // Display summary of ingested data.
     process.stderr.write("Loaded object counts:\n");
