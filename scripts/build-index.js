@@ -311,19 +311,8 @@ function htmlTokenizer(obj, metadata) {
  * @param {string} data
  */
 function writeGzipFile(path, data) {
-    zlib.gzip(data, (err, compressedData) => {
-        if (err) {
-            console.error('Error during compression:', err);
-            return;
-        }
-
-        fs.writeFileSync(path, compressedData, (writeErr) => {
-            if (writeErr) {
-                console.error('Error writing compressed data to file:', writeErr);
-                return;
-            }
-        });
-    });
+    const compressedData = zlib.gzipSync(data);
+    fs.writeFileSync(path, compressedData);
 }
 
 /**
