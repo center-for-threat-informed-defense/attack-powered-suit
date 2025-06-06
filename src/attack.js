@@ -98,7 +98,7 @@ export function buildAttackLayer(attackDomain, layerTitle, techniques,
             color = technique.color || "#000000"
         }
         layer.techniques.push({
-            techniqueID: technique.id,
+            techniqueID: technique.attackId,
             score: technique.score,
             color: color,
             comment: technique.notes,
