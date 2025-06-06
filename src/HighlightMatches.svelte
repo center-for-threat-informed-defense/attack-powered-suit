@@ -46,11 +46,7 @@
         // Tokenize text
         const tokens = text.split(/(<.*?>)/);
         // Select focal token
-        const focalToken = tokens.indexOf("<mark>") + 1;
-        if (focalToken === 0) {
-            // If no highlight, return text as is
-            return text;
-        }
+        let focalToken = tokens.indexOf("<mark>") + 1;
         // Recalculate max length
         length -= tokens[focalToken].length;
         if (length <= 0) {
@@ -118,8 +114,17 @@
                 (str, begTag, endTag) => {
                     if (begTag === endTag) {
                         return "";
+                    } else if (
+                        begTag == "br" ||
+                        begTag == "img" ||
+                        begTag == "hr"
+                    ) {
+                        // The beginning tag is self closing; remove it.
+                        return str.replace(/<\w+?>/, "");
                     } else {
-                        return str;
+                        throw new Error(
+                            "Unable to make any progress on trimming text.",
+                        );
                     }
                 },
             );
