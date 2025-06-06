@@ -19,7 +19,7 @@ export let formatsStore = writable(formats)
 export function formatObject(format, object) {
     return format
         .replace("{description}", object.description.text)
-        .replace("{id}", object.id.text)
+        .replace("{id}", object.attackId.text)
         .replace("{name}", object.name.text)
         .replace("{fullName}", object.parentName.text ? `${object.parentName.text}: ${object.name.text}` : object.name.text)
         .replace("{parentName}", object.parentName.text ?? "")
