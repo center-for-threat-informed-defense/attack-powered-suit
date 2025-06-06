@@ -41,7 +41,7 @@ export async function initializeBookmarks() {
     // Create bookmarks set
     bookmarksSet = {};
     for (let bookmark of bookmarks) {
-        bookmarksSet[bookmark.id] = true;
+        bookmarksSet[bookmark.stixId] = true;
     }
     bookmarksSetStore.set(bookmarksSet);
 }

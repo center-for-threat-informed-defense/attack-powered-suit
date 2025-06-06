@@ -97,7 +97,7 @@ if (typeof chrome.omnibox !== "undefined") {
                 for (const result of results.items) {
                     suggestions.push({
                         content: result.url,
-                        description: `${result.id}: ${result.name}`,
+                        description: `${result.attackId}: ${result.name}`,
                     });
                 }
             } catch (e) {
