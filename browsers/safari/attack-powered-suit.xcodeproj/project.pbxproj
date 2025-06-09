@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C518FA0F2DF736FB00F2A6DB /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C518FA0E2DF736FB00F2A6DB /* Icon.png */; };
 		C51CAE7929B27326006F7C36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51CAE7829B27326006F7C36 /* AppDelegate.swift */; };
 		C51CAE7D29B27326006F7C36 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = C51CAE7B29B27326006F7C36 /* Main.html */; };
-		C51CAE7F29B27326006F7C36 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C51CAE7E29B27326006F7C36 /* Icon.png */; };
 		C51CAE8129B27326006F7C36 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = C51CAE8029B27326006F7C36 /* Style.css */; };
 		C51CAE8329B27326006F7C36 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = C51CAE8229B27326006F7C36 /* Script.js */; };
 		C51CAE8529B27326006F7C36 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51CAE8429B27326006F7C36 /* ViewController.swift */; };
@@ -49,10 +49,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C518FA0E2DF736FB00F2A6DB /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		C51CAE7529B27326006F7C36 /* attack-powered-suit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "attack-powered-suit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C51CAE7829B27326006F7C36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C51CAE7C29B27326006F7C36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
-		C51CAE7E29B27326006F7C36 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		C51CAE8029B27326006F7C36 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
 		C51CAE8229B27326006F7C36 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
 		C51CAE8429B27326006F7C36 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -127,9 +127,9 @@
 			isa = PBXGroup;
 			children = (
 				C51CAE7B29B27326006F7C36 /* Main.html */,
-				C51CAE7E29B27326006F7C36 /* Icon.png */,
 				C51CAE8029B27326006F7C36 /* Style.css */,
 				C51CAE8229B27326006F7C36 /* Script.js */,
+				C518FA0E2DF736FB00F2A6DB /* Icon.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -204,7 +204,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					C51CAE7429B27326006F7C36 = {
 						CreatedOnToolsVersion = 14.2;
@@ -238,7 +238,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C51CAE7F29B27326006F7C36 /* Icon.png in Resources */,
+				C518FA0F2DF736FB00F2A6DB /* Icon.png in Resources */,
 				C51CAE8829B27326006F7C36 /* Main.storyboard in Resources */,
 				C51CAE8329B27326006F7C36 /* Script.js in Resources */,
 				C51CAE7D29B27326006F7C36 /* Main.html in Resources */,
@@ -344,8 +344,10 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 8MTUG55656;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -406,8 +408,10 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 8MTUG55656;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -431,8 +435,8 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "attack-powered-suit Extension/attack_powered_suit_Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 8MTUG55656;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "attack-powered-suit Extension/Info.plist";
@@ -443,7 +447,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.11.3;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -462,8 +466,8 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "attack-powered-suit Extension/attack_powered_suit_Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 8MTUG55656;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "attack-powered-suit Extension/Info.plist";
@@ -474,7 +478,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.11.3;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -491,7 +495,6 @@
 		C51CAEB229B27329006F7C36 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "attack-powered-suit/attack-powered-suit.entitlements";
@@ -499,9 +502,8 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 8MTUG55656;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "attack-powered-suit/Info.plist";
@@ -514,7 +516,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.11.3;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -533,7 +535,6 @@
 		C51CAEB329B27329006F7C36 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "attack-powered-suit/attack-powered-suit.entitlements";
@@ -541,9 +542,8 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 8MTUG55656;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "attack-powered-suit/Info.plist";
@@ -556,7 +556,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.11.3;
 				OTHER_LDFLAGS = (
 					"-framework",
