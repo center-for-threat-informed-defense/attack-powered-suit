@@ -283,7 +283,7 @@
 </form>
 
 {#if results === null}
-    <p class="notice">ATT&CK Powered Suit uses MITRE ATT&CK® v17.1.</p>
+    <p class="notice">ATT&CK Powered Suit uses MITRE ATT&CK® v18.1.</p>
 {/if}
 
 <style>
