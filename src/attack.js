@@ -123,7 +123,7 @@ function newLayerTemplate(domain, name) {
         name,
         domain,
         versions: {
-            "attack": "17",
+            "attack": "18",
             "navigator": "4.8.0",
             "layer": "4.4"
         },
