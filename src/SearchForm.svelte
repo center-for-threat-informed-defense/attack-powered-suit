@@ -40,6 +40,9 @@
                 dataSource: $filters["includeDataSources"],
                 group: $filters["includeGroups"],
                 campaign: $filters["includeCampaigns"],
+                detectionStrategy: $filters["includeDetectionStrategies"],
+                analytic: $filters["includeAnalytics"],
+                dataComponent: $filters["includeDataComponents"],
                 Enterprise: $filters["includeEnterprise"],
                 ICS: $filters["includeIcs"],
                 Mobile: $filters["includeMobile"],
@@ -250,6 +253,62 @@
                     />
                     <label for="dataSources" class="form-check-label"
                         >Data Sources</label
+                    >
+                </div>
+            </div>
+            <div class="col-sm-4 separator-left">
+                <div class="form-check form-switch">
+                    <!--Empty spacing for better alignment-->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-check form-switch">
+                    <input
+                        id="detectionStrategies"
+                        type="checkbox"
+                        role="switch"
+                        class="form-check-input"
+                        bind:checked={$filters["includeDetectionStrategies"]}
+                    />
+                    <label for="detectionStrategies" class="form-check-label"
+                        >Detection Strategies</label
+                    >
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-check form-switch">
+                    <input
+                        id="analytics"
+                        type="checkbox"
+                        role="switch"
+                        class="form-check-input"
+                        bind:checked={$filters["includeAnalytics"]}
+                    />
+                    <label for="analytics" class="form-check-label"
+                        >Analytics</label
+                    >
+                </div>
+            </div>
+            <div class="col-sm-4 separator-left">
+                <div class="form-check form-switch">
+                    <!--Empty spacing for better alignment-->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="form-check form-switch">
+                    <input
+                        id="dataComponents"
+                        type="checkbox"
+                        role="switch"
+                        class="form-check-input"
+                        bind:checked={$filters["includeDataComponents"]}
+                    />
+                    <label for="dataComponents" class="form-check-label"
+                        >Data Components</label
                     >
                 </div>
             </div>

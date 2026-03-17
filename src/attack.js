@@ -1,4 +1,4 @@
-const attackRegex = /(C|DS|G|M|S|T|TA)-?(\d{4})(\.\d{3})?/;
+const attackRegex = /(C|DS|G|M|S|T|TA|DET|AN|DC)-?(\d{4})(\.\d{3})?/;
 
 const attackUrls = {
     "C": "https://attack.mitre.org/campaigns/{id}/",
@@ -8,6 +8,8 @@ const attackUrls = {
     "S": "https://attack.mitre.org/software/{id}/",
     "T": "https://attack.mitre.org/techniques/{id}/",
     "TA": "https://attack.mitre.org/tactics/{id}/",
+    "DET": "https://attack.mitre.org/detectionstrategies/{id}/",
+    "DC": "https://attack.mitre.org/datacomponents/{id}/"
 }
 
 const platforms = {

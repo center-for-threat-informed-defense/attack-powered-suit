@@ -25,6 +25,9 @@ const stixTypeToAttackTypeMap = {
     "tool": "software",
     "x-mitre-data-source": "dataSource",
     "x-mitre-tactic": "tactic",
+    "x-mitre-detection-strategy": "detectionStrategy",
+    "x-mitre-analytic": "analytic",
+    "x-mitre-data-component": "dataComponent",
 };
 
 const mitreSources = {
@@ -326,6 +329,7 @@ function main() {
     const objectCounts = {
         tactic: 0, technique: 0, subtechnique: 0, software: 0,
         group: 0, mitigation: 0, dataSource: 0, campaign: 0,
+        analytic: 0, dataComponent: 0, detectionStrategy: 0,
     };
     let deprecatedCount = 0;
 

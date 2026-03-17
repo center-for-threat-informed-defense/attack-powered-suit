@@ -78,6 +78,9 @@ if (typeof chrome.omnibox !== "undefined") {
         software: true,
         tactic: true,
         dataSource: true,
+        detectionStrategy: true,
+        analytic: true,
+        dataComponent: true,
         group: true,
         deprecated: false,
     };
