@@ -2,9 +2,9 @@ export default {
   verbose: false,
   bail: false,
   testEnvironment: 'jsdom',
-  extensionsToTreatAsEsm: ['.svelte'],
+  // Force CJS transformer path to avoid ESM-only sync error in svelte-jester
   transform: {
-    '^.+\\.svelte$': ['svelte-jester', { preprocess: true }],
+    '^.+\\.svelte$': ['svelte-jester', { preprocess: true, loadSvelteConfig: true }],
     '^.+\\.(m?js)$': 'babel-jest'
   },
   testEnvironmentOptions: {
@@ -12,8 +12,9 @@ export default {
   },
   collectCoverage: true,
   collectCoverageFrom: ['src/**'],
-  moduleFileExtensions: ['js', 'svelte'],
+  moduleFileExtensions: ['js', 'mjs', 'svelte'],
   testPathIgnorePatterns: ['node_modules'],
-  transformIgnorePatterns: ['node_modules/(?!svelte|@testing-library)'],
+  // Ensure Svelte internals aren't ignored by the transformer
+  transformIgnorePatterns: ['node_modules/(?!(svelte|svelte/.*|@testing-library)/)'],
   setupFilesAfterEnv: ['@testing-library/jest-dom']
 };

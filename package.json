@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
+    "@babel/plugin-transform-modules-commonjs": "^7.28.6",
     "@babel/preset-env": "^7.26.9",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
@@ -29,12 +30,12 @@
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-svelte": "^7.2.3",
     "svelte": "^3.59.2",
-    "svelte-jester": "^3.0.0",
+    "svelte-jester": "2.3.2",
     "whatwg-fetch": "^3.6.20"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/svelte": "^5.3.1",
+    "@testing-library/svelte": "^3.2.2",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "jest": "^30.3.0",
