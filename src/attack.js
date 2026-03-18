@@ -1,4 +1,4 @@
-const attackRegex = /(C|DS|G|M|S|T|TA|DET|AN|DC)-?(\d{4})(\.\d{3})?/;
+const attackRegex = /(C|DS|G|M|S|T|TA|DET|AN|DC)-?(\d{4})(\.\d{3})?/i;
 
 const attackUrls = {
     "C": "https://attack.mitre.org/campaigns/{id}/",

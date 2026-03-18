@@ -26,8 +26,8 @@ export function saveToStorage(key, value, debounce = 500) {
     debounceTimers[key] = setTimeout(async function () {
         if (window.chrome && window.chrome.storage) {
             await window.chrome.storage.sync.set({ [key]: value });
-        } else if (localStorage) {
-            localStorage.setItem(key, JSON.stringify(value));
+        } else if (typeof window !== "undefined" && window.localStorage) {
+            window.localStorage.setItem(key, JSON.stringify(value));
         }
 
         delete debounceTimers[key];
@@ -46,8 +46,8 @@ export async function loadFromStorage(key) {
     if (window.chrome && window.chrome.storage) {
         const storageResult = await window.chrome.storage.sync.get({ [key]: null });
         storedData = storageResult[key];
-    } else if (localStorage) {
-        const storedDataJson = localStorage.getItem(key);
+    } else if (typeof window !== "undefined" && window.localStorage) {
+        const storedDataJson = window.localStorage.getItem(key);
         try {
             if (storedDataJson !== null) {
                 storedData = JSON.parse(storedDataJson);
