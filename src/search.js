@@ -108,3 +108,13 @@ export function search(query, filters) {
 export function lookupAttack(stixId) {
     return attackData[stixId];
 }
+
+// Test-only injection hooks to control internal state without calling initializeSearch().
+// These are used in unit tests to supply a mock index and attack data.
+// Do not use in production code.
+export function __setTestIndex(mockIndex) {
+    index = mockIndex;
+}
+export function __setTestAttackData(data) {
+    attackData = data;
+}

@@ -107,13 +107,17 @@
                         />
                     </td>
                 {/if}
-                <td class="remove-format"
-                    ><i
-                        on:click={() => removeFormat(format.id)}
+                <td class="remove-format">
+                    <button
+                        type="button"
+                        class="remove-format-btn"
                         title="Remove this format"
-                        class="bookmark-icon bi bi-trash-fill"
-                    /></td
-                >
+                        aria-label="Remove this format"
+                        on:click={() => removeFormat(format.id)}
+                    >
+                        <i class="bookmark-icon bi bi-trash-fill" />
+                    </button>
+                </td>
             </tr>
         {/each}
     </tbody>
@@ -144,11 +148,19 @@
     }
 
     .remove-format {
+        color: var(--mitre-blue);
+    }
+
+    .remove-format-btn {
+        background: none;
+        border: none;
+        padding: 0;
         cursor: pointer;
         color: var(--mitre-blue);
     }
 
-    .remove-format:hover {
+    .remove-format:hover,
+    .remove-format-btn:hover {
         color: var(--mitre-light-blue);
     }
 
