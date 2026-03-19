@@ -33,7 +33,7 @@
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-svelte": "^7.2.3",
-    "svelte": "^4.2.19",
+    "svelte": "^3.59.2",
     "svelte-jester": "2.3.2",
     "whatwg-fetch": "^3.6.20"
   },
