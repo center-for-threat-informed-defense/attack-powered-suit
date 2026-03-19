@@ -82,16 +82,24 @@
             <label for="searchTerms">Search ATT&amp;CK…</label>
         </div>
         <div class="nav-icons">
-            <i
-                class="bi bi-bookmarks"
+            <button
+                type="button"
+                class="icon-button"
+                aria-label="View bookmarks"
                 title="View bookmarks"
                 on:click={() => dispatch("showBookmarks")}
-            />
-            <i
-                class="bi bi-gear"
+            >
+                <i class="bi bi-bookmarks" />
+            </button>
+            <button
+                type="button"
+                class="icon-button"
+                aria-label="View settings"
                 title="View settings"
                 on:click={() => dispatch("showSettings")}
-            />
+            >
+                <i class="bi bi-gear" />
+            </button>
         </div>
     </div>
     <div class="gray-box">
@@ -411,7 +419,15 @@
         top: 0.4em;
     }
 
-    .nav-icons *:hover {
+    .icon-button {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    .nav-icons *:hover,
+    .icon-button:hover {
         color: var(--bs-secondary);
     }
 
