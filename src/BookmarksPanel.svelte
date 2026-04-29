@@ -172,13 +172,17 @@
         {/if}
         {#each $bookmarksStore as bookmark, bookmarkIdx (bookmark.stixId)}
             <tr out:fade>
-                <td
-                    ><i
-                        on:click={() => removeBookmark(bookmark.stixId)}
+                <td>
+                    <button
+                        type="button"
+                        class="bookmark-action"
                         title="Remove this bookmark"
-                        class="bookmark-icon bi bi-bookmark-check-fill"
-                    /></td
-                >
+                        aria-label="Remove this bookmark"
+                        on:click={() => removeBookmark(bookmark.stixId)}
+                    >
+                        <i class="bookmark-icon bi bi-bookmark-check-fill" />
+                    </button>
+                </td>
                 <td>{bookmark.attackId}</td>
                 <td>{bookmark.name}</td>
                 {#if $bookmarksColorByStore == "Color"}
@@ -361,12 +365,19 @@
     }
 
     .bookmark-icon {
-        cursor: pointer;
         color: var(--dark-green);
         font-size: 1.4em;
     }
 
-    .bookmark-icon:hover {
+    .bookmark-action {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    .bookmark-icon:hover,
+    .bookmark-action:hover {
         color: var(--light-green);
     }
 

@@ -113,22 +113,24 @@
     <div class="search-result">
         <p>
             {#if result.isBookmarked}
-                <span
+                <button
+                    type="button"
                     class="remove-bookmark"
                     title="Remove this bookmark"
+                    aria-label="Remove this bookmark"
                     on:click={removeBookmark(result.stixId)}
-                    ><i class="bi bi-bookmark-check-fill" /></span
-                >
+                ><i class="bi bi-bookmark-check-fill" /></button>
             {:else}
-                <span
+                <button
+                    type="button"
                     class="add-bookmark"
                     title="Bookmark this object"
+                    aria-label="Bookmark this object"
                     on:click={addBookmark(
                         result.stixId,
                         result.attackId.text,
                         result.name.text,
-                    )}><i class="bi bi-bookmark-plus-fill" /></span
-                >
+                    )}><i class="bi bi-bookmark-plus-fill" /></button>
             {/if}
             <span class="result-id">
                 <HighlightMatches
@@ -173,9 +175,11 @@
         </p>
         <p>
             {#each $formatsStore as format, formatIdx (format.id)}
-                <span
+                <button
+                    type="button"
                     class="format"
                     title="Copy {format.name} to clipboard"
+                    aria-label="Copy {format.name} to clipboard"
                     on:click={() =>
                         copyFormat(format, result, resultIdx, formatIdx)}
                 >
@@ -184,7 +188,7 @@
                     {:else}
                         {format.name} <i class="bi bi-clipboard" />
                     {/if}
-                </span>
+                </button>
             {/each}
             <a href={result.url} target="_blank" class="format"
                 >Go to <i class="bi bi-box-arrow-up-right" />
@@ -221,6 +225,11 @@
         font-size: 1.2em;
         position: relative;
         top: 0.05em;
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
     }
 
     .add-bookmark {
@@ -248,6 +257,10 @@
         margin-right: 1rem;
         color: var(--mitre-blue);
         cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
     }
 
     .format:hover {

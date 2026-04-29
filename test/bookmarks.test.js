@@ -38,7 +38,7 @@ describe("bookmarks.js", () => {
 
     test("add and remove bookmarks", async () => {
         await initializeBookmarks();
-        expect(window.chrome.storage.sync.get).toBeCalled();
+        expect(window.chrome.storage.sync.get).toHaveBeenCalled();
         expect(bookmarks).toEqual([]);
         expect(bookmarksSet).toEqual({});
 
@@ -71,8 +71,8 @@ describe("bookmarks.js", () => {
         saveBookmarks();
         saveBookmarks();
         // Saving to storage is debounced by 500ms:
-        expect(window.chrome.storage.sync.set).toBeCalledTimes(0);
+        expect(window.chrome.storage.sync.set).toHaveBeenCalledTimes(0);
         await sleep(501);
-        expect(window.chrome.storage.sync.set).toBeCalledTimes(1);
+        expect(window.chrome.storage.sync.set).toHaveBeenCalledTimes(1);
     })
 });
