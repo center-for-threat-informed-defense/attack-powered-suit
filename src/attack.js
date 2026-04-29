@@ -125,9 +125,9 @@ function newLayerTemplate(domain, name) {
         name,
         domain,
         versions: {
-            "attack": "18",
-            "navigator": "4.8.0",
-            "layer": "4.4"
+            "attack": "19",
+            "navigator": "5.3.2",
+            "layer": "4.5"
         },
         description: "",
         filters: {

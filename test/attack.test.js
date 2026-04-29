@@ -10,9 +10,9 @@ describe("attack.js", () => {
         expect(layer).toEqual({
             name: "My Title", // From constructor
             versions: {
-                "attack": "18",
-                "navigator": "4.8.0",
-                "layer": "4.4"
+                "attack": "19",
+                "navigator": "5.3.2",
+                "layer": "4.5"
             },
             domain: "enterprise-attack", // From constructor
             description: "",
