@@ -34,7 +34,7 @@ describe("formats.js", () => {
     test("add and remove formats", async () => {
         window.ClipboardItem = new Object();
         await initializeFormats();
-        expect(window.chrome.storage.sync.get).toBeCalled();
+        expect(window.chrome.storage.sync.get).toHaveBeenCalled();
 
         // Since the mock returns an empty array, the formats should be
         // initialized to an array of default formats.
@@ -100,7 +100,7 @@ describe("formats.js", () => {
 
     test("add and remove formats without ClipboardItem", async () => {
         await initializeFormats();
-        expect(window.chrome.storage.sync.get).toBeCalled();
+        expect(window.chrome.storage.sync.get).toHaveBeenCalled();
 
         // Since the mock returns an empty array, the formats should be
         // initialized to an array of default formats.
@@ -168,8 +168,8 @@ describe("formats.js", () => {
         saveFormats();
         saveFormats();
         // Saving to storage is debounced by 500ms:
-        expect(window.chrome.storage.sync.set).toBeCalledTimes(0);
+        expect(window.chrome.storage.sync.set).toHaveBeenCalledTimes(0);
         await sleep(501);
-        expect(window.chrome.storage.sync.set).toBeCalledTimes(1);
+        expect(window.chrome.storage.sync.set).toHaveBeenCalledTimes(1);
     })
 });
