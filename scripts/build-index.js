@@ -2,10 +2,10 @@
  * This script pre-computes a search index for ATT&CK Powered Suit so that it
  * doesn't need to be recomputed every time APS runs.
  */
-import fs, { write } from "fs";
+import fs from "node:fs";
 import lunr from "lunr";
-import process from "process";
-import zlib from "zlib";
+import process from "node:process";
+import zlib from "node:zlib";
 import { lunrOptions } from "../src/search.js";
 import { marked } from "marked";
 
@@ -104,7 +104,7 @@ function extractAttackObject(stixObject) {
     }
 
     // extract the ATT&CK matrix from the STIX object
-    for (const mitreDomain of stixObject.x_mitre_domains) {
+    for (const mitreDomain of stixObject.x_mitre_domains ?? []) {
         switch (mitreDomain) {
             case "enterprise-attack":
                 attackObject.is_enterprise = true;
