@@ -9,9 +9,9 @@ import process from "process";
 
 const baseUrl = "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master";
 const attackUrls = {
-    "enterprise-attack.json": `${baseUrl}/enterprise-attack/enterprise-attack-19.0.json`,
-    "ics-attack.json": `${baseUrl}/ics-attack/ics-attack-19.0.json`,
-    "mobile-attack.json": `${baseUrl}/mobile-attack/mobile-attack-19.0.json`,
+    "enterprise-attack.json": `${baseUrl}/enterprise-attack/enterprise-attack-20.1.json`,
+    "ics-attack.json": `${baseUrl}/ics-attack/ics-attack-20.1.json`,
+    "mobile-attack.json": `${baseUrl}/mobile-attack/mobile-attack-20.1.json`,
 };
 
 /**

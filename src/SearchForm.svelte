@@ -350,7 +350,7 @@
 </form>
 
 {#if results === null}
-    <p class="notice">ATT&CK Powered Suit uses MITRE ATT&CK® v19.0.</p>
+    <p class="notice">ATT&CK Powered Suit uses MITRE ATT&CK® v20.1.</p>
 {/if}
 
 <style>
