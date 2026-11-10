@@ -125,7 +125,7 @@ function newLayerTemplate(domain, name) {
         name,
         domain,
         versions: {
-            "attack": "19",
+            "attack": "20",
             "navigator": "5.3.2",
             "layer": "4.5"
         },
